@@ -1,0 +1,45 @@
+.sg_accordion_item.collapsed > div.content {
+  visibility: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  max-height: 0 !important;
+}
+
+.sg_accordion_item.collapsed > div.content > div {
+  opacity: 0;
+  transition: opacity 0s linear;
+}
+
+.sg_accordion_item > div.content > div {
+  opacity: 1;
+  transition: opacity 0.1s linear;
+}
+
+div.sg_accordion_item > div.header {
+  border-bottom-style: none;
+  border-radius: 5px 5px 0 0;
+}
+
+div.sg_accordion_item.collapsed > div.header {
+  border-bottom-style: solid;
+  border-radius: 5px;
+}
+
+div.sg_accordion_item > div.content {
+  border-top-style: none;
+  border-radius: 0 0 5px 5px;
+}
+
+.rotate {
+  -moz-transition: all 0.1s linear;
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
+
+div.sg_accordion_item:not(.collapsed) .rotate {
+  -ms-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
