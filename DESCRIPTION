@@ -10,7 +10,7 @@ Authors@R:
     ))
 Maintainer: The package maintainer <krystian8207@gmail.com>
 Description: Provides useful UI components and input widgets for Shiny Applications.
-License: MIT + file LICENSE
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Imports:
