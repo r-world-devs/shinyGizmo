@@ -79,4 +79,4 @@ If you find bugs or have any suggestions for future releases post an issue on Gi
 There are two main ways to get help with `shinyGizmo`
 
 1. Reach the package author via email: krystian8207@gmail.com.
-2. Post an issue on our GitHub page at [https://github.com/todo/shinyGizmo](https://github.com/r-world-devs/shinyGizmo/issues).
+2. Post an issue on our GitHub page at [https://github.com/r-world-devs/shinyGizmo](https://github.com/r-world-devs/shinyGizmo/issues).

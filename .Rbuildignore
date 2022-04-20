@@ -3,3 +3,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 README_files/*
+examples/*
+docs/*
+_pkgdown.yml
+README.Rmd

@@ -140,18 +140,18 @@ form_checkboxes_update <- function(choices, choicesNames, choicesLabels, selecte
 
 prep_input <- function(label = NULL, choices = NULL, selected = NULL, inline = FALSE,
                        choiceNames = NULL, choiceValues = NULL, ...) {
-  args <- shiny:::normalizeChoicesArgs(choices, choiceNames, choiceValues, mustExist = FALSE)
+  args <- `%:::%`("shiny", "normalizeChoicesArgs")(choices, choiceNames, choiceValues, mustExist = FALSE)
   if (!is.null(selected)) {
     selected <- as.character(selected)
   }
   options <- if (!is.null(args$choiceValues)) {
     format(
       shiny::tagList(
-        shiny:::generateOptions("__tmp_id__", selected, inline, "checkbox", args$choiceNames, args$choiceValues)
+        `%:::%`("shiny", "generateOptions")("__tmp_id__", selected, inline, "checkbox", args$choiceNames, args$choiceValues)
       )
     )
   }
-  message <- shiny:::dropNulls(list(label = label, options = options, value = selected, ...))
+  message <- `%:::%`("shiny", "dropNulls")(list(label = label, options = options, value = selected, ...))
   return(message)
 }
 
