@@ -31,23 +31,23 @@ Lastest development version from Github:
 
 ### pickCheckboxInput - make selection in many groups at once
 
-![](README_files/pickcheckbox.gif)
+![](./man/figures/pickcheckbox.gif)
 
 ### accordion - light and simple version of accordion
 
-![](README_files/accordion.gif) ![](README_files/accordion_enroll.gif)
+![](./man/figures/accordion.gif) ![](./man/figures/accordion_enroll.gif)
 
 ### modalDialogUI - create modals directly in UI
 
-![](README_files/modalui.gif)
+![](./man/figures/modalui.gif)
 
 ### valueButton - get any attribute from Shiny application DOM objects
 
-![](README_files/valuebutton.gif)
+![](./man/figures/valuebutton.gif)
 
 ### textArea - Non-binding version of `shiny::textAreaInput`.
 
-![](README_files/textarea.gif)
+![](./man/figures/textarea.gif)
 
 Improves application performance when large amount text is passed to
 text area. Works great with `valueButton`.

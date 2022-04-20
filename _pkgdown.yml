@@ -1,0 +1,18 @@
+title: shinyGizmo
+url: https://r-world-devs.github.io/shinyGizmo/
+home:
+  strip_header: true
+navbar:
+  left:
+    - icon: fa fa-thumbs-o-up
+      text: "Get started"
+      href: index.html
+    - icon: fa fa-file-code-o
+      text: "Functions"
+      href: reference/index.html
+    - icon: fa fa-newspaper-o
+      text: "News"
+      href: news/index.html
+    - icon: fa fa-ambulance
+      text: "Issues"
+      href: https://r-world-devs.github.io/shinyGizmo
