@@ -1,6 +1,6 @@
 Package: shinyGizmo
 Type: Package
-Title: Useful Components For Shiny Applications
+Title: Useful Components for Shiny Applications
 Version: 0.1
 Authors@R: 
     c(person(
@@ -8,7 +8,7 @@ Authors@R:
       email = 'krystian8207@gmail.com', 
       role = c('cre', 'aut')
     ))
-Maintainer: The package maintainer <krystian8207@gmail.com>
+Maintainer: Krystian Igras <krystian8207@gmail.com>
 Description: Provides useful UI components and input widgets for Shiny Applications.
 License: MIT + file LICENSE
 Encoding: UTF-8

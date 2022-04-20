@@ -15,4 +15,4 @@ navbar:
       href: news/index.html
     - icon: fa fa-ambulance
       text: "Issues"
-      href: https://r-world-devs.github.io/shinyGizmo
+      href: https://github.com/r-world-devs/shinyGizmo

@@ -1,8 +1,8 @@
 
 # shinyGizmo
 
-[![version](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)]()
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-success.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![version](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-success.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 
 ## Overview
 
@@ -64,4 +64,4 @@ There are two main ways to get help with `shinyGizmo`
 
 1.  Reach the package author via email: <krystian8207@gmail.com>.
 2.  Post an issue on our GitHub page at
-    [https://github.com/todo/shinyGizmo](https://github.com/r-world-devs/shinyGizmo/issues).
+    [https://github.com/r-world-devs/shinyGizmo](https://github.com/r-world-devs/shinyGizmo/issues).
