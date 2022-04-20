@@ -1,0 +1,4 @@
+[submodule "docs"]
+	path = docs
+	url = git@github.com:r-world-devs/shinyGizmo.git
+	branch = gh-pages
