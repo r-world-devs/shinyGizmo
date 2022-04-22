@@ -5,7 +5,7 @@
 #' The button can be opened with `modalButtonUI` placed anywhere in the application.
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'   library(shiny)
 #'   shinyApp(
 #'     ui = fluidPage(
@@ -13,8 +13,7 @@
 #'     ),
 #'     server = function(input, output, session) {}
 #'   )
-#' }
-#' \dontrun{
+#'
 #'   library(shiny)
 #'   shinyApp(
 #'     ui = fluidPage(
@@ -37,6 +36,8 @@
 #' @param fade Should fade-in animation be turned on?
 #' @param backdrop Set `FALSE` to turn on background covering area outside modal dialog.
 #'
+#' @return Nested list of `shiny.tag` objects defining html structure of modal dialog,
+#'   or single `shiny.tag` object in case of using `modalButtonUI` method.
 #' @export
 modalDialogUI <- function(modalId, ..., button = modalButtonUI(modalId, "Open Modal"),
                           title = NULL, footer = shiny::modalButton("Dismiss"),
@@ -46,6 +47,11 @@ modalDialogUI <- function(modalId, ..., button = modalButtonUI(modalId, "Open Mo
   keyboard <- if (!easyClose) "false"
 
   shiny::tagList(
+    shiny::singleton(
+      shiny::tags$head(
+        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/modal.js")
+      )
+    ),
     button,
     shiny::div(
       id = modalId, class = "modal", class = if (fade) "fade",
@@ -93,3 +99,20 @@ modalButtonUI <- function(modalId, label, icon = NULL, width = NULL, ...) {
   )
 }
 
+#' Show and hide modal from the application server
+
+#' @param modalId Id of the modal to show/hide.
+#' @param session Shiny session object.
+#' @name modal-operations
+#'
+#' @return No return value, used for side effect.
+#' @export
+hideModalUI <- function(modalId, session = shiny::getDefaultReactiveDomain()) {
+  session$sendCustomMessage("hide_modal", list(id = modalId))
+}
+
+#' @rdname modal-operations
+#' @export
+showModalUI <- function(modalId, session = shiny::getDefaultReactiveDomain()) {
+  session$sendCustomMessage("show_modal", list(id = modalId))
+}

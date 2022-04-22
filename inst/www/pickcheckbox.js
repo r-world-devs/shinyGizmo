@@ -1,3 +1,4 @@
+//@ sourceURL=pickcheckbox.js
 var pickCheckboxBinding = new Shiny.InputBinding();
 
 var get_binding = function(el) {

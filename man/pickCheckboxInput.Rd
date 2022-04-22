@@ -51,6 +51,10 @@ Used to limit amount of new checkbox groups added with `updatePickCheckboxInput`
 
 \item{session}{Shiny session object.}
 }
+\value{
+Nested list of `shiny.tag` objects, defining html stricture of the input,
+or no value in case of usage of `updatePickCheckboxInput` method.
+}
 \description{
 The component is connection of dropdown (\link[shinyWidgets]{pickerInput}) and
 set of checkbox groups (\link[shiny]{checkboxGroupInput}).
@@ -89,7 +93,7 @@ selected_named <- list(
   vegetables= c("carrot")
 )
 
-# Same but vegatables selected but empty
+# Same but vegetables selected but empty
 # Set group as NA to no options checked (same effect in server input)
 selected_named_empty <- list(
   fruits = c("orange"),
@@ -99,7 +103,7 @@ selected_named_empty <- list(
 # Specifying picker and group labels ("key" = "name" rule)
 choices_labels <- list("fruits" = "Fruits", "vegetables" = "Vegetables")
 
-\dontrun{
+if (interactive()) {
   library(shiny)
 
   ui <- fluidPage(

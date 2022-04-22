@@ -1,3 +1,4 @@
+//@ sourceURL=valuebutton.js
 var valueButtonBinding = new Shiny.InputBinding();
 
 // Based on https://stackoverflow.com/a/6491621
@@ -14,7 +15,7 @@ byString = function(o, s) {
         }
     }
     return o;
-}
+};
 
 $.extend(valueButtonBinding, {
   find: function(scope) {
@@ -22,16 +23,16 @@ $.extend(valueButtonBinding, {
   },
   getValue: function(el) {
     var $target;
-    var attribute = $(el).data("value-attribute")
-    var selector = $(el).data("selector")
+    var attribute = $(el).data("value-attribute");
+    var selector = $(el).data("selector");
     if (selector != "window" & selector != "document") {
-      $target =  $(selector)[0]
+      $target =  $(selector)[0];
     }
     if (selector == "window") {
-      $target = window
+      $target = window;
     }
     if (selector == "document") {
-      $target = document
+      $target = document;
     }
     var value = byString($target, attribute);
     return value;

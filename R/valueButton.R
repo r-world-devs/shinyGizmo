@@ -4,7 +4,7 @@
 #' from DOM element existing in Shiny application and pass it to application server.
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'   library(shiny)
 #'   shinyApp(
 #'     ui = fluidPage(
@@ -27,6 +27,7 @@
 #' @param width Width of the button.
 #' @param ... Extra attributes passed to button.
 #'
+#' @return A `shiny.tag` class object defining html structure of the button.
 #' @export
 valueButton <- function(inputId, label, selector, attribute = "value", icon = NULL, width = NULL, ...) {
 

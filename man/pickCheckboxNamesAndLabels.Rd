@@ -13,6 +13,10 @@ pickCheckboxLabels(choices)
 \arguments{
 \item{choices}{link{pickCheckboxInput} choices list.}
 }
+\value{
+Named list object defining labels for component checkbox options, or
+named vector storing labels for each checkbox.
+}
 \description{
 Two functions extracting group names and options labels from defined choices.
 }

@@ -31,12 +31,15 @@ For nested properties use `.`, e.g. `style.width` or `navigator.appName`.}
 
 \item{...}{Extra attributes passed to button.}
 }
+\value{
+A `shiny.tag` class object defining html structure of the button.
+}
 \description{
 The components creates button that allows to take any value (or attribute) sourced
 from DOM element existing in Shiny application and pass it to application server.
 }
 \examples{
-\dontrun{
+if (interactive()) {
   library(shiny)
   shinyApp(
     ui = fluidPage(

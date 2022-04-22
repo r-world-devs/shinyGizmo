@@ -176,6 +176,8 @@ prep_input <- function(label = NULL, choices = NULL, selected = NULL, inline = F
 #'
 #' @name pickCheckboxNamesAndLabels
 #'
+#' @return Named list object defining labels for component checkbox options, or
+#' named vector storing labels for each checkbox.
 #' @param choices link{pickCheckboxInput} choices list.
 #' @export
 pickCheckboxNames <- function(choices) {
@@ -191,10 +193,10 @@ pickCheckboxLabels <- function(choices) {
   stats::setNames(names(choices), names(choices))
 }
 
-# todo when values(a = NULL) - make it mean a is unselected
+# todo when values(a = NULL) - make it mean a is not selected
 # how to handle case when value(a = ??) a selected but with no choice?
 # maybe value(a = character(0)) ??
-# or just add variiables to filter and then all fine <- I think the best option
+# or just add variables to filter and then all fine <- I think the best option
 
 #' Select set of active checkbox groups and their values
 #'
@@ -236,7 +238,7 @@ pickCheckboxLabels <- function(choices) {
 #'   vegetables= c("carrot")
 #' )
 #'
-#' # Same but vegatables selected but empty
+#' # Same but vegetables selected but empty
 #' # Set group as NA to no options checked (same effect in server input)
 #' selected_named_empty <- list(
 #'   fruits = c("orange"),
@@ -246,7 +248,7 @@ pickCheckboxLabels <- function(choices) {
 #' # Specifying picker and group labels ("key" = "name" rule)
 #' choices_labels <- list("fruits" = "Fruits", "vegetables" = "Vegetables")
 #'
-#' \dontrun{
+#' if (interactive()) {
 #'   library(shiny)
 #'
 #'   ui <- fluidPage(
@@ -306,6 +308,8 @@ pickCheckboxLabels <- function(choices) {
 #'     Used to limit amount of new checkbox groups added with `updatePickCheckboxInput`.
 #' @param ... Extra parameters passed to \link[shinyWidgets]{pickerInput}.
 #'
+#' @return Nested list of `shiny.tag` objects, defining html stricture of the input,
+#' or no value in case of usage of `updatePickCheckboxInput` method.
 #' @export
 pickCheckboxInput <- function(inputId, label, choices, choicesNames = pickCheckboxNames(choices),
                               choicesLabels = pickCheckboxLabels(choices), selected = NULL,

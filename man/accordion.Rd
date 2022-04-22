@@ -13,6 +13,9 @@ accordion(id, ..., class = "")
 
 \item{class}{Extra class added to accordion container.}
 }
+\value{
+A `shiny.tag` object defining html structure of accordion container.
+}
 \description{
 Created component provides basic accordion functionality - enroll/collapse behavior
 with only necessary styling (enrolled state icon).
@@ -20,8 +23,8 @@ In order to provide custom styling for accordion items configure its header and 
 while constructing the item (see \link{accordionItem}).
 }
 \examples{
-\dontrun{
-  # Basic construction with simple header and content
+# Basic construction with simple header and content
+if (interactive()) {
   library(shiny)
   ui <- fluidPage(
     actionButton("new", "New"),

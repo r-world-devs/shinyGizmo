@@ -1,3 +1,4 @@
+//@ sourceURL=accordion.js
 var collapse_all = function(message) {
     var target_id = '#' + message.id;
     $(target_id).find('div.sg_accordion_item').addClass('collapsed').find('.sg_accordion_activator').prop('disabled', false);
