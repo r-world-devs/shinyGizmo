@@ -193,10 +193,10 @@ pickCheckboxLabels <- function(choices) {
   stats::setNames(names(choices), names(choices))
 }
 
-# todo when values(a = NULL) - make it mean a is unselected
+# todo when values(a = NULL) - make it mean a is not selected
 # how to handle case when value(a = ??) a selected but with no choice?
 # maybe value(a = character(0)) ??
-# or just add variiables to filter and then all fine <- I think the best option
+# or just add variables to filter and then all fine <- I think the best option
 
 #' Select set of active checkbox groups and their values
 #'
@@ -238,7 +238,7 @@ pickCheckboxLabels <- function(choices) {
 #'   vegetables= c("carrot")
 #' )
 #'
-#' # Same but vegatables selected but empty
+#' # Same but vegetables selected but empty
 #' # Set group as NA to no options checked (same effect in server input)
 #' selected_named_empty <- list(
 #'   fruits = c("orange"),

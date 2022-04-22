@@ -93,7 +93,7 @@ selected_named <- list(
   vegetables= c("carrot")
 )
 
-# Same but vegatables selected but empty
+# Same but vegetables selected but empty
 # Set group as NA to no options checked (same effect in server input)
 selected_named_empty <- list(
   fruits = c("orange"),

@@ -10,7 +10,7 @@ Authors@R:
     ))
 Maintainer: Krystian Igras <krystian8207@gmail.com>
 Description: Provides useful UI components and input widgets for 'Shiny' applications.
-    The offered components allow to apply non-standard operations and view to you 
+    The offered components allow to apply non-standard operations and view to your 
     'Shiny' application, but also help to overcome common performance issues.
 License: MIT + file LICENSE
 Encoding: UTF-8
