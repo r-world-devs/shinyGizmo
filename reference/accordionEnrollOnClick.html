@@ -23,7 +23,7 @@ If you want the item to be disabled (like button) when the item is enrolled plea
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyGizmo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1</span>
       </span>
     </div>
 
@@ -97,10 +97,16 @@ Remember to set `enroll_callback = FALSE` to turn off standard activation behavi
 `prev = TRUE` can be useful if the last accordion item is removed and we want
 to enroll the preceding item.</p></dd>
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p>`html` class string that can be used for defining i.e. `onclick`
+  attribute callback.
+Character string - class name used for identifying accordion activator object.</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in">  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span class="r-in">  <span class="va">activator</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">disabled</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in">    <span class="va">tags</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span></span>
