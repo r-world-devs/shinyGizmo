@@ -50,12 +50,16 @@ See \link{accordionEnrollOnClick} to see how configure custom on-click enroll el
 
 \item{session}{Shiny Session object.}
 }
+\value{
+Nested list of `shiny.tag` objects, defining accordion item - its header and content,
+  or no return value in case of using `addAccordionItem` method.
+}
 \description{
 `accordionItem` allows to create new accordion item that can be passed directly to `accordion`
 constructor or added on the fly with `addAccordionItem`.
 }
 \examples{
-\dontrun{
+if (interactive()) {
    library(shiny)
    ui <- fluidPage(
      actionButton("new", "New"),
@@ -67,8 +71,7 @@ constructor or added on the fly with `addAccordionItem`.
    )
    server <- function(input, output, session) {}
    shinyApp(ui, server)
-}
-\dontrun{
+
   # Accordion with custom styling of header and content (and dynamically added items).
   library(shiny)
 

@@ -45,13 +45,17 @@ Set `NULL` to have no button included.}
 
 \item{width}{Button width.}
 }
+\value{
+Nested list of `shiny.tag` objects defining html structure of modal dialog,
+  or single `shiny.tag` object in case of using `modalButtonUI` method.
+}
 \description{
 Contrary to \link[shiny]{modalDialog} the function allows to define modal in
 UI application structure.
 The button can be opened with `modalButtonUI` placed anywhere in the application.
 }
 \examples{
-\dontrun{
+if (interactive()) {
   library(shiny)
   shinyApp(
     ui = fluidPage(
@@ -59,8 +63,7 @@ The button can be opened with `modalButtonUI` placed anywhere in the application
     ),
     server = function(input, output, session) {}
   )
-}
-\dontrun{
+
   library(shiny)
   shinyApp(
     ui = fluidPage(

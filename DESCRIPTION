@@ -1,6 +1,6 @@
 Package: shinyGizmo
 Type: Package
-Title: Useful Components for Shiny Applications
+Title: Custom Components for Shiny Applications
 Version: 0.1
 Authors@R: 
     c(person(
@@ -9,7 +9,9 @@ Authors@R:
       role = c('cre', 'aut')
     ))
 Maintainer: Krystian Igras <krystian8207@gmail.com>
-Description: Provides useful UI components and input widgets for Shiny Applications.
+Description: Provides useful UI components and input widgets for 'Shiny' applications.
+    The offered components allow to apply non-standard operations and view to you 
+    'Shiny' application, but also help to overcome common performance issues.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

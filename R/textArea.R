@@ -17,6 +17,8 @@
 #'   Possible options are "default", "both", "none", "vertical" and "horizontal".
 #' @param readonly If TRUE, providing custom values will be turned off.
 #'
+#' @return Nested list of `shiny.tag` objects defining html stricture of the component,
+#'   or no value in case of usage of `updateTextArea` method.
 #' @export
 textArea <- function(inputId, value, label, width = "100%", height = "200px", resize = "default", readonly = FALSE) {
   read_only <- "readonly"

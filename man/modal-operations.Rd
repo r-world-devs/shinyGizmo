@@ -15,6 +15,9 @@ showModalUI(modalId, session = shiny::getDefaultReactiveDomain())
 
 \item{session}{Shiny session object.}
 }
+\value{
+No return value, used for side effect.
+}
 \description{
 Show and hide modal from the application server
 }

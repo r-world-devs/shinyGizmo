@@ -35,6 +35,10 @@ Possible options are "default", "both", "none", "vertical" and "horizontal".}
 
 \item{session}{Shiny session object.}
 }
+\value{
+Nested list of `shiny.tag` objects defining html stricture of the component,
+  or no value in case of usage of `updateTextArea` method.
+}
 \description{
 Contrary to \link[shiny]{textAreaInput} the component is not a binding itself
 (doesn't send input to the server).

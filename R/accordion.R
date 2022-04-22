@@ -6,8 +6,8 @@
 #' while constructing the item (see \link{accordionItem}).
 #'
 #' @examples
-#' \dontrun{
-#'   # Basic construction with simple header and content
+#' # Basic construction with simple header and content
+#' if (interactive()) {
 #'   library(shiny)
 #'   ui <- fluidPage(
 #'     actionButton("new", "New"),
@@ -30,6 +30,8 @@
 #' @param id Id of the accordion component.
 #' @param ... Accordion items created with \link{accordionItem}.
 #' @param class Extra class added to accordion container.
+#'
+#' @return A `shiny.tag` object defining html structure of accordion container.
 #' @export
 accordion <- function(id, ..., class = "") {
 
@@ -50,7 +52,7 @@ accordion <- function(id, ..., class = "") {
 #' constructor or added on the fly with `addAccordionItem`.
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'    library(shiny)
 #'    ui <- fluidPage(
 #'      actionButton("new", "New"),
@@ -62,8 +64,7 @@ accordion <- function(id, ..., class = "") {
 #'    )
 #'    server <- function(input, output, session) {}
 #'    shinyApp(ui, server)
-#' }
-#' \dontrun{
+#'
 #'   # Accordion with custom styling of header and content (and dynamically added items).
 #'   library(shiny)
 #'
@@ -110,6 +111,9 @@ accordion <- function(id, ..., class = "") {
 #' @param header_class Additional class passed to header container.
 #' @param content_class Additional class passed to content container.
 #' @param ... Extra elements passed to accordion container (before the first accordion item).
+#'
+#' @return Nested list of `shiny.tag` objects, defining accordion item - its header and content,
+#'   or no return value in case of using `addAccordionItem` method.
 #' @export
 accordionItem <- function(id, header, content, class = NULL, enroll_callback = TRUE, active = FALSE,
                               header_class = NULL, content_class = NULL, ...) {
@@ -140,6 +144,7 @@ accordionItem <- function(id, header, content, class = NULL, enroll_callback = T
 #' @param session Shiny Session object.
 #'
 #' @rdname accordionItem
+#'
 #' @export
 addAccordionItem <- function(accordionId, accordionItem, session = shiny::getDefaultReactiveDomain()) {
   session$sendCustomMessage("collapse_items", list(id = accordionId))
@@ -167,7 +172,7 @@ addAccordionItem <- function(accordionId, accordionItem, session = shiny::getDef
 #'
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'   library(shiny)
 #'   activator <- function(disabled = FALSE) {
 #'     tags$button(
@@ -200,6 +205,8 @@ addAccordionItem <- function(accordionId, accordionItem, session = shiny::getDef
 #'   `prev = TRUE` can be useful if the last accordion item is removed and we want
 #'   to enroll the preceding item.
 #'
+#' @return `html` class string that can be used for defining i.e. `onclick`
+#'   attribute callback.
 #' @export
 accordionEnrollOnClick <- function(prev = FALSE) {
   prev <- if (prev) "true" else "false"
@@ -207,5 +214,7 @@ accordionEnrollOnClick <- function(prev = FALSE) {
 }
 
 #' @rdname accordionEnrollOnClick
+#'
+#' @return Character string - class name used for identifying accordion activator object.
 #' @export
 activatorClass <- "sg_accordion_activator"

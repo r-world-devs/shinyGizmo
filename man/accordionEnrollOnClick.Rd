@@ -18,6 +18,12 @@ activatorClass
 `prev = TRUE` can be useful if the last accordion item is removed and we want
 to enroll the preceding item.}
 }
+\value{
+`html` class string that can be used for defining i.e. `onclick`
+  attribute callback.
+
+Character string - class name used for identifying accordion activator object.
+}
 \description{
 The function is useful if you want to override standard behavior for activating accordion item.
 By default accordion item is activated when its header is clicked.
@@ -30,7 +36,7 @@ If you want the item to be disabled (like button) when the item is enrolled plea
 `class = activatorClass` to it.
 }
 \examples{
-\dontrun{
+if (interactive()) {
   library(shiny)
   activator <- function(disabled = FALSE) {
     tags$button(

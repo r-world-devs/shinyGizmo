@@ -5,7 +5,7 @@
 #' The button can be opened with `modalButtonUI` placed anywhere in the application.
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'   library(shiny)
 #'   shinyApp(
 #'     ui = fluidPage(
@@ -13,8 +13,7 @@
 #'     ),
 #'     server = function(input, output, session) {}
 #'   )
-#' }
-#' \dontrun{
+#'
 #'   library(shiny)
 #'   shinyApp(
 #'     ui = fluidPage(
@@ -37,6 +36,8 @@
 #' @param fade Should fade-in animation be turned on?
 #' @param backdrop Set `FALSE` to turn on background covering area outside modal dialog.
 #'
+#' @return Nested list of `shiny.tag` objects defining html structure of modal dialog,
+#'   or single `shiny.tag` object in case of using `modalButtonUI` method.
 #' @export
 modalDialogUI <- function(modalId, ..., button = modalButtonUI(modalId, "Open Modal"),
                           title = NULL, footer = shiny::modalButton("Dismiss"),
@@ -104,6 +105,7 @@ modalButtonUI <- function(modalId, label, icon = NULL, width = NULL, ...) {
 #' @param session Shiny session object.
 #' @name modal-operations
 #'
+#' @return No return value, used for side effect.
 #' @export
 hideModalUI <- function(modalId, session = shiny::getDefaultReactiveDomain()) {
   session$sendCustomMessage("hide_modal", list(id = modalId))
