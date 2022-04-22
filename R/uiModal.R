@@ -46,6 +46,11 @@ modalDialogUI <- function(modalId, ..., button = modalButtonUI(modalId, "Open Mo
   keyboard <- if (!easyClose) "false"
 
   shiny::tagList(
+    shiny::singleton(
+      shiny::tags$head(
+        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/modal.js")
+      )
+    ),
     button,
     shiny::div(
       id = modalId, class = "modal", class = if (fade) "fade",
@@ -93,3 +98,19 @@ modalButtonUI <- function(modalId, label, icon = NULL, width = NULL, ...) {
   )
 }
 
+#' Show and hide modal from the application server
+
+#' @param modalId Id of the modal to show/hide.
+#' @param session Shiny session object.
+#' @name modal-operations
+#'
+#' @export
+hideModalUI <- function(modalId, session = shiny::getDefaultReactiveDomain()) {
+  session$sendCustomMessage("hide_modal", list(id = modalId))
+}
+
+#' @rdname modal-operations
+#' @export
+showModalUI <- function(modalId, session = shiny::getDefaultReactiveDomain()) {
+  session$sendCustomMessage("show_modal", list(id = modalId))
+}
