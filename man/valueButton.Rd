@@ -2,6 +2,7 @@
 % Please edit documentation in R/valueButton.R
 \name{valueButton}
 \alias{valueButton}
+\alias{valueLink}
 \title{Take value from selected UI element}
 \usage{
 valueButton(
@@ -13,6 +14,8 @@ valueButton(
   width = NULL,
   ...
 )
+
+valueLink(inputId, label, selector, attribute = "value", icon = NULL, ...)
 }
 \arguments{
 \item{inputId}{Id of the button. The value can be accessed in server with `input[[inputId]]`.}

@@ -28,15 +28,12 @@
 #' @param ... Extra attributes passed to button.
 #'
 #' @return A `shiny.tag` class object defining html structure of the button.
+#' @name valueButton
 #' @export
 valueButton <- function(inputId, label, selector, attribute = "value", icon = NULL, width = NULL, ...) {
 
   shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(
-        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/valuebutton.js")
-      )
-    ),
+    value_button_dependency,
     shiny::tags$button(
       id = inputId,
       style = htmltools::css(width = shiny::validateCssUnit(width)),
@@ -51,4 +48,30 @@ valueButton <- function(inputId, label, selector, attribute = "value", icon = NU
   )
 }
 
+#' @rdname valueButton
+#' @export
+valueLink <- function(inputId, label, selector, attribute = "value", icon = NULL, ...) {
+
+  shiny::tagList(
+    value_button_dependency(),
+    shiny::tags$a(
+      id = inputId,
+      class = "value-button",
+      href = "#",
+      `data-val` = NULL,
+      `data-value-attribute` = attribute,
+      `data-selector` = selector,
+      list(icon, label),
+      ...
+    )
+  )
+}
+
+value_button_dependency <- function() {
+  shiny::singleton(
+    shiny::tags$head(
+      shiny::tags$script(type = "text/javascript", src = "shinyGizmo/valuebutton.js")
+    )
+  )
+}
 # todo implement update method
