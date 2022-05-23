@@ -33,7 +33,7 @@
 valueButton <- function(inputId, label, selector, attribute = "value", icon = NULL, width = NULL, ...) {
 
   shiny::tagList(
-    value_button_dependency,
+    value_button_dependency(),
     shiny::tags$button(
       id = inputId,
       style = htmltools::css(width = shiny::validateCssUnit(width)),
