@@ -52,7 +52,7 @@ Nested list of `shiny.tag` objects defining html structure of modal dialog,
 \description{
 Contrary to \link[shiny]{modalDialog} the function allows to define modal in
 UI application structure.
-The button can be opened with `modalButtonUI` placed anywhere in the application.
+The modal can be opened with `modalButtonUI` placed anywhere in the application.
 }
 \examples{
 if (interactive()) {

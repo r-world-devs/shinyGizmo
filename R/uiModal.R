@@ -2,7 +2,7 @@
 #'
 #' Contrary to \link[shiny]{modalDialog} the function allows to define modal in
 #' UI application structure.
-#' The button can be opened with `modalButtonUI` placed anywhere in the application.
+#' The modal can be opened with `modalButtonUI` placed anywhere in the application.
 #'
 #' @examples
 #' if (interactive()) {
@@ -108,11 +108,11 @@ modalButtonUI <- function(modalId, label, icon = NULL, width = NULL, ...) {
 #' @return No return value, used for side effect.
 #' @export
 hideModalUI <- function(modalId, session = shiny::getDefaultReactiveDomain()) {
-  session$sendCustomMessage("hide_modal", list(id = modalId))
+  session$sendCustomMessage("hide_modal", list(id = session$ns(modalId)))
 }
 
 #' @rdname modal-operations
 #' @export
 showModalUI <- function(modalId, session = shiny::getDefaultReactiveDomain()) {
-  session$sendCustomMessage("show_modal", list(id = modalId))
+  session$sendCustomMessage("show_modal", list(id = session$ns(modalId)))
 }
