@@ -1,7 +1,7 @@
 
 # shinyGizmo
 
-[![version](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)
+[![version](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1.0.9000&color=ff69b4)](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-success.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 
 ## Overview
@@ -11,7 +11,7 @@ applications.
 
 <center>
 
-## <span style="color:blue"> shinyGizmo 0.1 is now available!</span>
+## <span style="color:blue"> shinyGizmo 0.1.0.9000 is now available!</span>
 
 </center>
 
@@ -54,9 +54,9 @@ text area. Works great with `valueButton`.
 
 ## Lifecycle
 
-shinyGizmo 0.1 is stable but we’re still developing the package. If you
-find bugs or have any suggestions for future releases post an issue on
-GitHub page at <https://github.com/r-world-devs/shinyGizmo/issues>.
+shinyGizmo is stable but we’re still developing the package. If you find
+bugs or have any suggestions for future releases post an issue on GitHub
+page at <https://github.com/r-world-devs/shinyGizmo/issues>.
 
 ## Getting help
 
