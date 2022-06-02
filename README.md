@@ -21,7 +21,7 @@ From CRAN:
 
     install.packages("shinyGizmo")
 
-Lastest development version from Github:
+Latest development version from Github:
 
     remotes::install_github(
       "r-world-devs/shinyGizmo"
