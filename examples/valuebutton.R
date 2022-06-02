@@ -10,7 +10,7 @@ ui <- fluidPage(
       valueButton("vb3", "Attribute 'value' of 'Slider'", "#sli", "value", width = "250px"),
       textOutput("out3", inline = TRUE),
       hr(),
-      valueButton("vb1", "Get application window height", "window", "innerHeight", width = "250px"),
+      valueLink("vb1", "Get application window height", "window", "innerHeight", width = "250px"),
       textOutput("out1", inline = TRUE)
     ),
     mainPanel(

@@ -308,7 +308,7 @@ pickCheckboxLabels <- function(choices) {
 #'     Used to limit amount of new checkbox groups added with `updatePickCheckboxInput`.
 #' @param ... Extra parameters passed to \link[shinyWidgets]{pickerInput}.
 #'
-#' @return Nested list of `shiny.tag` objects, defining html stricture of the input,
+#' @return Nested list of `shiny.tag` objects, defining html structure of the input,
 #' or no value in case of usage of `updatePickCheckboxInput` method.
 #' @export
 pickCheckboxInput <- function(inputId, label, choices, choicesNames = pickCheckboxNames(choices),

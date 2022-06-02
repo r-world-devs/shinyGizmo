@@ -36,7 +36,7 @@ Possible options are "default", "both", "none", "vertical" and "horizontal".}
 \item{session}{Shiny session object.}
 }
 \value{
-Nested list of `shiny.tag` objects defining html stricture of the component,
+Nested list of `shiny.tag` objects defining html structure of the component,
   or no value in case of usage of `updateTextArea` method.
 }
 \description{
