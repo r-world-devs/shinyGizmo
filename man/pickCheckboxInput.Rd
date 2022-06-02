@@ -52,7 +52,7 @@ Used to limit amount of new checkbox groups added with `updatePickCheckboxInput`
 \item{session}{Shiny session object.}
 }
 \value{
-Nested list of `shiny.tag` objects, defining html stricture of the input,
+Nested list of `shiny.tag` objects, defining html structure of the input,
 or no value in case of usage of `updatePickCheckboxInput` method.
 }
 \description{

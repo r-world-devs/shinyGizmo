@@ -2,6 +2,7 @@
 % Please edit documentation in R/valueButton.R
 \name{valueButton}
 \alias{valueButton}
+\alias{valueLink}
 \title{Take value from selected UI element}
 \usage{
 valueButton(
@@ -13,6 +14,8 @@ valueButton(
   width = NULL,
   ...
 )
+
+valueLink(inputId, label, selector, attribute = "value", icon = NULL, ...)
 }
 \arguments{
 \item{inputId}{Id of the button. The value can be accessed in server with `input[[inputId]]`.}
@@ -29,13 +32,13 @@ For nested properties use `.`, e.g. `style.width` or `navigator.appName`.}
 
 \item{width}{Width of the button.}
 
-\item{...}{Extra attributes passed to button.}
+\item{...}{Extra attributes passed to `button` or `a` tag.}
 }
 \value{
 A `shiny.tag` class object defining html structure of the button.
 }
 \description{
-The components creates button that allows to take any value (or attribute) sourced
+The components creates button or link that allows to take any value (or attribute) sourced
 from DOM element existing in Shiny application and pass it to application server.
 }
 \examples{
