@@ -4,40 +4,59 @@ options("shiny.minified" = FALSE)
 
 ui <- fluidPage(
   tags$style(".boldme {font-weight: bold;}"),
-  actionButton("oko", "Oko"),
+  sliderInput("value", "Value", min = 1, max = 9, value = 1),
   textOutput("bu"),
-  ifCall(
-    tags$button("I'm visible when at least 3 clicks"),
-    "input.oko >= 3",
+  conditionalJS(
+    tags$button("I'm visible when value at least 3"),
+    "input.value >= 3",
     jsCalls$show()
   ),
-  ifCall(
-    tags$button("I'm visible when less than 3 clicks"),
-    "input.oko >= 3",
-    jsCalls$show(on = FALSE)
+  hr(),
+  conditionalJS(
+    tags$button("I'm visible when value less than 3"),
+    "input.value >= 3",
+    jsCalls$show(when =FALSE)
   ),
-  ifCall(
-    tags$button("I'm disabled when at least 4 clicks"),
-    "input.oko >= 4",
+  hr(),
+  conditionalJS(
+    tags$button("I'm disabled when value at least 4"),
+    "input.value >= 4",
     jsCalls$disable()
   ),
-  ifCall(
-    tags$button("I'm disabled when less than 4 clicks"),
-    "input.oko >= 4",
-    jsCalls$disable(on = FALSE)
+  hr(),
+  conditionalJS(
+    tags$button("I'm disabled when value less than 4"),
+    "input.value >= 4",
+    jsCalls$disable(when =FALSE)
   ),
-  ifCall(
-    tags$button("I have class 'boldme' when at least 5 clicks"),
-    "input.oko >= 5",
+  hr(),
+  conditionalJS(
+    tags$button("I have class 'boldme' when value at least 5"),
+    "input.value >= 5",
     jsCalls$attachClass("boldme")
   ),
-  ifCall(
-    tags$button("I change color when at least 6 clicks"),
-    "input.oko >= 6",
+  hr(),
+  conditionalJS(
+    tags$button("I change color when value at least 6"),
+    "input.value >= 6",
     jsCalls$custom(
-      true = "el.css('background-color', 'red');",
-      false = "el.css('background-color', 'green');"
+      true = "$(this).css('background-color', 'red');",
+      false = "$(this).css('background-color', 'green');"
     )
+  ),
+  hr(),
+  conditionalJS(
+    tags$button("I change border when value at least 7"),
+    "input.value >= 7",
+    jsCalls$css(
+      border = "dashed"
+    )
+  ),
+  hr(),
+  conditionalJS(
+    tags$button("I'm disabled permanently when value at least 8"),
+    "input.value >= 8",
+    jsCalls$disable()["true"] # remove false condition
   )
 )
 

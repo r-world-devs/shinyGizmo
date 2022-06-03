@@ -1,6 +1,11 @@
-//@ sourceURL=accordion.js
+//@ sourceURL=conditionaljs.js
 function scopeExprToFunc(expr) {
-  var exprEscaped = expr.replace(/[\\"']/g, "\\$&").replace(/\u0000/g, "\\0").replace(/\n/g, "\\n").replace(/\r/g, "\\r").replace(/[\b]/g, "\\b");
+  var exprEscaped = expr
+    .replace(/[\\"']/g, "\\$&")
+    .replace(/\u0000/g, "\\0")
+    .replace(/\n/g, "\\n")
+    .replace(/\r/g, "\\r")
+    .replace(/[\b]/g, "\\b");
   var func;
   try {
     func = new Function("with (this) {\n        try {\n          return (".concat(expr, ");\n        } catch (e) {\n          console.error('Error evaluating expression: ").concat(exprEscaped, "');\n          throw e;\n        }\n      }"));
@@ -38,14 +43,17 @@ $(document).on('shiny:conditional', function(event) {
     var nsPrefix = el.attr("data-ns-prefix");
     var nsScope = Shiny.shinyapp._narrowScope(scope, nsPrefix);
     var trigger = condFunc(nsScope);
+    var js_call;
+    // todo assure to be not accumulate (keep state?)
     if (trigger) {
-      (function(el) {
-        eval(el.attr("data-call-if-true"));
-      })(el);
+      js_call = el.attr("data-call-if-true");
     } else {
-      (function(el) {
-        eval(el.attr("data-call-if-false"));
-      })(el);
+      js_call = el.attr("data-call-if-false");
     }
+    (function() {
+      if (Boolean(js_call)) {
+        eval(js_call);
+      }
+    }).call(el[0]);
   }
 })
