@@ -5,7 +5,7 @@ when_switch <- function(x, when) {
   return(x)
 }
 
-#' Javascript calls for conditionalJS
+#' JavaScript calls for conditionalJS
 #'
 #' The list of JavaScript calls that can be used as a `jsCall` argument of \link{conditionalJS}.
 #' All the actions are reversible. E.g. when using `disable` call and conditionalJS condition is false
@@ -15,19 +15,18 @@ when_switch <- function(x, when) {
 #' \itemize{
 #'   \item{attachClass}{ Add provided class to the UI element.}
 #'   \item{disable}{ Add disable attribute to the UI element - usually results with disabling the input controller.}
-#'   \item{show}{ Show/hode an element with a help of `visibility:hidden` rule.
+#'   \item{show}{ Show/hide an element with a help of `visibility:hidden` rule.
 #'     Comparing to conditionalPanel (which uses display:none) results with rendering an output even if hidden.}
-#'   \item{css}{ Add css (inline) rule to the UI object. When consition is false, the rule is removed.}
+#'   \item{css}{ Add css (inline) rule to the UI object. When condition is false, the rule is removed.}
 #'   \item{custom}{ Define custom true and false callback.}
 #' }
 #'
 #' @param class A css to be attached to (or detached from) the UI element.
 #' @param important Should `!important` rule be attached to the added css?
-#' @param true, false JS callback that should be executed when condition is true or false.
+#' @param true,false JS callback that should be executed when condition is true or false.
 #' @param when Should the (primary) action be executed when `condition` is
 #' TRUE (when = TRUE, default) or FALSE (when = FALSE).
 #' @name js_calls
-#' @export
 attachClass <- function(class, when = TRUE) {
   when_switch(
     list(
@@ -39,7 +38,6 @@ attachClass <- function(class, when = TRUE) {
 }
 
 #' @rdname js_calls
-#' @export
 disable <- function(when = TRUE) {
   when_switch(
     list(
@@ -51,13 +49,11 @@ disable <- function(when = TRUE) {
 }
 
 #' @rdname js_calls
-#' @export
 show <- function(when = TRUE) {
   attachClass("sg_hidden", when = !when)
 }
 
 #' @rdname js_calls
-#' @export
 css <- function(..., important = FALSE, when = TRUE) {
   css_rules <- htmltools::css(...)
   if (important) {
@@ -80,7 +76,6 @@ css <- function(..., important = FALSE, when = TRUE) {
 }
 
 #' @rdname js_calls
-#' @export
 custom <- function(true = NULL, false = NULL) {
   list(
     true = true,
@@ -88,7 +83,7 @@ custom <- function(true = NULL, false = NULL) {
   )
 }
 
-#' List of javascript calls for `conditionalJS`
+#' List of JavaScript calls for `conditionalJS`
 #'
 #' Each `jsCalls` function can be used as a `jsCall` argument of \link{conditionalJS}.
 #' See \link{js_calls} for possible options.

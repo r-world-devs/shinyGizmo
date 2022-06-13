@@ -3,7 +3,7 @@
 \docType{data}
 \name{jsCalls}
 \alias{jsCalls}
-\title{List of javascript calls for `conditionalJS`}
+\title{List of JavaScript calls for `conditionalJS`}
 \format{
 An object of class \code{list} of length 5.
 }
