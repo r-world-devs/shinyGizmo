@@ -20,6 +20,7 @@ Imports:
     purrr,
     glue,
     htmltools,
+    htmlwidgets,
     shiny,
     shinyWidgets
 RoxygenNote: 7.1.2

@@ -16,7 +16,7 @@ See \link{js_calls} for possible options.
 }
 \examples{
 conditionalJS(
-  tags$button("Hello"),
+  shiny::tags$button("Hello"),
   "input.value > 0",
   jsCalls$show()
 )

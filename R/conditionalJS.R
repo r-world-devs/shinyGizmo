@@ -25,7 +25,9 @@ when_switch <- function(x, when) {
 #' @param important Should `!important` rule be attached to the added css?
 #' @param true,false JS callback that should be executed when condition is true or false.
 #' @param when Should the (primary) action be executed when `condition` is
-#' TRUE (when = TRUE, default) or FALSE (when = FALSE).
+#'     TRUE (when = TRUE, default) or FALSE (when = FALSE).
+#' @param ... Named style properties, where the name is the property name and the
+#'     argument is the property value. See \link[htmltools]{css} for more details.
 #' @name js_calls
 attachClass <- function(class, when = TRUE) {
   when_switch(
@@ -90,7 +92,7 @@ custom <- function(true = NULL, false = NULL) {
 #'
 #' @examples
 #' conditionalJS(
-#'   tags$button("Hello"),
+#'   shiny::tags$button("Hello"),
 #'   "input.value > 0",
 #'   jsCalls$show()
 #' )
@@ -216,7 +218,7 @@ conditionalJS <- function(ui, condition, jsCall, ns = shiny::NS(NULL)) {
   if (!inherits(ui, "shiny.tag")) {
     stop(glue::glue("{sQuote('ui')} argument should be a shiny.tag object."))
   }
-  tagList(
+  shiny::tagList(
     shiny::tags$head(
       shiny::tags$script(type = "text/javascript", src = "shinyGizmo/conditionaljs.js"),
       shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/conditionaljs.css")
