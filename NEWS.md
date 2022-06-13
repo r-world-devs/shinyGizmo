@@ -1,4 +1,4 @@
-# shinyGizmo (development version)
+# shinyGizmo 0.2
 
 * Add `conditionalJS` component - extension of `shiny::conditionalPanel` that allows to run custom JS when condition is met.
 * Add `valueLink` component.

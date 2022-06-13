@@ -1,7 +1,7 @@
 Package: shinyGizmo
 Type: Package
 Title: Custom Components for Shiny Applications
-Version: 0.1.0.9001
+Version: 0.2
 Authors@R: 
     c(person(
       'Krystian', 'Igras', 
@@ -20,6 +20,7 @@ Imports:
     purrr,
     glue,
     htmltools,
+    htmlwidgets,
     shiny,
     shinyWidgets
 RoxygenNote: 7.1.2

@@ -25,6 +25,9 @@ custom(true = NULL, false = NULL)
 \item{when}{Should the (primary) action be executed when `condition` is
 TRUE (when = TRUE, default) or FALSE (when = FALSE).}
 
+\item{...}{Named style properties, where the name is the property name and the
+argument is the property value. See \link[htmltools]{css} for more details.}
+
 \item{important}{Should `!important` rule be attached to the added css?}
 
 \item{true, false}{JS callback that should be executed when condition is true or false.}
