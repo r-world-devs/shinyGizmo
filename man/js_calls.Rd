@@ -5,8 +5,9 @@
 \alias{attachClass}
 \alias{disable}
 \alias{show}
+\alias{css}
 \alias{custom}
-\title{Javascript calls}
+\title{Javascript calls for conditionalJS}
 \usage{
 attachClass(class, when = TRUE)
 
@@ -14,8 +15,33 @@ disable(when = TRUE)
 
 show(when = TRUE)
 
+css(..., important = FALSE, when = TRUE)
+
 custom(true = NULL, false = NULL)
 }
+\arguments{
+\item{class}{A css to be attached to (or detached from) the UI element.}
+
+\item{when}{Should the (primary) action be executed when `condition` is
+TRUE (when = TRUE, default) or FALSE (when = FALSE).}
+
+\item{important}{Should `!important` rule be attached to the added css?}
+
+\item{true, }{false JS callback that should be executed when condition is true or false.}
+}
 \description{
-Javascript calls
+The list of JavaScript calls that can be used as a `jsCall` argument of \link{conditionalJS}.
+All the actions are reversible. E.g. when using `disable` call and conditionalJS condition is false
+the opposite action to disable is called (removing disable attribute).
+}
+\details{
+The currently offered actions:
+\itemize{
+  \item{attachClass}{ Add provided class to the UI element.}
+  \item{disable}{ Add disable attribute to the UI element - usually results with disabling the input controller.}
+  \item{show}{ Show/hode an element with a help of `visibility:hidden` rule.
+    Comparing to conditionalPanel (which uses display:none) results with rendering an output even if hidden.}
+  \item{css}{ Add css (inline) rule to the UI object. When consition is false, the rule is removed.}
+  \item{custom}{ Define custom true and false callback.}
+}
 }

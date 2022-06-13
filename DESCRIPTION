@@ -1,7 +1,7 @@
 Package: shinyGizmo
 Type: Package
 Title: Custom Components for Shiny Applications
-Version: 0.1.0.9000
+Version: 0.1.0.9001
 Authors@R: 
     c(person(
       'Krystian', 'Igras', 

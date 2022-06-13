@@ -5,7 +5,7 @@ options("shiny.minified" = FALSE)
 ui <- fluidPage(
   tags$style(".boldme {font-weight: bold;}"),
   sliderInput("value", "Value", min = 1, max = 9, value = 1),
-  textOutput("bu"),
+  textOutput("slid_val"),
   conditionalJS(
     tags$button("I'm visible when value at least 3"),
     "input.value >= 3",
@@ -15,7 +15,7 @@ ui <- fluidPage(
   conditionalJS(
     tags$button("I'm visible when value less than 3"),
     "input.value >= 3",
-    jsCalls$show(when =FALSE)
+    jsCalls$show(when = FALSE)
   ),
   hr(),
   conditionalJS(
@@ -27,7 +27,7 @@ ui <- fluidPage(
   conditionalJS(
     tags$button("I'm disabled when value less than 4"),
     "input.value >= 4",
-    jsCalls$disable(when =FALSE)
+    jsCalls$disable(when = FALSE)
   ),
   hr(),
   conditionalJS(
@@ -61,8 +61,8 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  output$bu <- renderText({
-    input$oko
+  output$slid_val <- renderText({
+    input$value
   })
 }
 

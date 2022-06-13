@@ -1,5 +1,6 @@
 # shinyGizmo (development version)
 
+* Add `conditionalJS` component - extension of `shiny::conditionalPanel` that allows to run custom JS when condition is met.
 * Add `valueLink` component.
 * Make `showModal` and `hideModal` work with modules.
 

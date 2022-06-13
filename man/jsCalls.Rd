@@ -3,7 +3,7 @@
 \docType{data}
 \name{jsCalls}
 \alias{jsCalls}
-\title{Oko}
+\title{List of javascript calls for `conditionalJS`}
 \format{
 An object of class \code{list} of length 5.
 }
@@ -11,6 +11,15 @@ An object of class \code{list} of length 5.
 jsCalls
 }
 \description{
-See \link{js_calls} for options.
+Each `jsCalls` function can be used as a `jsCall` argument of \link{conditionalJS}.
+See \link{js_calls} for possible options.
+}
+\examples{
+conditionalJS(
+  tags$button("Hello"),
+  "input.value > 0",
+  jsCalls$show()
+)
+
 }
 \keyword{datasets}
