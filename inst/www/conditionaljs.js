@@ -1,4 +1,5 @@
 //@ sourceURL=conditionaljs.js
+// https://github.com/rstudio/shiny/blob/a8c14dab9623c984a66fcd4824d8d448afb151e7/srcts/src/utils/index.ts#L146
 function scopeExprToFunc(expr) {
   var exprEscaped = expr
     .replace(/[\\"']/g, "\\$&")
@@ -18,6 +19,7 @@ function scopeExprToFunc(expr) {
   };
 }
 
+// Based on ShinyApp.$updateConditionals
 $(document).on('shiny:conditional', function(event) {
 
   var inputs = {};
