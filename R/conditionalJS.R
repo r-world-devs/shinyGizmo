@@ -360,9 +360,11 @@ conditionalJS <- function(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NUL
       )
     ),
     if (inherits(jsCall$true, "animate_call") || inherits(jsCall$false, "animate_call")) {
-      shiny::tags$head(
-        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/libs/jquery.animatecss.min.js"),
-        shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/libs/animate.compat.min.css")
+      shiny::singleton(
+        shiny::tags$head(
+          shiny::tags$script(type = "text/javascript", src = "shinyGizmo/libs/jquery.animatecss.min.js"),
+          shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/libs/animate.compat.min.css")
+        )
       )
     }    ,
     htmltools::tagAppendAttributes(

@@ -1,3 +1,8 @@
+# shinyGizmo 0.2.2
+
+* Add `animateVisibility` JS call to show and hide elements with animation.
+* Add `runAnimation` helper callback to run element animations.
+
 # shinyGizmo 0.2.1
 
 * Add `once` argument to `conditionalJS` that makes jsCall run only when condition value changed.
