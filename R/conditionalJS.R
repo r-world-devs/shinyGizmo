@@ -230,7 +230,7 @@ conditionalJS <- function(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NUL
       `data-call-if` = condition,
       `data-call-if-true` = jsCall[["true"]],
       `data-call-if-false` = jsCall[["false"]],
-      `data-call-once` = if (once) "true" else "false",
+      `data-call-once` = if (once) "true" else NULL,
       `data-ns-prefix` = ns("")
     )
   )

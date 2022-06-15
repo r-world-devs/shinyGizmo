@@ -46,9 +46,9 @@ $(document).on('shiny:conditional', function(event) {
     var nsScope = Shiny.shinyapp._narrowScope(scope, nsPrefix);
     var trigger = condFunc(nsScope);
     var prev_state = el.data("data-call-state");
-    var switch_only_run = el.attr("data-call-once");
+    var switch_only_run = Boolean(el.attr("data-call-once"));
     var should_run = !switch_only_run || (switch_only_run && (trigger != prev_state))
-    var js_call;
+    var js_call = '';
     if (should_run) {
       if (trigger) {
         js_call = el.attr("data-call-if-true");
@@ -56,7 +56,7 @@ $(document).on('shiny:conditional', function(event) {
         js_call = el.attr("data-call-if-false");
       }
     }
-    el.data("data-call-state", trigger)
+    el.data("data-call-state", trigger);
 
     (function() {
       if (Boolean(js_call)) {
