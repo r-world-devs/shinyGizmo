@@ -77,6 +77,73 @@ css <- function(..., important = FALSE, when = TRUE) {
   )
 }
 
+css_effects <- c(
+  "backInDown", "backInLeft", "backInRight", "backInUp", "backOutDown",
+  "backOutLeft", "backOutRight", "backOutUp", "bounce", "bounceIn",
+  "bounceInDown", "bounceInLeft", "bounceInRight", "bounceInUp",
+  "bounceOut", "bounceOutDown", "bounceOutLeft", "bounceOutRight",
+  "bounceOutUp", "fadeIn", "fadeInBottomLeft", "fadeInBottomRight",
+  "fadeInDown", "fadeInDownBig", "fadeInLeft", "fadeInLeftBig",
+  "fadeInRight", "fadeInRightBig", "fadeInTopLeft", "fadeInTopRight",
+  "fadeInUp", "fadeInUpBig", "fadeOut", "fadeOutBottomLeft", "fadeOutBottomRight",
+  "fadeOutDown", "fadeOutDownBig", "fadeOutLeft", "fadeOutLeftBig",
+  "fadeOutRight", "fadeOutRightBig", "fadeOutTopLeft", "fadeOutTopRight",
+  "fadeOutUp", "fadeOutUpBig", "flash", "flip", "flipInX", "flipInY",
+  "flipOutX", "flipOutY", "headShake", "heartBeat", "hinge", "jackInTheBox",
+  "jello", "lightSpeedInLeft", "lightSpeedInRight", "lightSpeedOutLeft",
+  "lightSpeedOutRight", "pulse", "rollIn", "rollOut", "rotateIn",
+  "rotateInDownLeft", "rotateInDownRight", "rotateInUpLeft", "rotateInUpRight",
+  "rotateOut", "rotateOutDownLeft", "rotateOutDownRight", "rotateOutUpLeft",
+  "rotateOutUpRight", "rubberBand", "shakeX", "shakeY", "slideInDown",
+  "slideInLeft", "slideInRight", "slideInUp", "slideOutDown", "slideOutLeft",
+  "slideOutRight", "slideOutUp", "swing", "tada", "wobble", "zoomIn",
+  "zoomInDown", "zoomInLeft", "zoomInRight", "zoomInUp", "zoomOut",
+  "zoomOutDown", "zoomOutLeft", "zoomOutRight", "zoomOutUp"
+)
+
+json_val <- function(value) {
+  if (inherits(value, c("AsIs", "numeric", "integer"))) {
+    return(value)
+  }
+  return(glue::glue("'{value}'"))
+}
+
+jsonSettings <- function(...) {
+  args <- list(...)
+  json_args <- purrr::imap(args, ~ glue::glue("\"{.y}\": {json_val(.x)}"))
+  glue::glue("{{{paste(json_args, collapse = ', ')}}}")
+}
+
+animateVisibility <- function(effectShow = "fadeIn", effectHide = "fadeOut", delay = 0, duration = 500, ignoreInit = TRUE, when = TRUE) {
+  effect_show <- match.arg(effect_show, css_effects)
+  effect_hide <- match.arg(effect_hide, css_effects)
+  settings_show <- jsonSettings(
+    delay = delay,
+    duration = duration
+  )
+  settings_hide <- jsonSettings(
+    delay = delay,
+    duration = duration,
+    callback = I("function() {$(this).addClass('sg_hidden');}")
+  )
+  rules <- when_switch(
+    list(
+      true = htmlwidgets::JS(glue::glue(
+        "var $element = $(this);",
+        "setTimeout(function() {{$element.removeClass('sg_hidden');}}, {delay});",
+        "$element.animateCSS('{effectShow}', {settings_show});"
+      )),
+      false = htmlwidgets::JS(glue::glue(
+        "$(this).animateCSS('{effectHide}', {settings_hide});"
+      ))
+    ),
+    when = when
+  )
+  class(rules$true) <- c(class(rules$true), "animate_call")
+  class(rules$false) <- c(class(rules$false), "animate_call")
+  return(rules)
+}
+
 #' @rdname js_calls
 custom <- function(true = NULL, false = NULL) {
   list(
@@ -103,6 +170,7 @@ jsCalls <- list(
   disable = disable,
   show = show,
   css = css,
+  animateVisibility = animateVisibility,
   custom = custom
 )
 
@@ -219,10 +287,18 @@ conditionalJS <- function(ui, condition, jsCall, ns = shiny::NS(NULL)) {
     stop(glue::glue("{sQuote('ui')} argument should be a shiny.tag object."))
   }
   shiny::tagList(
-    shiny::tags$head(
-      shiny::tags$script(type = "text/javascript", src = "shinyGizmo/conditionaljs.js"),
-      shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/conditionaljs.css")
+    singleton(
+      shiny::tags$head(
+        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/conditionaljs.js"),
+        shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/conditionaljs.css")
+      )
     ),
+    if (inherits(jsCall$true, "animate_call") || inherits(jsCall$false, "animate_call")) {
+      shiny::tags$head(
+        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/libs/jquery.animatecss.min.js"),
+        shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/libs/animate.compat.min.css")
+      )
+    }    ,
     htmltools::tagAppendAttributes(
       ui,
       `data-call-if` = condition,
