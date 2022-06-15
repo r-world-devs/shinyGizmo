@@ -221,9 +221,11 @@ conditionalJS <- function(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NUL
     stop(glue::glue("{sQuote('ui')} argument should be a shiny.tag object."))
   }
   shiny::tagList(
-    shiny::tags$head(
-      shiny::tags$script(type = "text/javascript", src = "shinyGizmo/conditionaljs.js"),
-      shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/conditionaljs.css")
+    shiny::singleton(
+      shiny::tags$head(
+        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/conditionaljs.js"),
+        shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/conditionaljs.css")
+      )
     ),
     htmltools::tagAppendAttributes(
       ui,
