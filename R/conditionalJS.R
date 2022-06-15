@@ -18,12 +18,14 @@ when_switch <- function(x, when) {
 #'   \item{show}{ Show/hide an element with a help of `visibility:hidden` rule.
 #'     Comparing to conditionalPanel (which uses display:none) results with rendering an output even if hidden.}
 #'   \item{css}{ Add css (inline) rule to the UI object. When condition is false, the rule is removed.}
+#'   \item{animateVisibility}{ Show/hide an element in an animated way.}
 #'   \item{custom}{ Define custom true and false callback.}
 #' }
 #'
 #' @param class A css to be attached to (or detached from) the UI element.
 #' @param important Should `!important` rule be attached to the added css?
 #' @param true,false JS callback that should be executed when condition is true or false.
+#'     Can be custom JS (wrapped into \link[htmlwidgets]{JS}) or one of the \link{custom-callbacks}.
 #' @param when Should the (primary) action be executed when `condition` is
 #'     TRUE (when = TRUE, default) or FALSE (when = FALSE).
 #' @param ... Named style properties, where the name is the property name and the
@@ -77,6 +79,128 @@ css <- function(..., important = FALSE, when = TRUE) {
   )
 }
 
+#' Supported animation effects
+#'
+#' Can be used as `effectShow` and `effectHide` arguments of \link{animateVisibility}.
+#' @export
+.cssEffects <- c(
+  "backInDown", "backInLeft", "backInRight", "backInUp", "backOutDown",
+  "backOutLeft", "backOutRight", "backOutUp", "bounce", "bounceIn",
+  "bounceInDown", "bounceInLeft", "bounceInRight", "bounceInUp",
+  "bounceOut", "bounceOutDown", "bounceOutLeft", "bounceOutRight",
+  "bounceOutUp", "fadeIn", "fadeInBottomLeft", "fadeInBottomRight",
+  "fadeInDown", "fadeInDownBig", "fadeInLeft", "fadeInLeftBig",
+  "fadeInRight", "fadeInRightBig", "fadeInTopLeft", "fadeInTopRight",
+  "fadeInUp", "fadeInUpBig", "fadeOut", "fadeOutBottomLeft", "fadeOutBottomRight",
+  "fadeOutDown", "fadeOutDownBig", "fadeOutLeft", "fadeOutLeftBig",
+  "fadeOutRight", "fadeOutRightBig", "fadeOutTopLeft", "fadeOutTopRight",
+  "fadeOutUp", "fadeOutUpBig", "flash", "flip", "flipInX", "flipInY",
+  "flipOutX", "flipOutY", "headShake", "heartBeat", "hinge", "jackInTheBox",
+  "jello", "lightSpeedInLeft", "lightSpeedInRight", "lightSpeedOutLeft",
+  "lightSpeedOutRight", "pulse", "rollIn", "rollOut", "rotateIn",
+  "rotateInDownLeft", "rotateInDownRight", "rotateInUpLeft", "rotateInUpRight",
+  "rotateOut", "rotateOutDownLeft", "rotateOutDownRight", "rotateOutUpLeft",
+  "rotateOutUpRight", "rubberBand", "shakeX", "shakeY", "slideInDown",
+  "slideInLeft", "slideInRight", "slideInUp", "slideOutDown", "slideOutLeft",
+  "slideOutRight", "slideOutUp", "swing", "tada", "wobble", "zoomIn",
+  "zoomInDown", "zoomInLeft", "zoomInRight", "zoomInUp", "zoomOut",
+  "zoomOutDown", "zoomOutLeft", "zoomOutRight", "zoomOutUp"
+)
+
+json_val <- function(value) {
+  if (inherits(value, c("AsIs", "numeric", "integer"))) {
+    return(value)
+  }
+  return(glue::glue("'{value}'"))
+}
+
+json_settings <- function(...) {
+  args <- list(...)
+  json_args <- purrr::imap(args, ~ glue::glue("\"{.y}\": {json_val(.x)}"))
+  glue::glue("{{{paste(json_args, collapse = ', ')}}}")
+}
+
+#' @param effectShow,effectHide Animation effects used for showing and hiding element.
+#'     Check \link{.cssEffects} object for possible options.
+#' @param delay Delay of animation start (in milliseconds).
+#' @param duration Duration of animation (in milliseconds).
+#' @param ignoreInit Should the animation be skipped when application is in initial state?
+#' @rdname js_calls
+animateVisibility <- function(effectShow = "fadeIn", effectHide = "fadeOut", delay = 0, duration = 500,
+                              ignoreInit = TRUE, when = TRUE) {
+  effectShow <- match.arg(effectShow, .cssEffects)
+  effectHide <- match.arg(effectHide, .cssEffects)
+  settings_show <- json_settings(
+    delay = delay,
+    duration = duration
+  )
+  settings_hide <- json_settings(
+    delay = delay,
+    duration = duration,
+    callback = I("function() {$(this).addClass('sg_hidden');}")
+  )
+  ignore_init <- if (ignoreInit) "true" else "false"
+  rules <- when_switch(
+    list(
+      true = htmlwidgets::JS(glue::glue(
+        "var $element = $(this);",
+        "if ({ignore_init} && !$element.data('data-call-initialized')) {{",
+          "$element.removeClass('sg_hidden');",
+        "}} else {{",
+          "setTimeout(function() {{$element.removeClass('sg_hidden');}}, {delay});",
+          "$element.animateCSS('{effectShow}', {settings_show});",
+        "}};"
+      )),
+      false = htmlwidgets::JS(glue::glue(
+        "var $element = $(this);",
+        "if ({ignore_init} && !$element.data('data-call-initialized')) {{$element.addClass('sg_hidden');}};",
+        "$(this).animateCSS('{effectHide}', {settings_hide});"
+      ))
+    ),
+    when = when
+  )
+  class(rules$true) <- c(class(rules$true), "animate_call")
+  class(rules$false) <- c(class(rules$false), "animate_call")
+  return(rules)
+}
+
+#' Helpful methods for custom callback setup
+#'
+#' Can be used as a `true` or `false` argument for custom method of \link{js_calls}.
+#'
+#' @name custom-callbacks
+#' @param effect Animation effect used name to be applied.
+#'     Check \link{.cssEffects} object for possible options.
+#' @param delay Delay of animation start (in milliseconds).
+#' @param duration Duration of animation (in milliseconds).
+#' @param ignoreInit Should the animation be skipped when application is in initial state?
+#'
+#' @examples
+#' conditionalJS(
+#'   shiny::tags$button("Hello"),
+#'   "input.value > 0",
+#'   jsCalls$custom(true = runAnimation("tada"))
+#' )
+#'
+#' @export
+runAnimation <- function(effect = "bounce", delay = 0, duration = 500,
+                         ignoreInit = TRUE) {
+  effect <- match.arg(effect, .cssEffects)
+  settings <- json_settings(
+    delay = delay,
+    duration = duration
+  )
+  ignore_init <- if (ignoreInit) "true" else "false"
+  rule <- htmlwidgets::JS(glue::glue(
+    "var $element = $(this);",
+    "if (!{ignore_init} || $element.data('data-call-initialized')) {{",
+      "$element.animateCSS('{effect}', {settings});",
+    "}}"
+  ))
+  class(rule) <- c(class(rule), "animate_call")
+  return(rule)
+}
+
 #' @rdname js_calls
 custom <- function(true = NULL, false = NULL) {
   list(
@@ -103,6 +227,7 @@ jsCalls <- list(
   disable = disable,
   show = show,
   css = css,
+  animateVisibility = animateVisibility,
   custom = custom
 )
 
@@ -119,7 +244,8 @@ jsCalls <- list(
 #'   library(shiny)
 #'
 #'   ui <- fluidPage(
-#'     sliderInput("value", "Value", min = 1, max = 9, value = 1),
+#'     tags$style(".boldme {font-weight: bold;}"),
+#'     sliderInput("value", "Value", min = 1, max = 10, value = 1),
 #'     textOutput("slid_val"),
 #'     conditionalJS(
 #'       tags$button("Show me when slider value at least 3"),
@@ -172,6 +298,13 @@ jsCalls <- list(
 #'       tags$button("I'm disabled permanently when value at least 8"),
 #'       "input.value >= 8",
 #'       jsCalls$disable()["true"] # remove false condition
+#'     ),
+#'     hr(),
+#'     conditionalJS(
+#'       tags$button("I bounce when value at least 9"),
+#'       "input.value >= 9",
+#'       jsCalls$custom(true = runAnimation()),
+#'       once = FALSE
 #'     )
 #'   )
 #'
@@ -211,23 +344,35 @@ jsCalls <- list(
 #'    In order to skip true/false callback assign it to NULL (or skip).
 #'    Use `this` object in the expressions to refer to the `ui` object.
 #'    See \link{jsCalls} for possible actions.
+#' @param once Should the JS action be called only when condition state changes?
 #' @param ns The \link[shiny]{NS} object of the current module, if any.
 #'
 #' @export
-conditionalJS <- function(ui, condition, jsCall, ns = shiny::NS(NULL)) {
+conditionalJS <- function(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NULL)) {
   if (!inherits(ui, "shiny.tag")) {
     stop(glue::glue("{sQuote('ui')} argument should be a shiny.tag object."))
   }
   shiny::tagList(
-    shiny::tags$head(
-      shiny::tags$script(type = "text/javascript", src = "shinyGizmo/conditionaljs.js"),
-      shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/conditionaljs.css")
+    shiny::singleton(
+      shiny::tags$head(
+        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/conditionaljs.js"),
+        shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/conditionaljs.css")
+      )
     ),
+    if (inherits(jsCall$true, "animate_call") || inherits(jsCall$false, "animate_call")) {
+      shiny::singleton(
+        shiny::tags$head(
+          shiny::tags$script(type = "text/javascript", src = "shinyGizmo/libs/jquery.animatecss.min.js"),
+          shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/libs/animate.compat.min.css")
+        )
+      )
+    }    ,
     htmltools::tagAppendAttributes(
       ui,
       `data-call-if` = condition,
       `data-call-if-true` = jsCall[["true"]],
       `data-call-if-false` = jsCall[["false"]],
+      `data-call-once` = if (once) "true" else NULL,
       `data-ns-prefix` = ns("")
     )
   )

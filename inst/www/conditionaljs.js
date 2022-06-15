@@ -45,17 +45,24 @@ $(document).on('shiny:conditional', function(event) {
     var nsPrefix = el.attr("data-ns-prefix");
     var nsScope = Shiny.shinyapp._narrowScope(scope, nsPrefix);
     var trigger = condFunc(nsScope);
-    var js_call;
-    // todo assure to be not accumulate (keep state?)
-    if (trigger) {
-      js_call = el.attr("data-call-if-true");
-    } else {
-      js_call = el.attr("data-call-if-false");
+    var prev_state = el.data("data-call-state");
+    var switch_only_run = Boolean(el.attr("data-call-once"));
+    var should_run = !switch_only_run || (switch_only_run && (trigger != prev_state))
+    var js_call = '';
+    if (should_run) {
+      if (trigger) {
+        js_call = el.attr("data-call-if-true");
+      } else {
+        js_call = el.attr("data-call-if-false");
+      }
     }
+    el.data("data-call-state", trigger);
+
     (function() {
       if (Boolean(js_call)) {
         eval(js_call);
       }
+      $(this).data("data-call-initialized", true);
     }).call(el[0]);
   }
 })

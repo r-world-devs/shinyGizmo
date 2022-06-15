@@ -5,7 +5,7 @@
 \alias{jsCalls}
 \title{List of JavaScript calls for `conditionalJS`}
 \format{
-An object of class \code{list} of length 5.
+An object of class \code{list} of length 6.
 }
 \usage{
 jsCalls
