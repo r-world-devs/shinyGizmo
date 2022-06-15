@@ -4,7 +4,7 @@
 \alias{conditionalJS}
 \title{Run JS when condition is met}
 \usage{
-conditionalJS(ui, condition, jsCall, ns = shiny::NS(NULL))
+conditionalJS(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NULL))
 }
 \arguments{
 \item{ui}{A `shiny.tag` element to which the JS callback should be attached.}
@@ -18,6 +18,8 @@ The 'true' object is evaluated when `condition` is true, 'false' otherwise.
 In order to skip true/false callback assign it to NULL (or skip).
 Use `this` object in the expressions to refer to the `ui` object.
 See \link{jsCalls} for possible actions.}
+
+\item{once}{Should the JS action be called only when condition state changes?}
 
 \item{ns}{The \link[shiny]{NS} object of the current module, if any.}
 }
@@ -34,6 +36,7 @@ if (interactive()) {
   library(shiny)
 
   ui <- fluidPage(
+    tags$style(".boldme {font-weight: bold;}"),
     sliderInput("value", "Value", min = 1, max = 9, value = 1),
     textOutput("slid_val"),
     conditionalJS(
