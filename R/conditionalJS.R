@@ -81,7 +81,7 @@ css <- function(..., important = FALSE, when = TRUE) {
 
 #' Supported animation effects
 #'
-#' Can be used as `effectShow` and `effectHide` arguments of \link{animatedVisibility}.
+#' Can be used as `effectShow` and `effectHide` arguments of \link{animateVisibility}.
 #' @export
 .cssEffects <- c(
   "backInDown", "backInLeft", "backInRight", "backInUp", "backOutDown",
