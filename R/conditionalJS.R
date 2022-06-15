@@ -119,6 +119,7 @@ jsCalls <- list(
 #'   library(shiny)
 #'
 #'   ui <- fluidPage(
+#'     tags$style(".boldme {font-weight: bold;}"),
 #'     sliderInput("value", "Value", min = 1, max = 9, value = 1),
 #'     textOutput("slid_val"),
 #'     conditionalJS(
@@ -211,23 +212,27 @@ jsCalls <- list(
 #'    In order to skip true/false callback assign it to NULL (or skip).
 #'    Use `this` object in the expressions to refer to the `ui` object.
 #'    See \link{jsCalls} for possible actions.
+#' @param once Should the JS action be called only when condition state changes?
 #' @param ns The \link[shiny]{NS} object of the current module, if any.
 #'
 #' @export
-conditionalJS <- function(ui, condition, jsCall, ns = shiny::NS(NULL)) {
+conditionalJS <- function(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NULL)) {
   if (!inherits(ui, "shiny.tag")) {
     stop(glue::glue("{sQuote('ui')} argument should be a shiny.tag object."))
   }
   shiny::tagList(
-    shiny::tags$head(
-      shiny::tags$script(type = "text/javascript", src = "shinyGizmo/conditionaljs.js"),
-      shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/conditionaljs.css")
+    shiny::singleton(
+      shiny::tags$head(
+        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/conditionaljs.js"),
+        shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/conditionaljs.css")
+      )
     ),
     htmltools::tagAppendAttributes(
       ui,
       `data-call-if` = condition,
       `data-call-if-true` = jsCall[["true"]],
       `data-call-if-false` = jsCall[["false"]],
+      `data-call-once` = if (once) "true" else NULL,
       `data-ns-prefix` = ns("")
     )
   )
