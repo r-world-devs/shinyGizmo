@@ -18,12 +18,14 @@ when_switch <- function(x, when) {
 #'   \item{show}{ Show/hide an element with a help of `visibility:hidden` rule.
 #'     Comparing to conditionalPanel (which uses display:none) results with rendering an output even if hidden.}
 #'   \item{css}{ Add css (inline) rule to the UI object. When condition is false, the rule is removed.}
+#'   \item{animateVisibility}{ Show/hide an element in an animated way.}
 #'   \item{custom}{ Define custom true and false callback.}
 #' }
 #'
 #' @param class A css to be attached to (or detached from) the UI element.
 #' @param important Should `!important` rule be attached to the added css?
 #' @param true,false JS callback that should be executed when condition is true or false.
+#'     Can be custom JS (wrapped into \link[htmlwidgets]{JS}) or one of the \link{custom-callbacks}.
 #' @param when Should the (primary) action be executed when `condition` is
 #'     TRUE (when = TRUE, default) or FALSE (when = FALSE).
 #' @param ... Named style properties, where the name is the property name and the
@@ -119,9 +121,9 @@ json_settings <- function(...) {
 }
 
 #' @param effectShow,effectHide Animation effects used for showing and hiding element.
-#'     See \link{.cssEffects} for possible options.
-#' @param delay Delay of animation start (in miliseconds).
-#' @param duration Duration of animation (in miliseconds).
+#'     Check \link{.cssEffects} object for possible options.
+#' @param delay Delay of animation start (in milliseconds).
+#' @param duration Duration of animation (in milliseconds).
 #' @param ignoreInit Should the animation be skipped when application is in initial state?
 #' @rdname js_calls
 animateVisibility <- function(effectShow = "fadeIn", effectHide = "fadeOut", delay = 0, duration = 500,
@@ -160,6 +162,43 @@ animateVisibility <- function(effectShow = "fadeIn", effectHide = "fadeOut", del
   class(rules$true) <- c(class(rules$true), "animate_call")
   class(rules$false) <- c(class(rules$false), "animate_call")
   return(rules)
+}
+
+#' Helpful methods for custom callback setup
+#'
+#' Can be used as a `true` or `false` argument for custom method of \link{js_calls}.
+#'
+#' @name custom-callbacks
+#' @param effect Animation effect used name to be applied.
+#'     Check \link{.cssEffects} object for possible options.
+#' @param delay Delay of animation start (in milliseconds).
+#' @param duration Duration of animation (in milliseconds).
+#' @param ignoreInit Should the animation be skipped when application is in initial state?
+#'
+#' @examples
+#' conditionalJS(
+#'   shiny::tags$button("Hello"),
+#'   "input.value > 0",
+#'   jsCalls$custom(true = runAnimation("tada"))
+#' )
+#'
+#' @export
+runAnimation <- function(effect = "bounce", delay = 0, duration = 500,
+                         ignoreInit = TRUE) {
+  effect <- match.arg(effect, .cssEffects)
+  settings <- json_settings(
+    delay = delay,
+    duration = duration
+  )
+  ignore_init <- if (ignoreInit) "true" else "false"
+  rule <- htmlwidgets::JS(glue::glue(
+    "var $element = $(this);",
+    "if (!{ignore_init} || $element.data('data-call-initialized')) {{",
+      "$element.animateCSS('{effect}', {settings});",
+    "}}"
+  ))
+  class(rule) <- c(class(rule), "animate_call")
+  return(rule)
 }
 
 #' @rdname js_calls
@@ -206,7 +245,7 @@ jsCalls <- list(
 #'
 #'   ui <- fluidPage(
 #'     tags$style(".boldme {font-weight: bold;}"),
-#'     sliderInput("value", "Value", min = 1, max = 9, value = 1),
+#'     sliderInput("value", "Value", min = 1, max = 10, value = 1),
 #'     textOutput("slid_val"),
 #'     conditionalJS(
 #'       tags$button("Show me when slider value at least 3"),
@@ -259,6 +298,13 @@ jsCalls <- list(
 #'       tags$button("I'm disabled permanently when value at least 8"),
 #'       "input.value >= 8",
 #'       jsCalls$disable()["true"] # remove false condition
+#'     ),
+#'     hr(),
+#'     conditionalJS(
+#'       tags$button("I bounce when value at least 9"),
+#'       "input.value >= 9",
+#'       jsCalls$custom(true = runAnimation()),
+#'       once = FALSE
 #'     )
 #'   )
 #'

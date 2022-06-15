@@ -4,7 +4,7 @@ options("shiny.minified" = FALSE)
 
 ui <- fluidPage(
   tags$style(".boldme {font-weight: bold;}"),
-  sliderInput("value", "Value", min = 1, max = 9, value = 1),
+  sliderInput("value", "Value", min = 1, max = 10, value = 1),
   textOutput("slid_val"),
   conditionalJS(
     tags$button("I'm visible when value at least 3"),
@@ -63,6 +63,13 @@ ui <- fluidPage(
     tags$button("I'm disabled permanently when value at least 8"),
     "input.value >= 8",
     jsCalls$disable()["true"] # remove false condition
+  ),
+  hr(),
+  conditionalJS(
+    tags$button("I bounce when value at least 9"),
+    "input.value >= 9",
+    jsCalls$custom(true = runAnimation()),
+    once = FALSE
   )
 )
 
