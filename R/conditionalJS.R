@@ -77,7 +77,11 @@ css <- function(..., important = FALSE, when = TRUE) {
   )
 }
 
-css_effects <- c(
+#' Supported animation effects
+#'
+#' Can be used as `effectShow` and `effectHide` arguments of \link{animatedVisibility}.
+#' @export
+.cssEffects <- c(
   "backInDown", "backInLeft", "backInRight", "backInUp", "backOutDown",
   "backOutLeft", "backOutRight", "backOutUp", "bounce", "bounceIn",
   "bounceInDown", "bounceInLeft", "bounceInRight", "bounceInUp",
@@ -108,32 +112,46 @@ json_val <- function(value) {
   return(glue::glue("'{value}'"))
 }
 
-jsonSettings <- function(...) {
+json_settings <- function(...) {
   args <- list(...)
   json_args <- purrr::imap(args, ~ glue::glue("\"{.y}\": {json_val(.x)}"))
   glue::glue("{{{paste(json_args, collapse = ', ')}}}")
 }
 
-animateVisibility <- function(effectShow = "fadeIn", effectHide = "fadeOut", delay = 0, duration = 500, ignoreInit = TRUE, when = TRUE) {
-  effect_show <- match.arg(effect_show, css_effects)
-  effect_hide <- match.arg(effect_hide, css_effects)
-  settings_show <- jsonSettings(
+#' @param effectShow,effectHide Animation effects used for showing and hiding element.
+#'     See \link{.cssEffects} for possible options.
+#' @param delay Delay of animation start (in miliseconds).
+#' @param duration Duration of animation (in miliseconds).
+#' @param ignoreInit Should the animation be skipped when application is in initial state?
+#' @rdname js_calls
+animateVisibility <- function(effectShow = "fadeIn", effectHide = "fadeOut", delay = 0, duration = 500,
+                              ignoreInit = TRUE, when = TRUE) {
+  effectShow <- match.arg(effectShow, .cssEffects)
+  effectHide <- match.arg(effectHide, .cssEffects)
+  settings_show <- json_settings(
     delay = delay,
     duration = duration
   )
-  settings_hide <- jsonSettings(
+  settings_hide <- json_settings(
     delay = delay,
     duration = duration,
     callback = I("function() {$(this).addClass('sg_hidden');}")
   )
+  ignore_init <- if (ignoreInit) "true" else "false"
   rules <- when_switch(
     list(
       true = htmlwidgets::JS(glue::glue(
         "var $element = $(this);",
-        "setTimeout(function() {{$element.removeClass('sg_hidden');}}, {delay});",
-        "$element.animateCSS('{effectShow}', {settings_show});"
+        "if ({ignore_init} && !$element.data('data-call-initialized')) {{",
+          "$element.removeClass('sg_hidden');",
+        "}} else {{",
+          "setTimeout(function() {{$element.removeClass('sg_hidden');}}, {delay});",
+          "$element.animateCSS('{effectShow}', {settings_show});",
+        "}};"
       )),
       false = htmlwidgets::JS(glue::glue(
+        "var $element = $(this);",
+        "if ({ignore_init} && !$element.data('data-call-initialized')) {{$element.addClass('sg_hidden');}};",
         "$(this).animateCSS('{effectHide}', {settings_hide});"
       ))
     ),

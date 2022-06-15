@@ -13,6 +13,12 @@ ui <- fluidPage(
   ),
   hr(),
   conditionalJS(
+    tags$button("Show me with animation when slider value at least 3"),
+    "input.value >= 3",
+    jsCalls$animateVisibility(ignoreInit = TRUE, duration = 500)
+  ),
+  hr(),
+  conditionalJS(
     tags$button("I'm visible when value less than 3"),
     "input.value >= 3",
     jsCalls$show(when = FALSE)

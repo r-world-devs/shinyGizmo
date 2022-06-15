@@ -6,3 +6,7 @@
   max-height: 0 !important;
   max-width: 0 !important;
 }
+
+.sg_hidden * {
+  visibility: inherit;
+}

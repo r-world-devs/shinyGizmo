@@ -62,6 +62,7 @@ $(document).on('shiny:conditional', function(event) {
       if (Boolean(js_call)) {
         eval(js_call);
       }
+      $(this).data("data-call-initialized", true);
     }).call(el[0]);
   }
 })

@@ -6,6 +6,7 @@
 \alias{disable}
 \alias{show}
 \alias{css}
+\alias{animateVisibility}
 \alias{custom}
 \title{JavaScript calls for conditionalJS}
 \usage{
@@ -16,6 +17,15 @@ disable(when = TRUE)
 show(when = TRUE)
 
 css(..., important = FALSE, when = TRUE)
+
+animateVisibility(
+  effectShow = "fadeIn",
+  effectHide = "fadeOut",
+  delay = 0,
+  duration = 500,
+  ignoreInit = TRUE,
+  when = TRUE
+)
 
 custom(true = NULL, false = NULL)
 }
@@ -29,6 +39,15 @@ TRUE (when = TRUE, default) or FALSE (when = FALSE).}
 argument is the property value. See \link[htmltools]{css} for more details.}
 
 \item{important}{Should `!important` rule be attached to the added css?}
+
+\item{effectShow, effectHide}{Animation effects used for showing and hiding element.
+See \link{.cssEffects} for possible options.}
+
+\item{delay}{Delay of animation start (in miliseconds).}
+
+\item{duration}{Duration of animation (in miliseconds).}
+
+\item{ignoreInit}{Should the animation be skipped when application is in initial state?}
 
 \item{true, false}{JS callback that should be executed when condition is true or false.}
 }
