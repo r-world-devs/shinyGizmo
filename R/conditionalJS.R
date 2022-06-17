@@ -81,7 +81,8 @@ css <- function(..., important = FALSE, when = TRUE) {
 
 #' Supported animation effects
 #'
-#' Can be used as `effectShow` and `effectHide` arguments of \link{animateVisibility}.
+#' Can be used as `effectShow` and `effectHide` arguments of \link{animateVisibility},
+#' or `effect` of \link{runAnimation}.
 #' @export
 .cssEffects <- c(
   "backInDown", "backInLeft", "backInRight", "backInUp", "backOutDown",
@@ -220,6 +221,45 @@ custom <- function(true = NULL, false = NULL) {
 #'   "input.value > 0",
 #'   jsCalls$show()
 #' )
+#' if (interactive()) {
+#'   library(shiny)
+#'
+#'   ui <- fluidPage(
+#'     tags$head(
+#'       tags$script(
+#'         "var update_attr = function(message) {$('#' + message.id).attr(message.attribute, message.value)};",
+#'         "Shiny.addCustomMessageHandler('update_attr', update_attr);"
+#'       ),
+#'     ),
+#'     sidebarLayout(
+#'       sidebarPanel(
+#'         selectInput("effect", "Animation type", choices = .cssEffects)
+#'       ),
+#'       mainPanel(
+#'         conditionalJS(
+#'           ui = plotOutput("cars"),
+#'           condition = "input.effect != ''",
+#'           jsCall = jsCalls$custom(true = runAnimation(effect = "bounce")),
+#'           once = FALSE
+#'         )
+#'       )
+#'     )
+#'   )
+#'
+#'   server <- function(input, output, session) {
+#'     output$cars <- renderPlot({
+#'       plot(mtcars$mpg, mtcars$qsec)
+#'     })
+#'     observeEvent(input$effect, {
+#'       session$sendCustomMessage(
+#'         "update_attr",
+#'         list(id = "cars", attribute = "data-call-if-true", value = runAnimation(input$effect))
+#'       )
+#'     })
+#'   }
+#'
+#'   shinyApp(ui, server)
+#' }
 #'
 #' @export
 jsCalls <- list(

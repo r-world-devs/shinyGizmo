@@ -11,6 +11,7 @@ An object of class \code{character} of length 97.
 .cssEffects
 }
 \description{
-Can be used as `effectShow` and `effectHide` arguments of \link{animateVisibility}.
+Can be used as `effectShow` and `effectHide` arguments of \link{animateVisibility},
+or `effect` of \link{runAnimation}.
 }
 \keyword{datasets}
