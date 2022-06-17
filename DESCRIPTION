@@ -1,26 +1,29 @@
-Package: shinyGizmo
 Type: Package
+Package: shinyGizmo
 Title: Custom Components for Shiny Applications
-Version: 0.2.1
-Authors@R: 
-    c(person(
-      'Krystian', 'Igras', 
-      email = 'krystian8207@gmail.com', 
-      role = c('cre', 'aut')
-    ))
+Version: 0.2.2
+Authors@R: c(
+    person("Krystian", "Igras", , "krystian8207@gmail.com", role = c("cre", "aut")),
+    person("Stéphane", "Laurent", role = "ctb"),
+    person("Craig", "Dennis", role = "cph",
+           comment = "jQuery animateCSS"),
+    person("Daniel", "Eden", role = "cph",
+           comment = "Animate.css")
+  )
 Maintainer: Krystian Igras <krystian8207@gmail.com>
-Description: Provides useful UI components and input widgets for 'Shiny' applications.
-    The offered components allow to apply non-standard operations and view to your 
-    'Shiny' application, but also help to overcome common performance issues.
+Description: Provides useful UI components and input widgets for 'Shiny'
+    applications.  The offered components allow to apply non-standard
+    operations and view to your 'Shiny' application, but also help to
+    overcome common performance issues.
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
 Imports:
-    magrittr,
-    purrr,
     glue,
     htmltools,
     htmlwidgets,
+    magrittr,
+    purrr,
     shiny,
     shinyWidgets
-RoxygenNote: 7.1.2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.0
