@@ -271,6 +271,15 @@ jsCalls <- list(
   custom = custom
 )
 
+#' @export
+mergeCalls <- function(...) {
+  args <- rlang::dots_list(...)
+  list(
+    true = purrr::map_chr(args, "true") %>% paste(collapse = "") %>% htmlwidgets::JS(),
+    false = purrr::map_chr(args, "false") %>% paste(collapse = "") %>% htmlwidgets::JS()
+  )
+}
+
 #' Run JS when condition is met
 #'
 #' `conditionalJS` is an extended version of \link[shiny]{conditionalPanel}.

@@ -1,5 +1,10 @@
+gen_id <- function() {
+  paste0(sample(letters, 5), collapse = "")
+}
+
 #' @export
 commonInput <- function(inputId, controller, block = TRUE) {
+
   shiny::tagList(
     shiny::singleton(
       shiny::tags$head(
@@ -30,7 +35,7 @@ commonInput <- function(inputId, controller, block = TRUE) {
 
 #' @export
 commonInputs <- function(inputId, ..., block = TRUE) {
-  controllers <- list(...) %>%
+  controllers <- rlang::dots_list(...) %>%
     purrr::map(~commonInput(inputId, .x, block))
   shiny::tagList(!!!controllers)
 }
