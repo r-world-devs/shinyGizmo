@@ -3,16 +3,21 @@
 \docType{data}
 \name{jsCalls}
 \alias{jsCalls}
+\alias{mergeCalls}
 \title{List of JavaScript calls for `conditionalJS`}
 \format{
 An object of class \code{list} of length 6.
 }
 \usage{
 jsCalls
+
+mergeCalls(...)
 }
 \description{
 Each `jsCalls` function can be used as a `jsCall` argument of \link{conditionalJS}.
 See \link{js_calls} for possible options.
+
+You can apply multiple calls with using `mergeCalls`.
 }
 \examples{
 conditionalJS(

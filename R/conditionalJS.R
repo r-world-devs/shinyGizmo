@@ -212,8 +212,11 @@ custom <- function(true = NULL, false = NULL) {
 
 #' List of JavaScript calls for `conditionalJS`
 #'
+#' @description
 #' Each `jsCalls` function can be used as a `jsCall` argument of \link{conditionalJS}.
 #' See \link{js_calls} for possible options.
+#'
+#' You can apply multiple calls with using `mergeCalls`.
 #'
 #' @examples
 #' conditionalJS(
@@ -271,6 +274,7 @@ jsCalls <- list(
   custom = custom
 )
 
+#' @rdname jsCalls
 #' @export
 mergeCalls <- function(...) {
   args <- rlang::dots_list(...)

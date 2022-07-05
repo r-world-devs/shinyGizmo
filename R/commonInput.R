@@ -2,6 +2,44 @@ gen_id <- function() {
   paste0(sample(letters, 5), collapse = "")
 }
 
+#' Merge multiple input controllers into one
+#'
+#' @description
+#' Select which input controllers should be treated as one.
+#' Use `commonInput` to group selected controllers or `commonInputs` to group
+#' multiple controllers at once.
+#'
+#'
+#' @param inputId Id to be used to send the grouped controllers input values to application server.
+#' @param controller Shiny input controller e.g. `shiny::sliderInput` or `shinyWidgets::pickerInput`.
+#' @param block Should the `controller` value be sent to the server independently?
+#' @param ... Input controllers to be grouped in case of using `commonInputs`.
+#'
+#' @examples
+#' if (interactive()) {
+#'   library(shiny)
+#'
+#'   ui <- fluidPage(
+#'     commonInput("val", selectInput("letter", "Letter", letters)),
+#'     commonInput("val", numericInput("number", "Number", min = 0, max = 10, value = 1)),
+#'     commonInputs(
+#'       "val2",
+#'       selectInput("letter2", "Letter", letters),
+#'       numericInput("number2", "Number", min = 0, max = 10, value = 1)
+#'     )
+#'   )
+#'
+#'   server <- function(input, output, session) {
+#'     observeEvent(input$val, {
+#'       print(input$val)
+#'     })
+#'     observeEvent(input$val2, {
+#'       print(input$val2)
+#'     })
+#'   }
+#'
+#'   shinyApp(ui, server)
+#' }
 #' @export
 commonInput <- function(inputId, controller, block = TRUE) {
 
@@ -33,6 +71,7 @@ commonInput <- function(inputId, controller, block = TRUE) {
   )
 }
 
+#' @rdname commonInput
 #' @export
 commonInputs <- function(inputId, ..., block = TRUE) {
   controllers <- rlang::dots_list(...) %>%
