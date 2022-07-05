@@ -212,8 +212,11 @@ custom <- function(true = NULL, false = NULL) {
 
 #' List of JavaScript calls for `conditionalJS`
 #'
+#' @description
 #' Each `jsCalls` function can be used as a `jsCall` argument of \link{conditionalJS}.
 #' See \link{js_calls} for possible options.
+#'
+#' You can apply multiple calls with using `mergeCalls`.
 #'
 #' @examples
 #' conditionalJS(
@@ -270,6 +273,16 @@ jsCalls <- list(
   animateVisibility = animateVisibility,
   custom = custom
 )
+
+#' @rdname jsCalls
+#' @export
+mergeCalls <- function(...) {
+  args <- rlang::dots_list(...)
+  list(
+    true = purrr::map_chr(args, "true") %>% paste(collapse = "") %>% htmlwidgets::JS(),
+    false = purrr::map_chr(args, "false") %>% paste(collapse = "") %>% htmlwidgets::JS()
+  )
+}
 
 #' Run JS when condition is met
 #'

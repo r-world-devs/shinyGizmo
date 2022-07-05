@@ -13,6 +13,12 @@ NULL
       if (length(.) == 0) NA else unlist(.)
     })
   }, force = TRUE)
+  shiny::registerInputHandler("shinyGizmo.commoninput", function(x, shinysession, name) {
+    if (length(x) == 0) return(NULL)
+    purrr::map(x, ~ {
+      if (length(.) == 0) NA else unlist(.)
+    })
+  }, force = TRUE)
 }
 
 `%:::%` <- function (pkg, name) {
