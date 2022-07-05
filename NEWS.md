@@ -1,3 +1,8 @@
+# shinyGizmo 0.2.3
+
+* Add `commonInput` and `commonInputs` functions that allow to gather input from multiple controllers into one.
+* Add `mergeCalls` function that allows to use more than one `jsCalls` for `conditionalJS`.
+
 # shinyGizmo 0.2.2
 
 * Add `animateVisibility` JS call to show and hide elements with animation.
