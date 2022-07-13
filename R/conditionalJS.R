@@ -230,9 +230,11 @@ custom <- function(true = NULL, false = NULL) {
 #'   ui <- fluidPage(
 #'     tags$head(
 #'       tags$script(
-#'         "var update_attr = function(message) {$('#' + message.id).attr(message.attribute, message.value)};",
+#'         "var update_attr = function(message) {",
+#'         "$('#' + message.id).attr(message.attribute, message.value);",
+#'         "}",
 #'         "Shiny.addCustomMessageHandler('update_attr', update_attr);"
-#'       ),
+#'       )
 #'     ),
 #'     sidebarLayout(
 #'       sidebarPanel(
@@ -411,7 +413,8 @@ jsCallOncePerFlush <- function(session) {
 #' @param condition A JavaScript expression that will be evaluated repeatedly.
 #'    When the evaluated `condition` is true, `jsCall`'s true (`jsCall$true`) callback is run,
 #'    when false -  `jsCall$false` is executed in application browser.
-#' @param jsCall A list of two `htmltools::JS` outputs named 'true' and 'false' storing JS expressions.
+#' @param jsCall A list of two `htmltools::JS` elements named 'true' and 'false'
+#'    storing JS expressions.
 #'    The 'true' object is evaluated when `condition` is true, 'false' otherwise.
 #'    In order to skip true/false callback assign it to NULL (or skip).
 #'    Use `this` object in the expressions to refer to the `ui` object.

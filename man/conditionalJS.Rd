@@ -18,7 +18,8 @@ conditionalJS(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NULL))
 When the evaluated `condition` is true, `jsCall`'s true (`jsCall$true`) callback is run,
 when false -  `jsCall$false` is executed in application browser.}
 
-\item{jsCall}{A list of two `htmltools::JS` outputs named 'true' and 'false' storing JS expressions.
+\item{jsCall}{A list of two `htmltools::JS` elements named 'true' and 'false'
+storing JS expressions.
 The 'true' object is evaluated when `condition` is true, 'false' otherwise.
 In order to skip true/false callback assign it to NULL (or skip).
 Use `this` object in the expressions to refer to the `ui` object.

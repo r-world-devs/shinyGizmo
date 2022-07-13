@@ -19,6 +19,7 @@ Description: Provides useful UI components and input widgets for 'Shiny'
 License: MIT + file LICENSE
 Imports:
     glue,
+    rlang,
     htmltools,
     htmlwidgets,
     magrittr,

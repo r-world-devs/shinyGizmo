@@ -34,9 +34,11 @@ if (interactive()) {
   ui <- fluidPage(
     tags$head(
       tags$script(
-        "var update_attr = function(message) {$('#' + message.id).attr(message.attribute, message.value)};",
+        "var update_attr = function(message) {",
+        "$('#' + message.id).attr(message.attribute, message.value);",
+        "}",
         "Shiny.addCustomMessageHandler('update_attr', update_attr);"
-      ),
+      )
     ),
     sidebarLayout(
       sidebarPanel(
