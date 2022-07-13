@@ -34,7 +34,7 @@ Latest development version from Github:
 Allows to attach conditional JavaScript action to be run on UI element.
 
 Use predefined actions such as `disable`, `attachClass`, `css`, `show`,
-\`runAnimation\`\` or define a custom one.
+`runAnimation` or define a custom one.
 
 ![](./man/figures/condjs.gif) ![](./man/figures/condjsanim.gif)
 
