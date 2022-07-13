@@ -1,15 +1,10 @@
-# shinyGizmo 0.2.3
+# shinyGizmo 0.3
 
+* Add `jsCallOncePerFlush` function. When used prevents running `conditionalJS` callback during a single flush cycle ([3668](https://github.com/rstudio/shiny/issues/3668)).
 * Add `commonInput` and `commonInputs` functions that allow to gather input from multiple controllers into one.
 * Add `mergeCalls` function that allows to use more than one `jsCalls` for `conditionalJS`.
-
-# shinyGizmo 0.2.2
-
 * Add `animateVisibility` JS call to show and hide elements with animation.
 * Add `runAnimation` helper callback to run element animations.
-
-# shinyGizmo 0.2.1
-
 * Add `once` argument to `conditionalJS` that makes jsCall run only when condition value changed.
 
 # shinyGizmo 0.2

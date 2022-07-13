@@ -261,6 +261,7 @@ custom <- function(true = NULL, false = NULL) {
 #'     })
 #'   }
 #'
+#'
 #'   shinyApp(ui, server)
 #' }
 #'
@@ -275,6 +276,7 @@ jsCalls <- list(
 )
 
 #' @rdname jsCalls
+#' @param ... jsCalls to be merged.
 #' @export
 mergeCalls <- function(...) {
   args <- rlang::dots_list(...)
@@ -284,13 +286,29 @@ mergeCalls <- function(...) {
   )
 }
 
+#' @rdname conditionalJS
+#' @param session Shiny session object.
+#' @export
+jsCallOncePerFlush <- function(session) {
+  shiny::onFlushed(function() {
+    session$sendCustomMessage("count_flush", list())
+  }, once = FALSE)
+}
+
 #' Run JS when condition is met
 #'
+#'
+#' @description
 #' `conditionalJS` is an extended version of \link[shiny]{conditionalPanel}.
 #' The function allows to run selected or custom JS action when the provided
 #' condition is true or false.
 #'
 #' To see the possible JS actions check \link{jsCalls}.
+#'
+#' Optionally call `jsCallOncePerFlush` in server to assure the call is run once
+#' per application flush cycle (see. https://github.com/rstudio/shiny/issues/3668).
+#' This prevents i.e. running animation multiple times when
+#' `runAnimation(once = FALSE)` is used.
 #'
 #' @examples
 #' if (interactive()) {
@@ -365,6 +383,7 @@ mergeCalls <- function(...) {
 #'     output$slid_val <- renderText({
 #'       input$value
 #'     })
+#'     jsCallOncePerFlush(session)
 #'   }
 #'
 #'   shinyApp(ui, server)

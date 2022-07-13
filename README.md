@@ -1,7 +1,7 @@
 
 # shinyGizmo
 
-[![version](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.2.3&color=ff69b4)](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)
+[![version](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.3&color=ff69b4)](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-success.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 
 ## Overview
@@ -11,7 +11,7 @@ applications.
 
 <center>
 
-## <span style="color:blue"> shinyGizmo 0.2.3 is now available!</span>
+## <span style="color:blue"> shinyGizmo 0.3 is now available!</span>
 
 </center>
 
@@ -33,14 +33,14 @@ Latest development version from Github:
 
 Allows to attach conditional JavaScript action to be run on UI element.
 
-Use predefined actions such as `disable`, `attachClass`, `css`, `show`
-or define a custom one.
+Use predefined actions such as `disable`, `attachClass`, `css`, `show`,
+\`runAnimation\`\` or define a custom one.
 
-![](./man/figures/condjs.gif)
+![](./man/figures/condjs.gif) ![](./man/figures/condjsanim.gif)
 
-### pickCheckboxInput - make selection in many groups at once
+### commonInput(s) - merge multiple input controllers into one
 
-![](./man/figures/pickcheckbox.gif)
+![](./man/figures/commoninputs.gif)
 
 ### accordion - light and simple version of accordion
 
@@ -60,6 +60,10 @@ or define a custom one.
 
 Improves application performance when large amount text is passed to
 text area. Works great with `valueButton`.
+
+### pickCheckboxInput - make selection in many groups at once
+
+![](./man/figures/pickcheckbox.gif)
 
 ## Lifecycle
 

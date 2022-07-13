@@ -13,6 +13,9 @@ jsCalls
 
 mergeCalls(...)
 }
+\arguments{
+\item{...}{jsCalls to be merged.}
+}
 \description{
 Each `jsCalls` function can be used as a `jsCall` argument of \link{conditionalJS}.
 See \link{js_calls} for possible options.
@@ -61,6 +64,7 @@ if (interactive()) {
       )
     })
   }
+
 
   shinyApp(ui, server)
 }
