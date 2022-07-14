@@ -19,9 +19,41 @@ function scopeExprToFunc(expr) {
   };
 }
 
+// Extracted from shiny.js to keep past version consistency
+function narrowScopeComponent(scopeComponent, nsPrefix) {
+  return Object.keys(scopeComponent).filter(function (k) {
+    return k.indexOf(nsPrefix) === 0;
+  }).map(function (k) {
+    return _defineProperty({}, k.substring(nsPrefix.length), scopeComponent[k]);
+  }).reduce(function (obj, pair) {
+    return $.extend(obj, pair);
+  }, {});
+}
+
+function narrowScope(scope, nsPrefix) {
+  return nsPrefix ? {
+    input: narrowScopeComponent(scope.input, nsPrefix),
+    output: narrowScopeComponent(scope.output, nsPrefix)
+  } : scope;
+}
+
+var js_call_once_per_flush = false;
+var condjs_run_idx = 1;
+var flush_counter = 0;
+
+var count_flush = function(message) {
+  js_call_once_per_flush = true;
+  flush_counter = flush_counter + 1;
+}
+Shiny.addCustomMessageHandler('count_flush', count_flush);
+
 // Based on ShinyApp.$updateConditionals
 $(document).on('shiny:conditional', function(event) {
 
+  if (js_call_once_per_flush && (condjs_run_idx == flush_counter)) {
+    return;
+  }
+  condjs_run_idx = flush_counter;
   var inputs = {};
   for (var name in Shiny.shinyapp.$inputValues) {
     if (Shiny.shinyapp.$inputValues.hasOwnProperty(name)) {
@@ -43,7 +75,7 @@ $(document).on('shiny:conditional', function(event) {
       el.data("data-call-if-func", condFunc);
     }
     var nsPrefix = el.attr("data-ns-prefix");
-    var nsScope = Shiny.shinyapp._narrowScope(scope, nsPrefix);
+    var nsScope = narrowScope(scope, nsPrefix);
     var trigger = condFunc(nsScope);
     var prev_state = el.data("data-call-state");
     var switch_only_run = Boolean(el.attr("data-call-once"));

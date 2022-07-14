@@ -13,6 +13,9 @@ jsCalls
 
 mergeCalls(...)
 }
+\arguments{
+\item{...}{jsCalls to be merged.}
+}
 \description{
 Each `jsCalls` function can be used as a `jsCall` argument of \link{conditionalJS}.
 See \link{js_calls} for possible options.
@@ -31,9 +34,11 @@ if (interactive()) {
   ui <- fluidPage(
     tags$head(
       tags$script(
-        "var update_attr = function(message) {$('#' + message.id).attr(message.attribute, message.value)};",
+        "var update_attr = function(message) {",
+        "$('#' + message.id).attr(message.attribute, message.value);",
+        "}",
         "Shiny.addCustomMessageHandler('update_attr', update_attr);"
-      ),
+      )
     ),
     sidebarLayout(
       sidebarPanel(
@@ -61,6 +66,7 @@ if (interactive()) {
       )
     })
   }
+
 
   shinyApp(ui, server)
 }

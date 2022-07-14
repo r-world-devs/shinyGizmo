@@ -230,9 +230,11 @@ custom <- function(true = NULL, false = NULL) {
 #'   ui <- fluidPage(
 #'     tags$head(
 #'       tags$script(
-#'         "var update_attr = function(message) {$('#' + message.id).attr(message.attribute, message.value)};",
+#'         "var update_attr = function(message) {",
+#'         "$('#' + message.id).attr(message.attribute, message.value);",
+#'         "}",
 #'         "Shiny.addCustomMessageHandler('update_attr', update_attr);"
-#'       ),
+#'       )
 #'     ),
 #'     sidebarLayout(
 #'       sidebarPanel(
@@ -261,6 +263,7 @@ custom <- function(true = NULL, false = NULL) {
 #'     })
 #'   }
 #'
+#'
 #'   shinyApp(ui, server)
 #' }
 #'
@@ -275,6 +278,7 @@ jsCalls <- list(
 )
 
 #' @rdname jsCalls
+#' @param ... jsCalls to be merged.
 #' @export
 mergeCalls <- function(...) {
   args <- rlang::dots_list(...)
@@ -284,13 +288,29 @@ mergeCalls <- function(...) {
   )
 }
 
+#' @rdname conditionalJS
+#' @param session Shiny session object.
+#' @export
+jsCallOncePerFlush <- function(session) {
+  shiny::onFlushed(function() {
+    session$sendCustomMessage("count_flush", list())
+  }, once = FALSE)
+}
+
 #' Run JS when condition is met
 #'
+#'
+#' @description
 #' `conditionalJS` is an extended version of \link[shiny]{conditionalPanel}.
 #' The function allows to run selected or custom JS action when the provided
 #' condition is true or false.
 #'
 #' To see the possible JS actions check \link{jsCalls}.
+#'
+#' Optionally call `jsCallOncePerFlush` in server to assure the call is run once
+#' per application flush cycle (see. https://github.com/rstudio/shiny/issues/3668).
+#' This prevents i.e. running animation multiple times when
+#' `runAnimation(once = FALSE)` is used.
 #'
 #' @examples
 #' if (interactive()) {
@@ -365,6 +385,7 @@ mergeCalls <- function(...) {
 #'     output$slid_val <- renderText({
 #'       input$value
 #'     })
+#'     jsCallOncePerFlush(session)
 #'   }
 #'
 #'   shinyApp(ui, server)
@@ -392,7 +413,8 @@ mergeCalls <- function(...) {
 #' @param condition A JavaScript expression that will be evaluated repeatedly.
 #'    When the evaluated `condition` is true, `jsCall`'s true (`jsCall$true`) callback is run,
 #'    when false -  `jsCall$false` is executed in application browser.
-#' @param jsCall A list of two `htmltools::JS` outputs named 'true' and 'false' storing JS expressions.
+#' @param jsCall A list of two `htmltools::JS` elements named 'true' and 'false'
+#'    storing JS expressions.
 #'    The 'true' object is evaluated when `condition` is true, 'false' otherwise.
 #'    In order to skip true/false callback assign it to NULL (or skip).
 #'    Use `this` object in the expressions to refer to the `ui` object.
