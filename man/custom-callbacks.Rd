@@ -5,15 +5,10 @@
 \alias{runAnimation}
 \title{Helpful methods for custom callback setup}
 \usage{
-runAnimation(effect = "bounce", delay = 0, duration = 500, ignoreInit = TRUE)
+runAnimation(..., ignoreInit = TRUE)
 }
 \arguments{
-\item{effect}{Animation effect used name to be applied.
-Check \link{.cssEffects} object for possible options.}
-
-\item{delay}{Delay of animation start (in milliseconds).}
-
-\item{duration}{Duration of animation (in milliseconds).}
+\item{...}{Animations xxx.}
 
 \item{ignoreInit}{Should the animation be skipped when application is in initial state?}
 }

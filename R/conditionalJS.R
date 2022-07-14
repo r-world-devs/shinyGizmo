@@ -165,15 +165,60 @@ animateVisibility <- function(effectShow = "fadeIn", effectHide = "fadeOut", del
   return(rules)
 }
 
+#' Define an animation
+#'
+#' Creates an `animation` object for usage in \link{runAnimation}.
+#'
+#' @param effect Animation effect used name to be applied.
+#'     Check \link{.cssEffects} object for possible options.
+#' @param delay Delay of animation start (in milliseconds).
+#' @param duration Duration of animation (in milliseconds).
+#'
+#' @return A named list with class `animation`.
+#' @export
+animation <- function(effect, delay = 0, duration = 1000) {
+  out <- list(
+    "effect"   = match.arg(effect, .cssEffects),
+    "delay"    = delay,
+    "duration" = duration
+  )
+  class(out) <- "animation"
+  out
+}
+
+animationRule <- function(anim, callbackBody){
+  settings <- json_settings(
+    delay    = anim$delay,
+    duration = anim$duration,
+    callback = I(glue::glue("function() {{{callbackBody}}}"))
+  )
+  htmlwidgets::JS(glue::glue(
+    "$(this).animateCSS('{anim$effect}', {settings});"
+  ))
+}
+
+chainTwoAnimations <- function(anim, rule){
+  animationRule(anim, callbackBody = rule)
+}
+
+chainAnimations <- function(...){
+  anims <- list(...)
+  nanims <- length(anims)
+  lastanim <- anims[[nanims]]
+  init <- animationRule(lastanim, callbackBody = "")
+  if(nanims == 1L){
+    return(init)
+  }
+  Reduce(chainTwoAnimations, anims[-nanims], init, right = TRUE)
+}
+
 #' Helpful methods for custom callback setup
 #'
 #' Can be used as a `true` or `false` argument for custom method of \link{js_calls}.
 #'
 #' @name custom-callbacks
-#' @param effect Animation effect used name to be applied.
-#'     Check \link{.cssEffects} object for possible options.
-#' @param delay Delay of animation start (in milliseconds).
-#' @param duration Duration of animation (in milliseconds).
+#' @param ... Animation object(s) created with \link{animation}; if multiple
+#'   animation objects are given then the animations will be chained.
 #' @param ignoreInit Should the animation be skipped when application is in initial state?
 #'
 #' @examples
@@ -184,18 +229,14 @@ animateVisibility <- function(effectShow = "fadeIn", effectHide = "fadeOut", del
 #' )
 #'
 #' @export
-runAnimation <- function(effect = "bounce", delay = 0, duration = 500,
-                         ignoreInit = TRUE) {
-  effect <- match.arg(effect, .cssEffects)
-  settings <- json_settings(
-    delay = delay,
-    duration = duration
-  )
+runAnimation <- function(..., ignoreInit = TRUE) {
+  check <- TRUE
   ignore_init <- if (ignoreInit) "true" else "false"
+  chain <- chainAnimations(...)
   rule <- htmlwidgets::JS(glue::glue(
     "var $element = $(this);",
     "if (!{ignore_init} || $element.data('data-call-initialized')) {{",
-      "$element.animateCSS('{effect}', {settings});",
+      "{chain};",
     "}}"
   ))
   class(rule) <- c(class(rule), "animate_call")
