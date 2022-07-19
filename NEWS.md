@@ -1,6 +1,5 @@
 # shinyGizmo 0.3
 
-* Fixed #21 - using `mergeCalls` didn't trigger animation calls.
 * Add `jsCallOncePerFlush` function. When used prevents running `conditionalJS` callback during a single flush cycle ([3668](https://github.com/rstudio/shiny/issues/3668)).
 * Add `commonInput` and `commonInputs` functions that allow to gather input from multiple controllers into one.
 * Add `mergeCalls` function that allows to use more than one `jsCalls` for `conditionalJS`.
