@@ -222,15 +222,36 @@ chainAnimations <- function(...){
 #' @param ignoreInit Should the animation be skipped when application is in initial state?
 #'
 #' @examples
-#' conditionalJS(
-#'   shiny::tags$button("Hello"),
-#'   "input.value > 0",
-#'   jsCalls$custom(true = runAnimation("tada"))
+#' library(shiny)
+#' library(shinyGizmo)
+#' ui <- fluidPage(
+#'     actionButton("value", "Click me", class = "btn-primary"),
+#'     br(), br(),
+#'     conditionalJS(
+#'         tags$h1("Hello", style = "display: none;"),
+#'         "input.value % 2 === 1",
+#'         jsCalls$custom(
+#'             true = runAnimation(animation("jello"), animation("swing")),
+#'             false = runAnimation(animation("slideOutRight"))
+#'         )
+#'     )
 #' )
+#' server <- function(input, output, session) {}
+#' if(interactive()) {
+#'   shinyApp(ui, server)
+#' }
 #'
 #' @export
 runAnimation <- function(..., ignoreInit = TRUE) {
-  check <- TRUE
+  check <- all(vapply(list(...), function(x) {
+    inherits(x, "animation")
+  }, logical(1L)))
+  if(!check) {
+    stop(
+      "Arguments given in `...` must be some objects created with ",
+      "the `animation` function."
+    )
+  }
   ignore_init <- if (ignoreInit) "true" else "false"
   chain <- chainAnimations(...)
   rule <- htmlwidgets::JS(glue::glue(

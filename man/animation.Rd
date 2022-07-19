@@ -2,7 +2,7 @@
 % Please edit documentation in R/conditionalJS.R
 \name{animation}
 \alias{animation}
-\title{Title}
+\title{Define an animation}
 \usage{
 animation(effect, delay = 0, duration = 1000)
 }
@@ -15,8 +15,8 @@ Check \link{.cssEffects} object for possible options.}
 \item{duration}{Duration of animation (in milliseconds).}
 }
 \value{
-xxxx
+A named list with class `animation`.
 }
 \description{
-Title
+Creates an `animation` object for usage in \link{runAnimation}.
 }
