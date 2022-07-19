@@ -210,6 +210,15 @@ custom <- function(true = NULL, false = NULL) {
   )
 }
 
+inherit_class <- function(list_obj, class, modifier = function(x) x) {
+  nested_classes <- purrr::map(list_obj, ~class(.x)) %>% unlist()
+  list_obj <- modifier(list_obj)
+  if (class %in% nested_classes) {
+    class(list_obj) <- c(class(list_obj), class)
+  }
+  return(list_obj)
+}
+
 #' List of JavaScript calls for `conditionalJS`
 #'
 #' @description
@@ -277,14 +286,25 @@ jsCalls <- list(
   custom = custom
 )
 
+null_to_empty <- function(val) {
+  if (is.null(val)) {
+    return("")
+  }
+  return(val)
+}
+
 #' @rdname jsCalls
 #' @param ... jsCalls to be merged.
 #' @export
 mergeCalls <- function(...) {
   args <- rlang::dots_list(...)
-  list(
-    true = purrr::map_chr(args, "true") %>% paste(collapse = "") %>% htmlwidgets::JS(),
-    false = purrr::map_chr(args, "false") %>% paste(collapse = "") %>% htmlwidgets::JS()
+
+  to_single_js <- function(x) {
+    htmlwidgets::JS(paste(unlist(x), collapse = ";"))
+  }
+  merged_calls <- list(
+    true = purrr::map(args, "true") %>% inherit_class("animate_call", to_single_js),
+    false = purrr::map(args, "false") %>% inherit_class("animate_call", to_single_js)
   )
 }
 
