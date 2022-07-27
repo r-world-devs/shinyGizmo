@@ -5,15 +5,11 @@
 \alias{runAnimation}
 \title{Helpful methods for custom callback setup}
 \usage{
-runAnimation(effect = "bounce", delay = 0, duration = 500, ignoreInit = TRUE)
+runAnimation(..., ignoreInit = TRUE)
 }
 \arguments{
-\item{effect}{Animation effect used name to be applied.
-Check \link{.cssEffects} object for possible options.}
-
-\item{delay}{Delay of animation start (in milliseconds).}
-
-\item{duration}{Duration of animation (in milliseconds).}
+\item{...}{Animation object(s) created with \link{animation}; if multiple
+animation objects are given then the animations will be chained.}
 
 \item{ignoreInit}{Should the animation be skipped when application is in initial state?}
 }
@@ -21,10 +17,23 @@ Check \link{.cssEffects} object for possible options.}
 Can be used as a `true` or `false` argument for custom method of \link{js_calls}.
 }
 \examples{
-conditionalJS(
-  shiny::tags$button("Hello"),
-  "input.value > 0",
-  jsCalls$custom(true = runAnimation("tada"))
+library(shiny)
+library(shinyGizmo)
+ui <- fluidPage(
+    actionButton("value", "Click me", class = "btn-primary"),
+    br(), br(),
+    conditionalJS(
+        tags$h1("Hello", style = "display: none;"),
+        "input.value \% 2 === 1",
+        jsCalls$custom(
+            true = runAnimation(animation("jello"), animation("swing")),
+            false = runAnimation(animation("slideOutRight"))
+        )
+    )
 )
+server <- function(input, output, session) {}
+if(interactive()) {
+  shinyApp(ui, server)
+}
 
 }
