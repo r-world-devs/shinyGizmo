@@ -3,10 +3,10 @@
   Ubuntu 18.04.6 LTS, R 4.1.2 (2021-11-01)
 * win-builder
   R version 4.1.3 (2022-03-10)
-  R version 4.2.0 (2022-04-22 ucrt)
-  R Under development (unstable) (2022-06-09 r82474 ucrt)
+  R version 4.2.1 (2022-06-23 ucrt)
+  R Under development (unstable) (2022-07-26 r82626 ucrt)
 
-## `R CMD check shinyGizmo_0.2.tar.gz --as-cran` results
+## `R CMD check shinyGizmo_0.3.tar.gz --as-cran` results
 
 ```
 Status: OK
@@ -34,18 +34,18 @@ Status: OK
 
 ```
 * using log directory 'd:/RCompile/CRANguest/R-release/shinyGizmo.Rcheck'
-* using R version 4.2.0 (2022-04-22 ucrt)
+* using R version 4.2.1 (2022-06-23 ucrt)
 * using platform: x86_64-w64-mingw32 (64-bit)
 ...
+* checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: 'Krystian Igras <krystian8207@gmail.com>'
-* checking package namespace information ... OK
 ...
 Status: OK
 ```
 
 ```
 * using log directory 'd:/RCompile/CRANguest/R-devel/shinyGizmo.Rcheck'
-* using R Under development (unstable) (2022-06-09 r82474 ucrt)
+* using R Under development (unstable) (2022-07-26 r82626 ucrt)
 * using platform: x86_64-w64-mingw32 (64-bit)
 ...
 * checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
