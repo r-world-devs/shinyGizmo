@@ -1,3 +1,7 @@
+# shinyGizmo (development version)
+
+* Fix extracting pickCheckboxInput selection when difrent than NULL or NA.
+
 # shinyGizmo 0.3
 
 * Add `jsCallOncePerFlush` function. When used prevents running `conditionalJS` callback during a single flush cycle ([3668](https://github.com/rstudio/shiny/issues/3668)).
