@@ -20,7 +20,7 @@ NULL
     })
   }, force = TRUE)
   shiny::registerInputHandler("shinyGizmo.valuebutton", function(x, shinysession, name) {
-    if (!is.null(x$type)) {
+    if (is.list(x) && !is.null(x$type)) {
       handler <- `%:::%`("shiny", "inputHandlers")$get(x$type)
       if (!is.null(handler)) {
         return(handler(x$value))

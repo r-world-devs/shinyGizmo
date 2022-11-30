@@ -36,10 +36,10 @@ $.extend(valueButtonBinding, {
     }
     if ($(el).data("try_binding")) {
       if ($(selector).hasClass('shiny-bound-input') && attribute == "value") {
-        var binding = $(selector).data('shiny-input-binding'),
+        var binding = $(selector).data('shiny-input-binding');
         var type = binding.name;
         var value = binding.getValue($(selector));
-        return {value = value, type = type};
+        return {"value": value, "type": type};
       }
     }
 
