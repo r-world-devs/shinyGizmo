@@ -1,3 +1,8 @@
+# shinyGizmo (development version)
+
+* Convert pickCheckboxInput value to logical if possible.
+* Fix extracting pickCheckboxInput selection when different than NULL or NA.
+
 # shinyGizmo 0.3
 
 * Add `try_binding` argument to `valueButton`. When `TRUE` and `selector` points to Shiny Binding and `attribute == "value"`
