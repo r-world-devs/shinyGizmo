@@ -34,8 +34,20 @@ $.extend(valueButtonBinding, {
     if (selector == "document") {
       $target = document;
     }
+    if ($(el).data("try_binding")) {
+      if ($(selector).hasClass('shiny-bound-input') && attribute == "value") {
+        var binding = $(selector).data('shiny-input-binding'),
+        var type = binding.name;
+        var value = binding.getValue($(selector));
+        return {value = value, type = type};
+      }
+    }
+
     var value = byString($target, attribute);
     return value;
+  },
+  getType: function(el) {
+    return "shinyGizmo.valuebutton";
   },
   subscribe: function(el, callback) {
     $(el).on('click.valueButtonBinding', function(event){

@@ -25,12 +25,14 @@
 #'   For nested properties use `.`, e.g. `style.width` or `navigator.appName`.
 #' @param icon Icon included in button.
 #' @param width Width of the button.
+#' @param try_binding When `TRUE` and `selector` points to Shiny Binding and `attribute == "value"`
+#'   it tries to convert sourced input value using registered `inputHandler`.
 #' @param ... Extra attributes passed to `button` or `a` tag.
 #'
 #' @return A `shiny.tag` class object defining html structure of the button.
 #' @name valueButton
 #' @export
-valueButton <- function(inputId, label, selector, attribute = "value", icon = NULL, width = NULL, ...) {
+valueButton <- function(inputId, label, selector, attribute = "value", icon = NULL, width = NULL, try_binding = TRUE, ...) {
 
   shiny::tagList(
     value_button_dependency,
@@ -42,6 +44,7 @@ valueButton <- function(inputId, label, selector, attribute = "value", icon = NU
       `data-val` = NULL,
       `data-value-attribute` = attribute,
       `data-selector` = selector,
+      `data-try_binding` = try_binding,
       list(icon, label),
       ...
     )
@@ -50,7 +53,7 @@ valueButton <- function(inputId, label, selector, attribute = "value", icon = NU
 
 #' @rdname valueButton
 #' @export
-valueLink <- function(inputId, label, selector, attribute = "value", icon = NULL, ...) {
+valueLink <- function(inputId, label, selector, attribute = "value", icon = NULL, try_binding = TRUE, ...) {
 
   shiny::tagList(
     value_button_dependency,
@@ -61,6 +64,7 @@ valueLink <- function(inputId, label, selector, attribute = "value", icon = NULL
       `data-val` = NULL,
       `data-value-attribute` = attribute,
       `data-selector` = selector,
+      `data-try_binding` = try_binding,
       list(icon, label),
       ...
     )
