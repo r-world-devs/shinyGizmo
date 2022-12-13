@@ -34,10 +34,13 @@ $.extend(valueButtonBinding, {
     if (selector == "document") {
       $target = document;
     }
-    if ($(el).data("try_binding")) {
+    if ($(el).data("try_binding") == "TRUE") {
       if ($(selector).hasClass('shiny-bound-input') && attribute == "value") {
         var binding = $(selector).data('shiny-input-binding');
         var type = binding.name;
+        if (Boolean(binding.getType)) {
+          type = binding.getType();
+        }
         var value = binding.getValue($(selector));
         return {"value": value, "type": type};
       }
@@ -60,3 +63,4 @@ $.extend(valueButtonBinding, {
 });
 
 Shiny.inputBindings.register(valueButtonBinding, 'shiny.valueButtonBinding');
+Shiny.inputBindings.setPriority("shiny.valueButtonBinding", -1);
