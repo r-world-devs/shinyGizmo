@@ -1,3 +1,8 @@
+# shinyGizmo (development version)
+
+* Convert pickCheckboxInput value to logical if possible.
+* Fix extracting pickCheckboxInput selection when different than NULL or NA.
+
 # shinyGizmo 0.3
 
 * Add `jsCallOncePerFlush` function. When used prevents running `conditionalJS` callback during a single flush cycle ([3668](https://github.com/rstudio/shiny/issues/3668)).

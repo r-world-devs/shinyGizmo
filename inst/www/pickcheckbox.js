@@ -71,7 +71,7 @@ $.extend(pickCheckboxBinding, {
           $element.data("name", value.name);
           get_binding($element).receiveMessage($element[0], value);
         });
-        return;
+        return; // updating choices takes care of selection as well
       }
       if (update_selected) {
         $.each(data.checkboxes, function(index, value) {

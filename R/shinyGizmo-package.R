@@ -11,7 +11,9 @@ NULL
     if (length(x) == 0) return(NULL)
     purrr::map(x, ~ {
       if (length(.) == 0) NA else unlist(.)
-    })
+    }) %>%
+      purrr::map_if(~all(.x %in% c("TRUE", "FALSE", "NA")), as.logical)
+
   }, force = TRUE)
   shiny::registerInputHandler("shinyGizmo.commoninput", function(x, shinysession, name) {
     if (length(x) == 0) return(NULL)

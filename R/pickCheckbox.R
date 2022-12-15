@@ -73,7 +73,7 @@ match_selected <- function(selected, choices) {
   if (is.null(selected)) {
     return(purrr::modify(choices, function(x) NULL))
   }
-  utils::modifyList(choices, purrr::keep(selected, ~identical(., NA)))
+  utils::modifyList(choices, purrr::keep(selected, ~identical(., NA) | !is.null(.)))
 }
 
 form_checkboxes_input <- function(inputId, choices, choicesNames, choicesLabels, selected = NULL, max_groups = NULL) {
