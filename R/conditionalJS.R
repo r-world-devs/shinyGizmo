@@ -118,7 +118,7 @@ json_val <- function(value) {
 json_settings <- function(...) {
   args <- list(...)
   json_args <- purrr::imap(args, ~ glue::glue("\"{.y}\": {json_val(.x)}"))
-  glue::glue("{{{paste(json_args, collapse = ', ')}}}")
+  glue::glue("{{<paste(json_args, collapse = ', ')>}}", .open = "<", .close = ">")
 }
 
 #' @param effectShow,effectHide Animation effects used for showing and hiding element.
@@ -186,11 +186,11 @@ animation <- function(effect, delay = 0, duration = 1000) {
   out
 }
 
-animationRule <- function(anim, callbackBody){
+animationRule <- function(anim, callbackBody) {
   settings <- json_settings(
     delay    = anim$delay,
     duration = anim$duration,
-    callback = I(glue::glue("function() {{{callbackBody}}}"))
+    callback = I(glue::glue("function() {{<callbackBody>}}", .open = "<", .close = ">"))
   )
   htmlwidgets::JS(glue::glue(
     "$(this).animateCSS('{anim$effect}', {settings});"
