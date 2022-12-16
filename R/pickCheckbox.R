@@ -201,7 +201,8 @@ pickCheckboxLabels <- function(choices) {
 #' Select set of active checkbox groups and their values
 #'
 #' @description
-#' The component is connection of dropdown (\link[shinyWidgets]{pickerInput}) and
+#' The component is connection of dropdown (\link[shinyWidgets]{pickerInput})
+#' (or \link[shinyWidgets]{virtualSelectInput}) and
 #' set of checkbox groups (\link[shiny]{checkboxGroupInput}).
 #'
 #' When specific value is selected in dropdown, the related checkbox group becomes active
@@ -306,14 +307,37 @@ pickCheckboxLabels <- function(choices) {
 #' @param selected The initial value or value to be updated. Subset of `choices`.
 #' @param max_groups Number of maximum number of checkboxes allowed in the component.
 #'     Used to limit amount of new checkbox groups added with `updatePickCheckboxInput`.
-#' @param ... Extra parameters passed to \link[shinyWidgets]{pickerInput}.
+#' @param ... Extra parameters passed to \link[shinyWidgets]{pickerInput} or \link[shinyWidgets]{virtualSelectInput}
+#'     in case of usage \code{pickCheckboxInput} or \code{vsCheckboxInput} respectively.
 #'
 #' @return Nested list of `shiny.tag` objects, defining html structure of the input,
 #' or no value in case of usage of `updatePickCheckboxInput` method.
 #' @export
 pickCheckboxInput <- function(inputId, label, choices, choicesNames = pickCheckboxNames(choices),
+                                      choicesLabels = pickCheckboxLabels(choices), selected = NULL,
+                                      max_groups = length(choices), ...) {
+  pickCheckboxInputTemplate(
+    inputId, label, choices, choicesNames,
+    choicesLabels, selected, max_groups,
+    ..., method = shinyWidgets::pickerInput
+  )
+}
+
+#' @rdname pickCheckboxInput
+#' @export
+vsCheckboxInput <- function(inputId, label, choices, choicesNames = pickCheckboxNames(choices),
                               choicesLabels = pickCheckboxLabels(choices), selected = NULL,
                               max_groups = length(choices), ...) {
+  pickCheckboxInputTemplate(
+    inputId, label, choices, choicesNames,
+    choicesLabels, selected, max_groups,
+    ..., method = shinyWidgets::virtualSelectInput
+  )
+}
+
+pickCheckboxInputTemplate <- function(inputId, label, choices, choicesNames,
+                              choicesLabels, selected = NULL,
+                              max_groups, ..., method) {
 
   selected <- shiny::restoreInput(inputId, default = selected)
 
@@ -326,7 +350,7 @@ pickCheckboxInput <- function(inputId, label, choices, choicesNames = pickCheckb
     ),
     shiny::div(
       id = inputId, class = "pick-checkbox",
-      shinyWidgets::pickerInput(
+      method(
         paste0(inputId, "_picker"), label,
         choices = stats::setNames(names(choices), choicesLabels),
         selected = names(selected),
@@ -345,6 +369,23 @@ pickCheckboxInput <- function(inputId, label, choices, choicesNames = pickCheckb
 #' @rdname pickCheckboxInput
 #' @export
 updatePickCheckboxInput <- function(session, inputId, choices, choicesNames, choicesLabels, selected) {
+  updatePickCheckboxInputTemplate(
+    session, inputId, choices, choicesNames,
+    choicesLabels, selected, method = shinyWidgets::updatePickerInput
+  )
+}
+
+#' @rdname pickCheckboxInput
+#' @export
+updateVsCheckboxInput <- function(session, inputId, choices, choicesNames, choicesLabels, selected) {
+  updatePickCheckboxInputTemplate(
+    session, inputId, choices, choicesNames,
+    choicesLabels, selected, method = shinyWidgets::updateVirtualSelect
+  )
+}
+
+updatePickCheckboxInputTemplate <- function(session, inputId, choices, choicesNames,
+                                            choicesLabels, selected, method) {
   ns <- session$ns
 
   # todo handle cases when no parameters passed
@@ -354,7 +395,7 @@ updatePickCheckboxInput <- function(session, inputId, choices, choicesNames, cho
   }
 
   if (!missing(choices) && missing(choicesNames)) {
-    stop("Updating choices is possible only when updating choicesNames.")
+    choicesNames <- pickCheckboxNames(choices)
   }
 
   session$sendInputMessage(inputId, list(block = TRUE))
@@ -365,9 +406,13 @@ updatePickCheckboxInput <- function(session, inputId, choices, choicesNames, cho
     purrr::map(~ do.call(prep_input, .))
 
   session$sendInputMessage(inputId, list(checkboxes = checkbox_params))
-  shinyWidgets::updatePickerInput(
-    session, paste0(inputId, "_picker"),
-    choices = if (!missing(choicesLabels)) stats::setNames(names(choicesLabels), choicesLabels),
+  method(
+    session = session, inputId = paste0(inputId, "_picker"),
+    choices = if (!missing(choicesLabels)) {
+      stats::setNames(names(choicesLabels), choicesLabels)
+    } else {
+      pickCheckboxLabels(choices)
+    },
     selected = if (!missing(selected)) names(selected)
   )
 

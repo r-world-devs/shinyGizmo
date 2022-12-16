@@ -2,7 +2,9 @@
 % Please edit documentation in R/pickCheckbox.R
 \name{pickCheckboxInput}
 \alias{pickCheckboxInput}
+\alias{vsCheckboxInput}
 \alias{updatePickCheckboxInput}
+\alias{updateVsCheckboxInput}
 \title{Select set of active checkbox groups and their values}
 \usage{
 pickCheckboxInput(
@@ -16,7 +18,27 @@ pickCheckboxInput(
   ...
 )
 
+vsCheckboxInput(
+  inputId,
+  label,
+  choices,
+  choicesNames = pickCheckboxNames(choices),
+  choicesLabels = pickCheckboxLabels(choices),
+  selected = NULL,
+  max_groups = length(choices),
+  ...
+)
+
 updatePickCheckboxInput(
+  session,
+  inputId,
+  choices,
+  choicesNames,
+  choicesLabels,
+  selected
+)
+
+updateVsCheckboxInput(
   session,
   inputId,
   choices,
@@ -47,7 +69,8 @@ See \link{pickCheckboxNamesAndLabels}.}
 \item{max_groups}{Number of maximum number of checkboxes allowed in the component.
 Used to limit amount of new checkbox groups added with `updatePickCheckboxInput`.}
 
-\item{...}{Extra parameters passed to \link[shinyWidgets]{pickerInput}.}
+\item{...}{Extra parameters passed to \link[shinyWidgets]{pickerInput} or \link[shinyWidgets]{virtualSelectInput}
+in case of usage \code{pickCheckboxInput} or \code{vsCheckboxInput} respectively.}
 
 \item{session}{Shiny session object.}
 }
@@ -56,7 +79,8 @@ Nested list of `shiny.tag` objects, defining html structure of the input,
 or no value in case of usage of `updatePickCheckboxInput` method.
 }
 \description{
-The component is connection of dropdown (\link[shinyWidgets]{pickerInput}) and
+The component is connection of dropdown (\link[shinyWidgets]{pickerInput})
+(or \link[shinyWidgets]{virtualSelectInput}) and
 set of checkbox groups (\link[shiny]{checkboxGroupInput}).
 
 When specific value is selected in dropdown, the related checkbox group becomes active
