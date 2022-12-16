@@ -1,7 +1,7 @@
 Type: Package
 Package: shinyGizmo
 Title: Custom Components for Shiny Applications
-Version: 0.4
+Version: 0.3.3
 Authors@R: c(
     person("Krystian", "Igras", , "krystian8207@gmail.com", role = c("cre", "aut")),
     person("Adam", "Foryś", role = "ctb"),
