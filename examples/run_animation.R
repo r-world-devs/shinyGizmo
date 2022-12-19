@@ -16,7 +16,7 @@ ui <- fluidPage(
       conditionalJS(
         ui = plotOutput("cars"),
         condition = "input.effect != ''",
-        jsCall = jsCalls$custom(true = runAnimation(effect = "bounce")),
+        jsCall = jsCalls$custom(true = runAnimation(animation("bounce"))),
         once = FALSE
       )
     )
@@ -30,7 +30,7 @@ server <- function(input, output, session) {
   observeEvent(input$effect, {
     session$sendCustomMessage(
       "update_attr",
-      list(id = "cars", attribute = "data-call-if-true", value = runAnimation(input$effect))
+      list(id = "cars", attribute = "data-call-if-true", value = runAnimation(animation(input$effect)))
     )
   })
 }

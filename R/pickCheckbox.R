@@ -341,13 +341,7 @@ pickCheckboxInputTemplate <- function(inputId, label, choices, choicesNames,
 
   selected <- shiny::restoreInput(inputId, default = selected)
 
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(
-        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/pickcheckbox.js"),
-        shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/pickcheckbox.css")
-      )
-    ),
+  htmltools::attachDependencies(
     shiny::div(
       id = inputId, class = "pick-checkbox",
       method(
@@ -360,6 +354,14 @@ pickCheckboxInputTemplate <- function(inputId, label, choices, choicesNames,
         class = "options-container",
         renderCheckboxes(inputId, choices, choicesNames, choicesLabels, selected, max_groups)
       )
+    ),
+    htmltools::htmlDependency(
+      name = "pickcheckbox",
+      version = packageVersion("shinyGizmo"),
+      package = "shinyGizmo",
+      src = "www",
+      script = "pickcheckbox.js",
+      stylesheet = "pickcheckbox.css"
     )
   )
 }

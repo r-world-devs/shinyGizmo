@@ -68,7 +68,7 @@ ui <- fluidPage(
   conditionalJS(
     tags$button("I bounce when value at least 9"),
     "input.value >= 9",
-    jsCalls$custom(true = runAnimation()),
+    jsCalls$custom(true = runAnimation(animation("bounce"))),
     once = FALSE
   )
 )

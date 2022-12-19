@@ -34,8 +34,7 @@
 #' @export
 valueButton <- function(inputId, label, selector, attribute = "value", icon = NULL, width = NULL, try_binding = TRUE, ...) {
 
-  shiny::tagList(
-    value_button_dependency,
+  htmltools::attachDependencies(
     shiny::tags$button(
       id = inputId,
       style = htmltools::css(width = shiny::validateCssUnit(width)),
@@ -47,7 +46,8 @@ valueButton <- function(inputId, label, selector, attribute = "value", icon = NU
       `data-try_binding` = try_binding,
       list(icon, label),
       ...
-    )
+    ),
+    value_button_dependency
   )
 }
 
@@ -55,8 +55,7 @@ valueButton <- function(inputId, label, selector, attribute = "value", icon = NU
 #' @export
 valueLink <- function(inputId, label, selector, attribute = "value", icon = NULL, try_binding = TRUE, ...) {
 
-  shiny::tagList(
-    value_button_dependency,
+  htmltools::attachDependencies(
     shiny::tags$a(
       id = inputId,
       class = "value-button",
@@ -67,13 +66,17 @@ valueLink <- function(inputId, label, selector, attribute = "value", icon = NULL
       `data-try_binding` = try_binding,
       list(icon, label),
       ...
-    )
+    ),
+    value_button_dependency
   )
 }
 
-value_button_dependency <- shiny::singleton(
-  shiny::tags$head(
-    shiny::tags$script(type = "text/javascript", src = "shinyGizmo/valuebutton.js")
-  )
+value_button_dependency <- htmltools::htmlDependency(
+  name = "valuebutton",
+  version = packageVersion("shinyGizmo"),
+  package = "shinyGizmo",
+  src = "www",
+  script = "valuebutton.js"
 )
+
 # todo implement update method
