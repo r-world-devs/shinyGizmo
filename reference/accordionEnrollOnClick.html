@@ -23,7 +23,7 @@ If you want the item to be disabled (like button) when the item is enrolled plea
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyGizmo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4</span>
       </span>
     </div>
 
@@ -81,9 +81,9 @@ Remember to set `enroll_callback = FALSE` to turn off standard activation behavi
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">accordionEnrollOnClick</span><span class="op">(</span>prev <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="va">activatorClass</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">accordionEnrollOnClick</span><span class="op">(</span>prev <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">activatorClass</span></span></code></pre></div>
     </div>
 
     <div id="format">
@@ -96,45 +96,50 @@ Remember to set `enroll_callback = FALSE` to turn off standard activation behavi
 <dd><p>Should the current (FALSE) or previous (TRUE) item be enrolled?
 `prev = TRUE` can be useful if the last accordion item is removed and we want
 to enroll the preceding item.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>`html` class string that can be used for defining i.e. `onclick`
-  attribute callback.
-Character string - class name used for identifying accordion activator object.</p>
+    
+
+<p>`html` class string that can be used for defining i.e. `onclick`
+  attribute callback.</p>
+
+
+<p>Character string - class name used for identifying accordion activator object.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">activator</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">disabled</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">tags</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span></span>
-<span class="r-in">      <span class="st">"Enroll"</span>, class <span class="op">=</span> <span class="va">activatorClass</span>, onclick <span class="op">=</span> <span class="fu">accordionEnrollOnClick</span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">      disabled <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">disabled</span><span class="op">)</span><span class="op">)</span> <span class="cn">NA</span> <span class="kw">else</span> <span class="cn">NULL</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in">  <span class="op">}</span></span>
-<span class="r-in">  <span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="va">tags</span><span class="op">$</span><span class="fu">head</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
-<span class="r-in">      <span class="st">".acc-header, .acc-content {border: 1px solid; border-radius: 5px;}"</span></span>
-<span class="r-in">    <span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">    <span class="fu"><a href="accordion.html">accordion</a></span><span class="op">(</span></span>
-<span class="r-in">      <span class="st">"acc"</span>,</span>
-<span class="r-in">      <span class="fu"><a href="accordionItem.html">accordionItem</a></span><span class="op">(</span></span>
-<span class="r-in">        <span class="st">"first"</span>, <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html" class="external-link">div</a></span><span class="op">(</span><span class="st">"Hello"</span>, <span class="fu">activator</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"There"</span>,</span>
-<span class="r-in">        enroll_callback <span class="op">=</span> <span class="cn">FALSE</span>, active <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">      <span class="op">)</span>,</span>
-<span class="r-in">      <span class="fu"><a href="accordionItem.html">accordionItem</a></span><span class="op">(</span></span>
-<span class="r-in">        <span class="st">"second"</span>, <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html" class="external-link">div</a></span><span class="op">(</span><span class="st">"General"</span>, <span class="fu">activator</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"Kenobi"</span>,</span>
-<span class="r-in">        enroll_callback <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span class="r-in">      <span class="op">)</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in">  <span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">activator</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">disabled</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">tags</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="st">"Enroll"</span>, class <span class="op">=</span> <span class="va">activatorClass</span>, onclick <span class="op">=</span> <span class="fu">accordionEnrollOnClick</span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      disabled <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">disabled</span><span class="op">)</span><span class="op">)</span> <span class="cn">NA</span> <span class="kw">else</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span>  <span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">tags</span><span class="op">$</span><span class="fu">head</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="st">".acc-header, .acc-content {border: 1px solid; border-radius: 5px;}"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="accordion.html">accordion</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="st">"acc"</span>,</span></span>
+<span class="r-in"><span>      <span class="fu"><a href="accordionItem.html">accordionItem</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"first"</span>, <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span><span class="st">"Hello"</span>, <span class="fu">activator</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"There"</span>,</span></span>
+<span class="r-in"><span>        enroll_callback <span class="op">=</span> <span class="cn">FALSE</span>, active <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>      <span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="fu"><a href="accordionItem.html">accordionItem</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"second"</span>, <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span><span class="st">"General"</span>, <span class="fu">activator</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"Kenobi"</span>,</span></span>
+<span class="r-in"><span>        enroll_callback <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>      <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -149,7 +154,7 @@ Character string - class name used for identifying accordion activator object.</
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

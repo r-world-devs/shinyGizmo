@@ -25,7 +25,28 @@
     <loc>https://r-world-devs.github.io/shinyGizmo/reference/accordionItem.html</loc>
   </url>
   <url>
+    <loc>https://r-world-devs.github.io/shinyGizmo/reference/animation.html</loc>
+  </url>
+  <url>
+    <loc>https://r-world-devs.github.io/shinyGizmo/reference/commonInput.html</loc>
+  </url>
+  <url>
+    <loc>https://r-world-devs.github.io/shinyGizmo/reference/conditionalJS.html</loc>
+  </url>
+  <url>
+    <loc>https://r-world-devs.github.io/shinyGizmo/reference/custom-callbacks.html</loc>
+  </url>
+  <url>
+    <loc>https://r-world-devs.github.io/shinyGizmo/reference/dot-cssEffects.html</loc>
+  </url>
+  <url>
     <loc>https://r-world-devs.github.io/shinyGizmo/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://r-world-devs.github.io/shinyGizmo/reference/jsCalls.html</loc>
+  </url>
+  <url>
+    <loc>https://r-world-devs.github.io/shinyGizmo/reference/js_calls.html</loc>
   </url>
   <url>
     <loc>https://r-world-devs.github.io/shinyGizmo/reference/modal-operations.html</loc>
@@ -38,6 +59,9 @@
   </url>
   <url>
     <loc>https://r-world-devs.github.io/shinyGizmo/reference/pickCheckboxNamesAndLabels.html</loc>
+  </url>
+  <url>
+    <loc>https://r-world-devs.github.io/shinyGizmo/reference/shinyGizmo-imports.html</loc>
   </url>
   <url>
     <loc>https://r-world-devs.github.io/shinyGizmo/reference/shinyGizmo-package.html</loc>

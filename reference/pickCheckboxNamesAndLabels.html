@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyGizmo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4</span>
       </span>
     </div>
 
@@ -69,54 +69,57 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pickCheckboxNames</span><span class="op">(</span><span class="va">choices</span><span class="op">)</span>
-
-<span class="fu">pickCheckboxLabels</span><span class="op">(</span><span class="va">choices</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pickCheckboxNames</span><span class="op">(</span><span class="va">choices</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">pickCheckboxLabels</span><span class="op">(</span><span class="va">choices</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>choices</dt>
 <dd><p>linkpickCheckboxInput choices list.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Named list object defining labels for component checkbox options, or
+    
+
+<p>Named list object defining labels for component checkbox options, or
 named vector storing labels for each checkbox.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">choices_unnamed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">  fruits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"apple"</span>, <span class="st">"lemon"</span><span class="op">)</span>,</span>
-<span class="r-in">  vegetables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"potato"</span>, <span class="st">"carrot"</span>, <span class="st">"broccoli"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pickCheckboxNames</span><span class="op">(</span><span class="va">choices_unnamed</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">choices_unnamed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  fruits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"apple"</span>, <span class="st">"lemon"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  vegetables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"potato"</span>, <span class="st">"carrot"</span>, <span class="st">"broccoli"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pickCheckboxNames</span><span class="op">(</span><span class="va">choices_unnamed</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fruits</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "orange" "apple"  "lemon" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $vegetables</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "potato"   "carrot"   "broccoli"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">pickCheckboxLabels</span><span class="op">(</span><span class="va">choices_unnamed</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pickCheckboxLabels</span><span class="op">(</span><span class="va">choices_unnamed</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       fruits   vegetables </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "fruits" "vegetables" </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">choices_named</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">  fruits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Orange"</span> <span class="op">=</span> <span class="st">"orange"</span>, <span class="st">"Apple"</span> <span class="op">=</span> <span class="st">"apple"</span>, <span class="st">"Lemon"</span> <span class="op">=</span> <span class="st">"lemon"</span><span class="op">)</span>,</span>
-<span class="r-in">  vegetables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Potato"</span> <span class="op">=</span> <span class="st">"potato"</span>, <span class="st">"Carrot"</span> <span class="op">=</span> <span class="st">"carrot"</span>, <span class="st">"Broccoli"</span> <span class="op">=</span> <span class="st">"broccoli"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pickCheckboxNames</span><span class="op">(</span><span class="va">choices_named</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">choices_named</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  fruits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Orange"</span> <span class="op">=</span> <span class="st">"orange"</span>, <span class="st">"Apple"</span> <span class="op">=</span> <span class="st">"apple"</span>, <span class="st">"Lemon"</span> <span class="op">=</span> <span class="st">"lemon"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  vegetables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Potato"</span> <span class="op">=</span> <span class="st">"potato"</span>, <span class="st">"Carrot"</span> <span class="op">=</span> <span class="st">"carrot"</span>, <span class="st">"Broccoli"</span> <span class="op">=</span> <span class="st">"broccoli"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pickCheckboxNames</span><span class="op">(</span><span class="va">choices_named</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fruits</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Orange" "Apple"  "Lemon" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $vegetables</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Potato"   "Carrot"   "Broccoli"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">pickCheckboxLabels</span><span class="op">(</span><span class="va">choices_named</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pickCheckboxLabels</span><span class="op">(</span><span class="va">choices_named</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       fruits   vegetables </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "fruits" "vegetables" </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -131,7 +134,7 @@ named vector storing labels for each checkbox.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

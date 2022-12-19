@@ -21,7 +21,7 @@ If you want to access the component value on request please use valueButton."><!
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyGizmo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4</span>
       </span>
     </div>
 
@@ -69,7 +69,7 @@ If you want to access the component value on request please use valueButton."><!
     </div>
 
     <div class="ref-description">
-    <p>Contrary to <a href="https://rdrr.io/pkg/shiny/man/textAreaInput.html" class="external-link">textAreaInput</a> the component is not a binding itself
+    <p>Contrary to <a href="https://shiny.rstudio.com/reference/shiny/latest/textAreaInput.html" class="external-link">textAreaInput</a> the component is not a binding itself
 (doesn't send input to the server).
 Thanks to that, the component can store much more text value without slowing
 down the application.</p>
@@ -77,42 +77,59 @@ down the application.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">textArea</span><span class="op">(</span>
-  <span class="va">inputId</span>,
-  <span class="va">value</span>,
-  <span class="va">label</span>,
-  width <span class="op">=</span> <span class="st">"100%"</span>,
-  height <span class="op">=</span> <span class="st">"200px"</span>,
-  resize <span class="op">=</span> <span class="st">"default"</span>,
-  readonly <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">updateTextArea</span><span class="op">(</span><span class="va">session</span>, <span class="va">inputId</span>, value <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">textArea</span><span class="op">(</span></span>
+<span>  <span class="va">inputId</span>,</span>
+<span>  <span class="va">value</span>,</span>
+<span>  <span class="va">label</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"100%"</span>,</span>
+<span>  height <span class="op">=</span> <span class="st">"200px"</span>,</span>
+<span>  resize <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>  readonly <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">updateTextArea</span><span class="op">(</span><span class="va">session</span>, <span class="va">inputId</span>, value <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>inputId</dt>
 <dd><p>Id of component.</p></dd>
+
+
 <dt>value</dt>
 <dd><p>Initial text area value or value to be updated.</p></dd>
+
+
 <dt>label</dt>
 <dd><p>Text area label.</p></dd>
+
+
 <dt>width</dt>
 <dd><p>Width of input area.</p></dd>
+
+
 <dt>height</dt>
 <dd><p>Height of input area.</p></dd>
+
+
 <dt>resize</dt>
 <dd><p>Text are directions where input field can be resized.
 Possible options are "default", "both", "none", "vertical" and "horizontal".</p></dd>
+
+
 <dt>readonly</dt>
 <dd><p>If TRUE, providing custom values will be turned off.</p></dd>
+
+
 <dt>session</dt>
 <dd><p>Shiny session object.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Nested list of `shiny.tag` objects defining html structure of the component,
+    
+
+<p>Nested list of `shiny.tag` objects defining html structure of the component,
   or no value in case of usage of `updateTextArea` method.</p>
     </div>
 
@@ -128,7 +145,7 @@ Possible options are "default", "both", "none", "vertical" and "horizontal".</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

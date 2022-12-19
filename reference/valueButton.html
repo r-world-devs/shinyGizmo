@@ -18,7 +18,7 @@ from DOM element existing in Shiny application and pass it to application server
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyGizmo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4</span>
       </span>
     </div>
 
@@ -71,58 +71,87 @@ from DOM element existing in Shiny application and pass it to application server
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">valueButton</span><span class="op">(</span>
-  <span class="va">inputId</span>,
-  <span class="va">label</span>,
-  <span class="va">selector</span>,
-  attribute <span class="op">=</span> <span class="st">"value"</span>,
-  icon <span class="op">=</span> <span class="cn">NULL</span>,
-  width <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">valueLink</span><span class="op">(</span><span class="va">inputId</span>, <span class="va">label</span>, <span class="va">selector</span>, attribute <span class="op">=</span> <span class="st">"value"</span>, icon <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">valueButton</span><span class="op">(</span></span>
+<span>  <span class="va">inputId</span>,</span>
+<span>  <span class="va">label</span>,</span>
+<span>  <span class="va">selector</span>,</span>
+<span>  attribute <span class="op">=</span> <span class="st">"value"</span>,</span>
+<span>  icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  try_binding <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">valueLink</span><span class="op">(</span></span>
+<span>  <span class="va">inputId</span>,</span>
+<span>  <span class="va">label</span>,</span>
+<span>  <span class="va">selector</span>,</span>
+<span>  attribute <span class="op">=</span> <span class="st">"value"</span>,</span>
+<span>  icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  try_binding <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>inputId</dt>
 <dd><p>Id of the button. The value can be accessed in server with `input[[inputId]]`.</p></dd>
+
+
 <dt>label</dt>
 <dd><p>Button label.</p></dd>
+
+
 <dt>selector</dt>
 <dd><p>CSS selector of element the attribute should be taken from.
 Set `"window"` or `"document"` to access application `window` or `document` object.</p></dd>
+
+
 <dt>attribute</dt>
 <dd><p>Name of the attribute that should be taken from desired element.
 For nested properties use `.`, e.g. `style.width` or `navigator.appName`.</p></dd>
+
+
 <dt>icon</dt>
 <dd><p>Icon included in button.</p></dd>
+
+
 <dt>width</dt>
 <dd><p>Width of the button.</p></dd>
+
+
+<dt>try_binding</dt>
+<dd><p>When `TRUE` and `selector` points to Shiny Binding and `attribute == "value"`
+it tries to convert sourced input value using registered `inputHandler`.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Extra attributes passed to `button` or `a` tag.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A `shiny.tag` class object defining html structure of the button.</p>
+    
+
+<p>A `shiny.tag` class object defining html structure of the button.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span></span>
-<span class="r-in">    ui <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
-<span class="r-in">      <span class="va">tags</span><span class="op">$</span><span class="fu">textarea</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"txt"</span><span class="op">)</span>,</span>
-<span class="r-in">      <span class="fu">valueButton</span><span class="op">(</span><span class="st">"val"</span>, <span class="st">"Take textarea value"</span>, <span class="st">"#txt"</span>, attribute <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="op">)</span>,</span>
-<span class="r-in">    server <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">val</span>, <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">val</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">    <span class="op">}</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    ui <span class="op">=</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="va">tags</span><span class="op">$</span><span class="fu">textarea</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"txt"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="fu">valueButton</span><span class="op">(</span><span class="st">"val"</span>, <span class="st">"Take textarea value"</span>, <span class="st">"#txt"</span>, attribute <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    server <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">val</span>, <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">val</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">}</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -137,7 +166,7 @@ For nested properties use `.`, e.g. `style.width` or `navigator.appName`.</p></d
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

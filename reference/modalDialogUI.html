@@ -19,7 +19,7 @@ The modal can be opened with `modalButtonUI` placed anywhere in the application.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyGizmo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4</span>
       </span>
     </div>
 
@@ -67,83 +67,108 @@ The modal can be opened with `modalButtonUI` placed anywhere in the application.
     </div>
 
     <div class="ref-description">
-    <p>Contrary to <a href="https://rdrr.io/pkg/shiny/man/modalDialog.html" class="external-link">modalDialog</a> the function allows to define modal in
+    <p>Contrary to <a href="https://shiny.rstudio.com/reference/shiny/latest/modalDialog.html" class="external-link">modalDialog</a> the function allows to define modal in
 UI application structure.
 The modal can be opened with `modalButtonUI` placed anywhere in the application.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">modalDialogUI</span><span class="op">(</span>
-  <span class="va">modalId</span>,
-  <span class="va">...</span>,
-  button <span class="op">=</span> <span class="fu">modalButtonUI</span><span class="op">(</span><span class="va">modalId</span>, <span class="st">"Open Modal"</span><span class="op">)</span>,
-  title <span class="op">=</span> <span class="cn">NULL</span>,
-  footer <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/modalDialog.html" class="external-link">modalButton</a></span><span class="op">(</span><span class="st">"Dismiss"</span><span class="op">)</span>,
-  size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m"</span>, <span class="st">"s"</span>, <span class="st">"l"</span>, <span class="st">"xl"</span><span class="op">)</span>,
-  easyClose <span class="op">=</span> <span class="cn">FALSE</span>,
-  fade <span class="op">=</span> <span class="cn">TRUE</span>,
-  backdrop <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">modalButtonUI</span><span class="op">(</span><span class="va">modalId</span>, <span class="va">label</span>, icon <span class="op">=</span> <span class="cn">NULL</span>, width <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">modalDialogUI</span><span class="op">(</span></span>
+<span>  <span class="va">modalId</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  button <span class="op">=</span> <span class="fu">modalButtonUI</span><span class="op">(</span><span class="va">modalId</span>, <span class="st">"Open Modal"</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  footer <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/modalDialog.html" class="external-link">modalButton</a></span><span class="op">(</span><span class="st">"Dismiss"</span><span class="op">)</span>,</span>
+<span>  size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m"</span>, <span class="st">"s"</span>, <span class="st">"l"</span>, <span class="st">"xl"</span><span class="op">)</span>,</span>
+<span>  easyClose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  fade <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  backdrop <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">modalButtonUI</span><span class="op">(</span><span class="va">modalId</span>, <span class="va">label</span>, icon <span class="op">=</span> <span class="cn">NULL</span>, width <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>modalId</dt>
 <dd><p>Id of the modal.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional properties added to button.</p></dd>
+
+
 <dt>button</dt>
 <dd><p>Visible button placed in modal DOM structure, responsible for opening it.
 Set `NULL` to have no button included.</p></dd>
+
+
 <dt>title</dt>
 <dd><p>An optional title for the modal dialog.</p></dd>
+
+
 <dt>footer</dt>
 <dd><p>UI for modal dialog footer.</p></dd>
+
+
 <dt>size</dt>
 <dd><p>of the modal dialog. Can be "s", "m" (default), "l" or "xl".</p></dd>
+
+
 <dt>easyClose</dt>
 <dd><p>Set `TRUE` to enable closing modal with clicking outside it.</p></dd>
+
+
 <dt>fade</dt>
 <dd><p>Should fade-in animation be turned on?</p></dd>
+
+
 <dt>backdrop</dt>
 <dd><p>Set `FALSE` to turn on background covering area outside modal dialog.</p></dd>
+
+
 <dt>label</dt>
 <dd><p>Modal button label.</p></dd>
+
+
 <dt>icon</dt>
 <dd><p>Modal button icon.</p></dd>
+
+
 <dt>width</dt>
 <dd><p>Button width.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Nested list of `shiny.tag` objects defining html structure of modal dialog,
+    
+
+<p>Nested list of `shiny.tag` objects defining html structure of modal dialog,
   or single `shiny.tag` object in case of using `modalButtonUI` method.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span></span>
-<span class="r-in">    ui <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
-<span class="r-in">      <span class="fu">modalDialogUI</span><span class="op">(</span><span class="st">"mdl"</span>, <span class="st">"Hello"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="op">)</span>,</span>
-<span class="r-in">    server <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span></span>
-<span class="r-in">    ui <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
-<span class="r-in">      <span class="fu">modalDialogUI</span><span class="op">(</span><span class="st">"mdl"</span>, <span class="st">"Hello"</span>, button <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span>
-<span class="r-in">      <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html" class="external-link">hr</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">      <span class="fu">modalButtonUI</span><span class="op">(</span><span class="st">"mdl"</span>, <span class="st">"Open Modal From Here"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="op">)</span>,</span>
-<span class="r-in">    server <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    ui <span class="op">=</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fu">modalDialogUI</span><span class="op">(</span><span class="st">"mdl"</span>, <span class="st">"Hello"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    server <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    ui <span class="op">=</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fu">modalDialogUI</span><span class="op">(</span><span class="st">"mdl"</span>, <span class="st">"Hello"</span>, button <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">hr</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="fu">modalButtonUI</span><span class="op">(</span><span class="st">"mdl"</span>, <span class="st">"Open Modal From Here"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    server <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -158,7 +183,7 @@ Set `NULL` to have no button included.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

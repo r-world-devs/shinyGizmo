@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyGizmo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4</span>
       </span>
     </div>
 
@@ -64,14 +64,31 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="development version" id="shinygizmo-development-version">shinyGizmo (development version)<a class="anchor" aria-label="anchor" href="#shinygizmo-development-version"></a></h2>
-<ul><li>Add <code>valueLink</code> component.</li>
+<h2 class="page-header" data-toc-text="0.4" id="shinygizmo-04">shinyGizmo 0.4<a class="anchor" aria-label="anchor" href="#shinygizmo-04"></a></h2>
+<ul><li>Convert <code>pickCheckboxInput</code> value to logical if possible.</li>
+<li>Fix extracting <code>pickCheckboxInput</code> selection when different than <code>NULL</code> or <code>NA</code>.</li>
+<li>Add <code>try_binding</code> argument to <code>valueButton</code>. When <code>TRUE</code> and <code>selector</code> points to Shiny Binding and <code>attribute == "value"</code> it tries to convert sourced input value using registered <code>inputHandler</code>.</li>
+<li>Fix <code>pickCheckboxInput</code> update method for <code>shinyWidgets &gt;= 0.7.0</code>.</li>
+<li>Add <code>vsCheckboxInput</code> and <code>updateVsCheckboxInput</code>. Alternative to <code>pickCheckboxInput</code> that uses <code><a href="https://dreamrs.github.io/shinyWidgets/reference/virtualSelectInput.html" class="external-link">shinyWidgets::virtualSelectInput</a></code> instead of <code><a href="https://dreamrs.github.io/shinyWidgets/reference/pickerInput.html" class="external-link">shinyWidgets::pickerInput</a></code> to render dropdown.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.3" id="shinygizmo-03">shinyGizmo 0.3<small>2022-12-15</small><a class="anchor" aria-label="anchor" href="#shinygizmo-03"></a></h2>
+<ul><li>Add <code>jsCallOncePerFlush</code> function. When used prevents running <code>conditionalJS</code> callback during a single flush cycle (<a href="https://github.com/rstudio/shiny/issues/3668" class="external-link">3668</a>).</li>
+<li>Add <code>commonInput</code> and <code>commonInputs</code> functions that allow to gather input from multiple controllers into one.</li>
+<li>Add <code>mergeCalls</code> function that allows to use more than one <code>jsCalls</code> for <code>conditionalJS</code>.</li>
+<li>Add <code>animateVisibility</code> JS call to show and hide elements with animation.</li>
+<li>Add <code>runAnimation</code> helper callback to run element animations.</li>
+<li>Add <code>once</code> argument to <code>conditionalJS</code> that makes jsCall run only when condition value changed.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.2" id="shinygizmo-02">shinyGizmo 0.2<small>2022-06-13</small><a class="anchor" aria-label="anchor" href="#shinygizmo-02"></a></h2>
+<ul><li>Add <code>conditionalJS</code> component - extension of <code><a href="https://shiny.rstudio.com/reference/shiny/latest/conditionalPanel.html" class="external-link">shiny::conditionalPanel</a></code> that allows to run custom JS when condition is met.</li>
+<li>Add <code>valueLink</code> component.</li>
 <li>Make <code>showModal</code> and <code>hideModal</code> work with modules.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1" id="shinygizmo-01">shinyGizmo 0.1<small>2022-04-27</small><a class="anchor" aria-label="anchor" href="#shinygizmo-01"></a></h2>
-<ul><li>Add <code>valueButton</code>, <code>pickCheckboxInput</code>, <code>accordion</code>, <code>textArea</code> and <code>modalDialogUI</code> components.</li>
-</ul></div>
+<ul><li>Add <code>valueButton</code>, <code>pickCheckboxInput</code>, <code>accordion</code>, <code>textArea</code> and <code>modalDialogUI</code> components.</li></ul></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -86,7 +103,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
