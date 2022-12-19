@@ -47,7 +47,7 @@ textArea <- function(inputId, value, label, width = "100%", height = "200px", re
     ),
     htmltools::htmlDependency(
       name = "textarea",
-      version = packageVersion("shinyGizmo"),
+      version = utils::packageVersion("shinyGizmo"),
       package = "shinyGizmo",
       src = "www",
       script = "textarea.js"

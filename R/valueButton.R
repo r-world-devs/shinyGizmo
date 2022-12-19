@@ -73,7 +73,7 @@ valueLink <- function(inputId, label, selector, attribute = "value", icon = NULL
 
 value_button_dependency <- htmltools::htmlDependency(
   name = "valuebutton",
-  version = packageVersion("shinyGizmo"),
+  version = utils::packageVersion("shinyGizmo"),
   package = "shinyGizmo",
   src = "www",
   script = "valuebutton.js"

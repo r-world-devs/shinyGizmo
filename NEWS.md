@@ -1,4 +1,4 @@
-# shinyGizmo (development version)
+# shinyGizmo 0.4
 
 * Convert `pickCheckboxInput` value to logical if possible.
 * Fix extracting `pickCheckboxInput` selection when different than `NULL` or `NA`.

@@ -67,7 +67,7 @@ commonInput <- function(inputId, controller, block = TRUE) {
     ),
     htmltools::htmlDependency(
       name = "commoninput",
-      version = packageVersion("shinyGizmo"),
+      version = utils::packageVersion("shinyGizmo"),
       package = "shinyGizmo",
       src = "www",
       script = "commoninput.js"
