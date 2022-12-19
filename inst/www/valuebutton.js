@@ -42,6 +42,9 @@ $.extend(valueButtonBinding, {
           type = binding.getType();
         }
         var value = binding.getValue($(selector));
+        if (type === null) {
+          return value;
+        }
         return {"value": value, "type": type};
       }
     }
