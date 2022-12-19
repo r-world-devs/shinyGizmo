@@ -15,7 +15,7 @@ choices_labels <- list(
 
 ui <- fluidPage(
   sidebarLayout(sidebarPanel(
-    pickCheckboxInput(
+    vsCheckboxInput(
       "pci", "Select group and options",
       choices = choices, selected = selected,
       choicesLabels = choices_labels
@@ -28,8 +28,11 @@ ui <- fluidPage(
 )
 server <- function(input, output, session) {
   output$out <- renderPrint({input$pci})
+  observeEvent(input$pci, {
+    print(input$pci)
+  })
   observeEvent(input$up, {
-    updatePickCheckboxInput(
+    updateVsCheckboxInput(
       session, "pci",
       choices = list(
         "animals" = c("cat", "dog"),
