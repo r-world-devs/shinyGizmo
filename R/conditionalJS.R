@@ -513,7 +513,7 @@ conditionalJS <- function(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NUL
   html_deps <- list(
     htmltools::htmlDependency(
       name = "conditionaljs",
-      version = packageVersion("shinyGizmo"),
+      version = utils::packageVersion("shinyGizmo"),
       package = "shinyGizmo",
       src = "www",
       script = "conditionaljs.js",
@@ -523,7 +523,7 @@ conditionalJS <- function(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NUL
   if (inherits(jsCall$true, "animate_call") || inherits(jsCall$false, "animate_call")) {
     html_deps[[2]] <- htmltools::htmlDependency(
       name = "animatecss",
-      version = packageVersion("shinyGizmo"),
+      version = utils::packageVersion("shinyGizmo"),
       package = "shinyGizmo",
       src = "www",
       script = "libs/jquery.animatecss.min.js",

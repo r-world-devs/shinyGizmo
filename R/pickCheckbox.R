@@ -357,7 +357,7 @@ pickCheckboxInputTemplate <- function(inputId, label, choices, choicesNames,
     ),
     htmltools::htmlDependency(
       name = "pickcheckbox",
-      version = packageVersion("shinyGizmo"),
+      version = utils::packageVersion("shinyGizmo"),
       package = "shinyGizmo",
       src = "www",
       script = "pickcheckbox.js",

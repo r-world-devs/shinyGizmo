@@ -39,7 +39,7 @@ accordion <- function(id, ..., class = "") {
     shiny::div(id = id, class = paste("sg_accordion", class), ...),
     htmltools::htmlDependency(
       name = "accordion",
-      version = packageVersion("shinyGizmo"),
+      version = utils::packageVersion("shinyGizmo"),
       package = "shinyGizmo",
       src = "www",
       script = "accordion.js",
