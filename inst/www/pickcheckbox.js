@@ -17,7 +17,7 @@ $.extend(pickCheckboxBinding, {
       return($(el).data("value"));
     }
 
-    var picker = $(el).find('#' + el.id + '_picker');
+    var picker = $(el).find('#' + $(el).attr('id') + '_picker');
     var checkboxes = $(el).find('.shiny-input-checkboxgroup');
     var picker_el = picker;
     if (picker.hasClass('virtual-select')) {
@@ -40,7 +40,7 @@ $.extend(pickCheckboxBinding, {
     return(checkbox_vals);
   },
   subscribe: function(el, callback) {
-    var picker = $(el).find('#' + el.id + '_picker');
+    var picker = $(el).find('#' + $(el).attr('id') + '_picker');
     var checkboxes = $(el).find('.shiny-input-checkboxgroup');
 
     get_binding(picker).subscribe(picker, callback);
