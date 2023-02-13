@@ -1,5 +1,6 @@
-# shinyGizmo 0.4.1
+# shinyGizmo (development version)
 
+* Fix preventing sending data to server by `textArea`.
 * Add `catchIds` argument to `comminInput(s)`. The argument allows to precise which bindings should 
 be wrapped together.
 * Fix handling inherited input values with valid Shiny Input Handlers. This applies to `commonInput(s)` 

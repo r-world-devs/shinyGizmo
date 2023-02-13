@@ -36,7 +36,7 @@ textArea <- function(inputId, value, label, width = "100%", height = "200px", re
       shiny::tags$textarea(
         id = inputId,
         value,
-        class = "form-control",
+        class = "form-control sg_textarea",
         readonly = read_only,
         style = htmltools::css(
           resize = resize,
