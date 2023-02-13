@@ -1,7 +1,7 @@
 
 # shinyGizmo
 
-[![version](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.4&color=ff69b4)](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)
+[![version](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.4.1&color=ff69b4)](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-success.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 
 ## Overview
@@ -11,7 +11,7 @@ applications.
 
 <center>
 
-## <span style="color:blue"> shinyGizmo 0.4 is now available!</span>
+## <span style="color:blue"> shinyGizmo 0.4.1 is now available!</span>
 
 </center>
 

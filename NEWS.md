@@ -1,3 +1,10 @@
+# shinyGizmo 0.4.1
+
+* Add `catchIds` argument to `comminInput(s)`. The argument allows to precise which bindings should 
+be wrapped together.
+* Fix handling inherited input values with valid Shiny Input Handlers. This applies to `commonInput(s)` 
+and `valueButton`.
+
 # shinyGizmo 0.4
 
 * Convert `pickCheckboxInput` value to logical if possible.
