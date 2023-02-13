@@ -15,8 +15,12 @@ var register_element = function(el) {
   if (!$common_storage.data('bound')) {
     return;
   }
+  var $catch_ids = $common_wrapper.data('catch_ids');
   var element_binding = get_binding($element);
   var element_id = element_binding.getId(el);
+  if (Boolean($catch_ids) && !$catch_ids.split(',').includes(element_id)) {
+    return;
+  }
   var registered = $common_storage.data('registered') || [];
   if (!registered.includes(element_id)) {
     element_binding.subscribe($element, $common_storage.data('callback'));
@@ -27,11 +31,11 @@ var register_element = function(el) {
     }
     registered.push(element_id);
   }
-}
+};
 
 $(document).on('shiny:bound', function(event) {
-  register_element(event.target)
-})
+  register_element(event.target);
+});
 
 $.extend(commonInputBinding, {
   find: function(scope) {
@@ -42,15 +46,21 @@ $.extend(commonInputBinding, {
   },
   getValue: function(el) {
     var common_id = el.id;
-    var id_selector = '[data-common_id="' + common_id + '"]'
+    var id_selector = '[data-common_id="' + common_id + '"]';
     var inputs = $(id_selector + '.shiny-bound-input, ' + id_selector + ' .shiny-bound-input');
+    var registered_inputs = $(el).data('registered') || [];
 
+    if (registered_inputs.length === 0) {
+      return;
+    }
     var input_vals = {};
     inputs.map(function() {
       var input_element = this;
       var input_binding = get_binding(input_element);
       var input_name = input_binding.getId(input_element);
-      input_vals[input_name] = input_binding.getValue(input_element);
+      if (registered_inputs.includes(input_name)) {
+        input_vals[input_name] = {"value": input_binding.getValue(input_element), "type": input_binding.getType()};
+      }
     });
 
     $(el).data("value", input_vals);
@@ -61,12 +71,13 @@ $.extend(commonInputBinding, {
     $(el).data('callback', callback);
     $(el).data('registered', []);
     $(el).data('bound', true);
-    var id_selector = '[data-common_id="' + common_id + '"]'
+    var id_selector = '[data-common_id="' + common_id + '"]';
     var inputs = $(id_selector + '.shiny-bound-input, ' + id_selector + ' .shiny-bound-input');
 
     inputs.each(function(index, element) {
       register_element(element);
     });
+    callback(true);
   },
   unsubscribe: function(el) {
     $(el).off(".commonInputBinding");
