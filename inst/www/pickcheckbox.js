@@ -13,7 +13,7 @@ $.extend(pickCheckboxBinding, {
     return "shinyGizmo.pickcheckbox";
   },
   getValue: function(el) {
-    if (Boolean($(el).data("block"))) {
+    if (Boolean($(el).data("freeze"))) {
       return($(el).data("value"));
     }
 
@@ -60,8 +60,8 @@ $.extend(pickCheckboxBinding, {
     });
   },
   receiveMessage: function(el, data) {
-    if (data.hasOwnProperty("block")) {
-      $(el).data("block", true);
+    if (data.hasOwnProperty("freeze")) {
+      $(el).data("freeze", true);
       return;
     }
     if (data.hasOwnProperty("checkboxes")) {
@@ -88,7 +88,7 @@ $.extend(pickCheckboxBinding, {
     }
 
     if (data.hasOwnProperty("trigger")) {
-      $(el).data("block", false);
+      $(el).data("freeze", false);
       $(el).trigger('change');
     }
   },

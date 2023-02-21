@@ -21,6 +21,9 @@ var register_element = function(el) {
   if (Boolean($catch_ids) && !$catch_ids.split(',').includes(element_id)) {
     return;
   }
+  if (Boolean($element.data('ignore'))) {
+    return;
+  }
   var registered = $common_storage.data('registered') || [];
   if (!registered.includes(element_id)) {
     element_binding.subscribe($element, $common_storage.data('callback'));
