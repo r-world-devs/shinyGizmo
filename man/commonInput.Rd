@@ -5,18 +5,18 @@
 \alias{commonInputs}
 \title{Merge multiple input controllers into one}
 \usage{
-commonInput(inputId, controller, block = TRUE, catchIds = NULL)
+commonInput(inputId, controller, block = TRUE, ignoreIds = NULL)
 
-commonInputs(inputId, ..., block = TRUE, catchIds = NULL)
+commonInputs(inputId, ..., block = TRUE, ignoreIds = NULL)
 }
 \arguments{
 \item{inputId}{Id to be used to send the grouped controllers input values to application server.}
 
 \item{controller}{Shiny input controller e.g. `shiny::sliderInput` or `shinyWidgets::pickerInput`.}
 
-\item{block}{Should the `controller` value be sent to the server independently?}
+\item{block}{Should the `controller` input value be sent to the server independently?}
 
-\item{catchIds}{Precise which inputs should be taken. Leave NULL (default) to catch all.}
+\item{ignoreIds}{Precise input IDs of bindings that should be ignored. Leave NULL (default) to catch all.}
 
 \item{...}{Input controllers to be grouped in case of using `commonInputs`.}
 }

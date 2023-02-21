@@ -8,20 +8,28 @@ var get_binding = function(el) {
 var register_element = function(el) {
   var $element = $(el);
   var $common_wrapper = $element.closest('.sg_common_input');
-  if (!Boolean($common_wrapper)) {
+  if ($common_wrapper.length === 0) {
     return;
   }
   var $common_storage = $('#' + $common_wrapper.data('common_id'));
-  if (!$common_storage.data('bound')) {
-    return;
-  }
-  var $catch_ids = $common_wrapper.data('catch_ids');
+  var $ignore_ids = $common_wrapper.data('ignore_ids');
   var element_binding = get_binding($element);
   var element_id = element_binding.getId(el);
-  if (Boolean($catch_ids) && !$catch_ids.split(',').includes(element_id)) {
+  if (Boolean($ignore_ids) && $ignore_ids.split(',').includes(element_id)) {
     return;
   }
   if (Boolean($element.data('ignore'))) {
+    return;
+  }
+  if (!$common_storage.data('el_initialized')) {
+    $common_storage.data('el_initialized', []);
+  }
+  var initialized = $common_storage.data('el_initialized');
+  if (!initialized.includes(element_id)) {
+    initialized.push(element_id);
+  }
+
+  if (!$common_storage.data('bound')) {
     return;
   }
   var registered = $common_storage.data('registered') || [];
@@ -51,12 +59,27 @@ $.extend(commonInputBinding, {
     var common_id = el.id;
     var id_selector = '[data-common_id="' + common_id + '"]';
     var inputs = $(id_selector + '.shiny-bound-input, ' + id_selector + ' .shiny-bound-input');
-    var registered_inputs = $(el).data('registered') || [];
+    var input_vals = {};
 
+    /* Initial value before subscribe */
+    if (!$(el).data('bound')) {
+      var initialized_inputs = $(el).data('el_initialized') || [];
+      inputs.map(function() {
+        var input_element = this;
+        var input_binding = get_binding(input_element);
+        var input_name = input_binding.getId(input_element);
+        if (initialized_inputs.includes(input_name)) {
+          input_vals[input_name] = {"value": input_binding.getValue(input_element), "type": input_binding.getType()};
+        }
+      });
+      $(el).data("value", input_vals);
+      return input_vals;
+    }
+
+    var registered_inputs = $(el).data('registered') || [];
     if (registered_inputs.length === 0) {
       return;
     }
-    var input_vals = {};
     inputs.map(function() {
       var input_element = this;
       var input_binding = get_binding(input_element);
@@ -67,7 +90,7 @@ $.extend(commonInputBinding, {
     });
 
     $(el).data("value", input_vals);
-    return(input_vals);
+    return input_vals;
   },
   subscribe: function(el, callback) {
     var common_id = el.id;
@@ -80,7 +103,6 @@ $.extend(commonInputBinding, {
     inputs.each(function(index, element) {
       register_element(element);
     });
-    callback(true);
   },
   unsubscribe: function(el) {
     $(el).off(".commonInputBinding");
@@ -94,4 +116,4 @@ $.extend(commonInputBinding, {
 });
 
 Shiny.inputBindings.register(commonInputBinding, "shiny.commonInputBinding");
-Shiny.inputBindings.setPriority("shiny.commonInputBinding", -1);
+Shiny.inputBindings.setPriority("shiny.commonInputBinding", -2);
