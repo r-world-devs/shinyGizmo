@@ -1,6 +1,7 @@
 # shinyGizmo (development version)
 
-* Fix preventing sending data to server by `textArea`.
+* `textArea` now stores its id as `data-id` attribute. This prevents automatic binding of the element by shiny library.
+Even though, when the id is directly specified, the input value is blocked by `preventDefault` method.
 * Add `catchIds` argument to `comminInput(s)`. The argument allows to precise which bindings should 
 be wrapped together.
 * Fix handling inherited input values with valid Shiny Input Handlers. This applies to `commonInput(s)` 
