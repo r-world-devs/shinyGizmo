@@ -38,8 +38,8 @@ textArea <- function(inputId, value, label, width = "100%", height = "200px", re
   }
 
   htmltools::attachDependencies(
-    shiny::tagList(
-      shiny::tags$label(`for` = inputId, label),
+    shiny::tags$label(
+      label,
       shiny::tags$textarea(
         ...,
         `data-id` = inputId,
@@ -49,9 +49,11 @@ textArea <- function(inputId, value, label, width = "100%", height = "200px", re
         style = htmltools::css(
           resize = resize,
           width = width,
-          height = height
+          height = height,
+          font.weight = 400
         )
-      )
+      ),
+      style = htmltools::css(width = width)
     ),
     htmltools::htmlDependency(
       name = "textarea",
