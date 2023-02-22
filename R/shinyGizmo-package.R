@@ -26,7 +26,7 @@ NULL
     })
   }, force = TRUE)
   shiny::registerInputHandler("shinyGizmo.valuebutton", function(x, shinysession, name) {
-    if (is.list(x) && identical(x$type, FALSE)) {
+    if (is.list(x) && (identical(x$type, FALSE) || identical(x$type, NULL))) {
       return(`%:::%`("shiny", "applyInputHandler")("value", x$value, shinysession))
     }
     if (is.list(x) && !is.null(x$type)) {
