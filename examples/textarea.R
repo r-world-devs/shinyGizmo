@@ -17,7 +17,7 @@ server <- function(input, output, session) {
   observeEvent(input$update, {
     updateTextArea(
       session, "lorem",
-      stringi::stri_rand_lipsum(n_paragraphs = 100, FALSE)
+      value = stringi::stri_rand_lipsum(n_paragraphs = 200, FALSE)
     )
   }, ignoreInit = TRUE)
 }

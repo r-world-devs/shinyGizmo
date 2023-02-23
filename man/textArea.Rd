@@ -12,13 +12,15 @@ textArea(
   width = "100\%",
   height = "200px",
   resize = "default",
-  readonly = FALSE
+  readonly = FALSE,
+  ...
 )
 
 updateTextArea(session, inputId, value = NULL)
 }
 \arguments{
-\item{inputId}{Id of component.}
+\item{inputId}{Id of component. This is stored as `data-id` attribute to omit automatic binding
+of the element (into textAreaInput).}
 
 \item{value}{Initial text area value or value to be updated.}
 

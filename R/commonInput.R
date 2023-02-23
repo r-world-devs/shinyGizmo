@@ -12,7 +12,8 @@ gen_id <- function() {
 #'
 #' @param inputId Id to be used to send the grouped controllers input values to application server.
 #' @param controller Shiny input controller e.g. `shiny::sliderInput` or `shinyWidgets::pickerInput`.
-#' @param block Should the `controller` value be sent to the server independently?
+#' @param ignoreIds Precise input IDs of bindings that should be ignored. Leave NULL (default) to catch all.
+#' @param block Should the `controller` input value be sent to the server independently?
 #' @param ... Input controllers to be grouped in case of using `commonInputs`.
 #'
 #' @examples
@@ -41,13 +42,14 @@ gen_id <- function() {
 #'   shinyApp(ui, server)
 #' }
 #' @export
-commonInput <- function(inputId, controller, block = TRUE) {
+commonInput <- function(inputId, controller, block = TRUE, ignoreIds = NULL) {
 
   htmltools::attachDependencies(
     shiny::tagList(
       shiny::tagAppendAttributes(
         controller,
         `data-common_id` = inputId,
+        `data-ignore_ids` = if (!is.null(ignoreIds)) paste(ignoreIds, collapse = ",") else NULL,
         `data-block` = if (block) "true" else "false",
         class = "sg_common_input"
       ),
@@ -77,8 +79,8 @@ commonInput <- function(inputId, controller, block = TRUE) {
 
 #' @rdname commonInput
 #' @export
-commonInputs <- function(inputId, ..., block = TRUE) {
+commonInputs <- function(inputId, ..., block = TRUE, ignoreIds = NULL) {
   controllers <- rlang::dots_list(...) %>%
-    purrr::map(~commonInput(inputId, .x, block))
+    purrr::map(~commonInput(inputId, .x, block, ignoreIds))
   shiny::tagList(!!!controllers)
 }
