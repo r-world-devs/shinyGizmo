@@ -12,10 +12,19 @@ valueButton(
   attribute = "value",
   icon = NULL,
   width = NULL,
+  try_binding = TRUE,
   ...
 )
 
-valueLink(inputId, label, selector, attribute = "value", icon = NULL, ...)
+valueLink(
+  inputId,
+  label,
+  selector,
+  attribute = "value",
+  icon = NULL,
+  try_binding = TRUE,
+  ...
+)
 }
 \arguments{
 \item{inputId}{Id of the button. The value can be accessed in server with `input[[inputId]]`.}
@@ -31,6 +40,9 @@ For nested properties use `.`, e.g. `style.width` or `navigator.appName`.}
 \item{icon}{Icon included in button.}
 
 \item{width}{Width of the button.}
+
+\item{try_binding}{When `TRUE` and `selector` points to Shiny Binding and `attribute == "value"`
+it tries to convert sourced input value using registered `inputHandler`.}
 
 \item{...}{Extra attributes passed to `button` or `a` tag.}
 }

@@ -1,3 +1,13 @@
+# shinyGizmo 0.4
+
+* Convert `pickCheckboxInput` value to logical if possible.
+* Fix extracting `pickCheckboxInput` selection when different than `NULL` or `NA`.
+* Add `try_binding` argument to `valueButton`. When `TRUE` and `selector` points to Shiny Binding and `attribute == "value"`
+it tries to convert sourced input value using registered `inputHandler`.
+* Fix `pickCheckboxInput` update method for `shinyWidgets >= 0.7.0`.
+* Add `vsCheckboxInput` and `updateVsCheckboxInput`. Alternative to `pickCheckboxInput` that 
+uses `shinyWidgets::virtualSelectInput` instead of `shinyWidgets::pickerInput` to render dropdown. 
+
 # shinyGizmo 0.3
 
 * Add `jsCallOncePerFlush` function. When used prevents running `conditionalJS` callback during a single flush cycle ([3668](https://github.com/rstudio/shiny/issues/3668)).

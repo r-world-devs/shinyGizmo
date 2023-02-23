@@ -118,7 +118,7 @@ json_val <- function(value) {
 json_settings <- function(...) {
   args <- list(...)
   json_args <- purrr::imap(args, ~ glue::glue("\"{.y}\": {json_val(.x)}"))
-  glue::glue("{{{paste(json_args, collapse = ', ')}}}")
+  glue::glue("{<paste(json_args, collapse = ', ')>}", .open = "<", .close = ">")
 }
 
 #' @param effectShow,effectHide Animation effects used for showing and hiding element.
@@ -146,10 +146,10 @@ animateVisibility <- function(effectShow = "fadeIn", effectHide = "fadeOut", del
       true = htmlwidgets::JS(glue::glue(
         "var $element = $(this);",
         "if ({ignore_init} && !$element.data('data-call-initialized')) {{",
-          "$element.removeClass('sg_hidden');",
+        "$element.removeClass('sg_hidden');",
         "}} else {{",
-          "setTimeout(function() {{$element.removeClass('sg_hidden');}}, {delay});",
-          "$element.animateCSS('{effectShow}', {settings_show});",
+        "setTimeout(function() {{$element.removeClass('sg_hidden');}}, {delay});",
+        "$element.animateCSS('{effectShow}', {settings_show});",
         "}};"
       )),
       false = htmlwidgets::JS(glue::glue(
@@ -186,11 +186,11 @@ animation <- function(effect, delay = 0, duration = 1000) {
   out
 }
 
-animationRule <- function(anim, callbackBody){
+animationRule <- function(anim, callbackBody) {
   settings <- json_settings(
     delay    = anim$delay,
     duration = anim$duration,
-    callback = I(glue::glue("function() {{{callbackBody}}}"))
+    callback = I(glue::glue("function() {<callbackBody>}", .open = "<", .close = ">"))
   )
   htmlwidgets::JS(glue::glue(
     "$(this).animateCSS('{anim$effect}', {settings});"
@@ -257,7 +257,7 @@ runAnimation <- function(..., ignoreInit = TRUE) {
   rule <- htmlwidgets::JS(glue::glue(
     "var $element = $(this);",
     "if (!{ignore_init} || $element.data('data-call-initialized')) {{",
-      "{chain};",
+    "{chain};",
     "}}"
   ))
   class(rule) <- c(class(rule), "animate_call")
@@ -509,21 +509,29 @@ conditionalJS <- function(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NUL
   if (!inherits(ui, "shiny.tag")) {
     stop(glue::glue("{sQuote('ui')} argument should be a shiny.tag object."))
   }
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(
-        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/conditionaljs.js"),
-        shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/conditionaljs.css")
-      )
-    ),
-    if (inherits(jsCall$true, "animate_call") || inherits(jsCall$false, "animate_call")) {
-      shiny::singleton(
-        shiny::tags$head(
-          shiny::tags$script(type = "text/javascript", src = "shinyGizmo/libs/jquery.animatecss.min.js"),
-          shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/libs/animate.compat.min.css")
-        )
-      )
-    }    ,
+
+  html_deps <- list(
+    htmltools::htmlDependency(
+      name = "conditionaljs",
+      version = utils::packageVersion("shinyGizmo"),
+      package = "shinyGizmo",
+      src = "www",
+      script = "conditionaljs.js",
+      stylesheet = "conditionaljs.css"
+    )
+  )
+  if (inherits(jsCall$true, "animate_call") || inherits(jsCall$false, "animate_call")) {
+    html_deps[[2]] <- htmltools::htmlDependency(
+      name = "animatecss",
+      version = utils::packageVersion("shinyGizmo"),
+      package = "shinyGizmo",
+      src = "www",
+      script = "libs/jquery.animatecss.min.js",
+      stylesheet = "libs/animate.compat.min.css"
+    )
+  }
+
+  htmltools::attachDependencies(
     htmltools::tagAppendAttributes(
       ui,
       `data-call-if` = condition,
@@ -531,6 +539,7 @@ conditionalJS <- function(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NUL
       `data-call-if-false` = jsCall[["false"]],
       `data-call-once` = if (once) "true" else NULL,
       `data-ns-prefix` = ns("")
-    )
+    ),
+    html_deps
   )
 }

@@ -1,7 +1,7 @@
 Type: Package
 Package: shinyGizmo
 Title: Custom Components for Shiny Applications
-Version: 0.3
+Version: 0.4
 Authors@R: c(
     person("Krystian", "Igras", , "krystian8207@gmail.com", role = c("cre", "aut")),
     person("Adam", "Foryś", role = "ctb"),
@@ -28,4 +28,4 @@ Imports:
     shinyWidgets
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3

@@ -29,23 +29,28 @@ textArea <- function(inputId, value, label, width = "100%", height = "200px", re
   if (resize == "default") {
     resize <- NULL
   }
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(
-        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/textarea.js")
+
+  htmltools::attachDependencies(
+    shiny::tagList(
+      shiny::tags$label(`for` = inputId, label),
+      shiny::tags$textarea(
+        id = inputId,
+        value,
+        class = "form-control",
+        readonly = read_only,
+        style = htmltools::css(
+          resize = resize,
+          width = width,
+          height = height
+        )
       )
     ),
-    shiny::tags$label(`for` = inputId, label),
-    shiny::tags$textarea(
-      id = inputId,
-      value,
-      class = "form-control",
-      readonly = read_only,
-      style = htmltools::css(
-        resize = resize,
-        width = width,
-        height = height
-      )
+    htmltools::htmlDependency(
+      name = "textarea",
+      version = utils::packageVersion("shinyGizmo"),
+      package = "shinyGizmo",
+      src = "www",
+      script = "textarea.js"
     )
   )
 }

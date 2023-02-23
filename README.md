@@ -1,7 +1,7 @@
 
 # shinyGizmo
 
-[![version](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.3&color=ff69b4)](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)
+[![version](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.4&color=ff69b4)](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-success.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 
 ## Overview
@@ -11,7 +11,7 @@ applications.
 
 <center>
 
-## <span style="color:blue"> shinyGizmo 0.3 is now available!</span>
+## <span style="color:blue"> shinyGizmo 0.4 is now available!</span>
 
 </center>
 
@@ -29,7 +29,7 @@ Latest development version from Github:
 
 ## Available components
 
-### conditionalJS - extended version of `shiny::conditionalPanel`.
+### `conditionalJS` - extended version of `shiny::conditionalPanel`.
 
 Allows to attach conditional JavaScript action to be run on UI element.
 
@@ -38,32 +38,34 @@ Use predefined actions such as `disable`, `attachClass`, `css`, `show`,
 
 ![](./man/figures/condjs.gif) ![](./man/figures/condjsanim.gif)
 
-### commonInput(s) - merge multiple input controllers into one
+### `commonInput(s)` - merge multiple input controllers into one
 
 ![](./man/figures/commoninputs.gif)
 
-### accordion - light and simple version of accordion
+### `accordion` - light and simple version of accordion
 
 ![](./man/figures/accordion.gif) ![](./man/figures/accordion_enroll.gif)
 
-### modalDialogUI - create modals directly in UI
+### `modalDialogUI` - create modals directly in UI
 
 ![](./man/figures/modalui.gif)
 
-### valueButton - get any attribute from Shiny application DOM objects
+### `valueButton` - get any attribute from Shiny application DOM objects
 
 ![](./man/figures/valuebutton.gif)
 
-### textArea - non-binding version of `shiny::textAreaInput`.
+### `textArea` - non-binding version of `shiny::textAreaInput`.
 
 ![](./man/figures/textarea.gif)
 
 Improves application performance when large amount text is passed to
 text area. Works great with `valueButton`.
 
-### pickCheckboxInput - make selection in many groups at once
+### `pickCheckboxInput` and `vsCheckboxInput` - make selection in many groups at once
 
 ![](./man/figures/pickcheckbox.gif)
+
+![](./man/figures/vscheckboxinput.gif)
 
 ## Lifecycle
 

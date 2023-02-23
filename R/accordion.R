@@ -35,14 +35,16 @@
 #' @export
 accordion <- function(id, ..., class = "") {
 
-  shiny::tagList(
-    shiny::singleton(
-      shiny::tags$head(
-        shiny::tags$script(type = "text/javascript", src = "shinyGizmo/accordion.js"),
-        shiny::tags$link(rel = "stylesheet", type = "text/css", href = "shinyGizmo/accordion.css")
-      )
-    ),
-    shiny::div(id = id, class = paste("sg_accordion", class), ...)
+  htmltools::attachDependencies(
+    shiny::div(id = id, class = paste("sg_accordion", class), ...),
+    htmltools::htmlDependency(
+      name = "accordion",
+      version = utils::packageVersion("shinyGizmo"),
+      package = "shinyGizmo",
+      src = "www",
+      script = "accordion.js",
+      stylesheet = "accordion.css"
+    )
   )
 }
 
@@ -116,7 +118,7 @@ accordion <- function(id, ..., class = "") {
 #'   or no return value in case of using `addAccordionItem` method.
 #' @export
 accordionItem <- function(id, header, content, class = NULL, enroll_callback = TRUE, active = FALSE,
-                              header_class = NULL, content_class = NULL, ...) {
+                          header_class = NULL, content_class = NULL, ...) {
 
   if (!enroll_callback) {
     accordionEnrollOnClick <- function() NULL
