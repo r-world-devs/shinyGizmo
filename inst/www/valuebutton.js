@@ -34,6 +34,9 @@ $.extend(valueButtonBinding, {
     if (selector == "document") {
       $target = document;
     }
+    if (!!$target) {
+      return;
+    }
     if ($(el).data("try_binding") == "TRUE") {
       if ($(selector).hasClass('shiny-bound-input') && attribute == "value") {
         var binding = $(selector).data('shiny-input-binding');

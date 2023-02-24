@@ -17,6 +17,7 @@
 #' @param resize Text are directions where input field can be resized.
 #'   Possible options are "default", "both", "none", "vertical" and "horizontal".
 #' @param readonly If TRUE, providing custom values will be turned off.
+#' @param ... Extra arguments passed to \code{textarea} tag form \link[shiny]{tags}.
 #'
 #' @return Nested list of `shiny.tag` objects defining html structure of the component,
 #'   or no value in case of usage of `updateTextArea` method.
@@ -69,5 +70,5 @@ textArea <- function(inputId, value, label, width = "100%", height = "200px", re
 #' @param session Shiny session object.
 #' @export
 updateTextArea <- function(session, inputId, value = NULL) {
-  session$sendCustomMessage("update_textarea", list(id = inputId, value = value))
+  session$sendCustomMessage("update_textarea", list(id = session$ns(inputId), value = value))
 }
