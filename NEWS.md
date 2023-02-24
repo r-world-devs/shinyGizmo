@@ -1,4 +1,4 @@
-# shinyGizmo (development version)
+# shinyGizmo 0.4.1
 
 * `textArea` now stores its id as `data-id` attribute. This prevents automatic binding of the element by shiny library.
 Even when the id is specified directly, the input value is blocked by `preventDefault` method.
