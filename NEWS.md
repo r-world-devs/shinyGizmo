@@ -1,3 +1,7 @@
+# shinyGizmo 0.4.2
+
+* Fix handling non-existing selector case for valueButton.
+
 # shinyGizmo 0.4.1
 
 * `textArea` now stores its id as `data-id` attribute. This prevents automatic binding of the element by shiny library.
