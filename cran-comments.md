@@ -1,14 +1,18 @@
 ## Test environments
 * local check
-  Ubuntu Ubuntu 20.04.2 LTS, R 4.1.0 (2021-05-18)
+  Ubuntu 20.04.5 LTS, R 4.1.2 (2021-11-01)
 * win-builder
   R version 4.1.3 (2022-03-10)
   R version 4.2.2 (2022-10-31 ucrt)
-  R Under development (unstable) (2022-12-18 r83472 ucrt)
+  R Under development (unstable) (2023-02-23 r83894 ucrt)
 
-## `R CMD check shinyGizmo_0.4.tar.gz --as-cran` results
+## `R CMD check shinyGizmo_0.4.1.tar.gz --as-cran` results
 
 ```
+* using log directory ‘/home/krystian/projects/shinyGizmo.Rcheck’
+* using R version 4.2.1 (2022-06-23)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+...
 Status: OK
 ```
 
@@ -28,28 +32,33 @@ Status: OK
 ...
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: 'Krystian Igras <krystian8207@gmail.com>'
+
+Possibly mis-spelled words in DESCRIPTION:
+  UI (15:30)
 ...
 Status: 1 NOTE
 ```
+
+The word "UI" intentionally used.
 
 ```
 * using log directory 'd:/RCompile/CRANguest/R-release/shinyGizmo.Rcheck'
 * using R version 4.2.2 (2022-10-31 ucrt)
 * using platform: x86_64-w64-mingw32 (64-bit)
 ...
-* checking CRAN incoming feasibility ... NOTE
+* checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: 'Krystian Igras <krystian8207@gmail.com>'
 ...
-Status: 1 NOTE
+Status: OK
 ```
 
 ```
 * using log directory 'd:/RCompile/CRANguest/R-devel/shinyGizmo.Rcheck'
-* using R Under development (unstable) (2022-12-18 r83472 ucrt)
+* using R Under development (unstable) (2023-02-23 r83894 ucrt)
 * using platform: x86_64-w64-mingw32 (64-bit)
 ...
-* checking CRAN incoming feasibility ... [13s] NOTE
+* checking CRAN incoming feasibility ... [10s] Note_to_CRAN_maintainers
 Maintainer: 'Krystian Igras <krystian8207@gmail.com>'
 ...
-Status: 1 NOTE
+Status: OK
 ```

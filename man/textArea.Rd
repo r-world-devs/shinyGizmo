@@ -35,6 +35,8 @@ Possible options are "default", "both", "none", "vertical" and "horizontal".}
 
 \item{readonly}{If TRUE, providing custom values will be turned off.}
 
+\item{...}{Extra arguments passed to \code{textarea} tag form \link[shiny]{tags}.}
+
 \item{session}{Shiny session object.}
 }
 \value{
