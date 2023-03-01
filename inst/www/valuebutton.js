@@ -34,7 +34,7 @@ $.extend(valueButtonBinding, {
     if (selector == "document") {
       $target = document;
     }
-    if (!!$target) {
+    if (!$target) {
       return;
     }
     if ($(el).data("try_binding") == "TRUE") {

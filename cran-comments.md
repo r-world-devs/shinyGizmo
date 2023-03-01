@@ -4,14 +4,17 @@
 * win-builder
   R version 4.1.3 (2022-03-10)
   R version 4.2.2 (2022-10-31 ucrt)
-  R Under development (unstable) (2023-02-23 r83894 ucrt)
+  R Under development (unstable) (2023-02-27 r83911 ucrt)
 
-## `R CMD check shinyGizmo_0.4.1.tar.gz --as-cran` results
+## `R CMD check shinyGizmo_0.4.2.tar.gz --as-cran` results
 
 ```
 * using log directory ‘/home/krystian/projects/shinyGizmo.Rcheck’
 * using R version 4.2.1 (2022-06-23)
 * using platform: x86_64-pc-linux-gnu (64-bit)
+...
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Krystian Igras <krystian8207@gmail.com>'
 ...
 Status: OK
 ```
@@ -46,19 +49,19 @@ The word "UI" intentionally used.
 * using R version 4.2.2 (2022-10-31 ucrt)
 * using platform: x86_64-w64-mingw32 (64-bit)
 ...
-* checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
+* checking CRAN incoming feasibility ... NOTE
 Maintainer: 'Krystian Igras <krystian8207@gmail.com>'
 ...
-Status: OK
+Status: 1 NOTE
 ```
 
 ```
 * using log directory 'd:/RCompile/CRANguest/R-devel/shinyGizmo.Rcheck'
-* using R Under development (unstable) (2023-02-23 r83894 ucrt)
+* using R Under development (unstable) (2023-02-27 r83911 ucrt)
 * using platform: x86_64-w64-mingw32 (64-bit)
 ...
-* checking CRAN incoming feasibility ... [10s] Note_to_CRAN_maintainers
+* checking CRAN incoming feasibility ... [15s] NOTE
 Maintainer: 'Krystian Igras <krystian8207@gmail.com>'
 ...
-Status: OK
+Status: 1 NOTE
 ```
