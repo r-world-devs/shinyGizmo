@@ -400,7 +400,7 @@ updatePickCheckboxInputTemplate <- function(session, inputId, choices, choicesNa
     choicesNames <- pickCheckboxNames(choices)
   }
 
-  session$sendInputMessage(inputId, list(block = TRUE))
+  session$sendInputMessage(inputId, list(freeze = TRUE))
 
   checkbox_params <- form_checkboxes_update(choices, choicesNames, choicesLabels, selected) %>%
     purrr::transpose() %>%

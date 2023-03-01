@@ -34,18 +34,17 @@ $.extend(valueButtonBinding, {
     if (selector == "document") {
       $target = document;
     }
+    if (!$target) {
+      return;
+    }
     if ($(el).data("try_binding") == "TRUE") {
       if ($(selector).hasClass('shiny-bound-input') && attribute == "value") {
         var binding = $(selector).data('shiny-input-binding');
-        var type = binding.name;
-        if (Boolean(binding.getType)) {
-          type = binding.getType();
-        }
-        var value = binding.getValue($(selector));
-        if (type === null) {
-          return value;
-        }
-        return {"value": value, "type": type};
+        return {
+          "value": binding.getValue($(selector)[0]),
+          "type": binding.getType(),
+          "name": binding.getId($(selector)[0])
+        };
       }
     }
 

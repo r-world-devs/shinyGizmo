@@ -13,11 +13,11 @@ $.extend(pickCheckboxBinding, {
     return "shinyGizmo.pickcheckbox";
   },
   getValue: function(el) {
-    if (Boolean($(el).data("block"))) {
+    if (Boolean($(el).data("freeze"))) {
       return($(el).data("value"));
     }
 
-    var picker = $(el).find('#' + el.id + '_picker');
+    var picker = $(el).find('#' + $(el).attr('id') + '_picker');
     var checkboxes = $(el).find('.shiny-input-checkboxgroup');
     var picker_el = picker;
     if (picker.hasClass('virtual-select')) {
@@ -40,7 +40,7 @@ $.extend(pickCheckboxBinding, {
     return(checkbox_vals);
   },
   subscribe: function(el, callback) {
-    var picker = $(el).find('#' + el.id + '_picker');
+    var picker = $(el).find('#' + $(el).attr('id') + '_picker');
     var checkboxes = $(el).find('.shiny-input-checkboxgroup');
 
     get_binding(picker).subscribe(picker, callback);
@@ -60,8 +60,8 @@ $.extend(pickCheckboxBinding, {
     });
   },
   receiveMessage: function(el, data) {
-    if (data.hasOwnProperty("block")) {
-      $(el).data("block", true);
+    if (data.hasOwnProperty("freeze")) {
+      $(el).data("freeze", true);
       return;
     }
     if (data.hasOwnProperty("checkboxes")) {
@@ -88,7 +88,7 @@ $.extend(pickCheckboxBinding, {
     }
 
     if (data.hasOwnProperty("trigger")) {
-      $(el).data("block", false);
+      $(el).data("freeze", false);
       $(el).trigger('change');
     }
   },
