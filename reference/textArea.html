@@ -21,7 +21,7 @@ If you want to access the component value on request please use valueButton."><!
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyGizmo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.2</span>
       </span>
     </div>
 
@@ -84,7 +84,8 @@ down the application.</p>
 <span>  width <span class="op">=</span> <span class="st">"100%"</span>,</span>
 <span>  height <span class="op">=</span> <span class="st">"200px"</span>,</span>
 <span>  resize <span class="op">=</span> <span class="st">"default"</span>,</span>
-<span>  readonly <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  readonly <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">updateTextArea</span><span class="op">(</span><span class="va">session</span>, <span class="va">inputId</span>, value <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
@@ -93,7 +94,8 @@ down the application.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>inputId</dt>
-<dd><p>Id of component.</p></dd>
+<dd><p>Id of component. This is stored as `data-id` attribute to omit automatic binding
+of the element (into textAreaInput).</p></dd>
 
 
 <dt>value</dt>
@@ -119,6 +121,10 @@ Possible options are "default", "both", "none", "vertical" and "horizontal".</p>
 
 <dt>readonly</dt>
 <dd><p>If TRUE, providing custom values will be turned off.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Extra arguments passed to <code>textarea</code> tag form <a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a>.</p></dd>
 
 
 <dt>session</dt>

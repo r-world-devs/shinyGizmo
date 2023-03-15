@@ -19,7 +19,7 @@ multiple controllers at once."><!-- mathjax --><script src="https://cdnjs.cloudf
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyGizmo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.2</span>
       </span>
     </div>
 
@@ -73,9 +73,9 @@ multiple controllers at once.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">commonInput</span><span class="op">(</span><span class="va">inputId</span>, <span class="va">controller</span>, block <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">commonInput</span><span class="op">(</span><span class="va">inputId</span>, <span class="va">controller</span>, block <span class="op">=</span> <span class="cn">TRUE</span>, ignoreIds <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">commonInputs</span><span class="op">(</span><span class="va">inputId</span>, <span class="va">...</span>, block <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">commonInputs</span><span class="op">(</span><span class="va">inputId</span>, <span class="va">...</span>, block <span class="op">=</span> <span class="cn">TRUE</span>, ignoreIds <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -89,7 +89,11 @@ multiple controllers at once.</p>
 
 
 <dt>block</dt>
-<dd><p>Should the `controller` value be sent to the server independently?</p></dd>
+<dd><p>Should the `controller` input value be sent to the server independently?</p></dd>
+
+
+<dt>ignoreIds</dt>
+<dd><p>Precise input IDs of bindings that should be ignored. Leave NULL (default) to catch all.</p></dd>
 
 
 <dt>...</dt>
