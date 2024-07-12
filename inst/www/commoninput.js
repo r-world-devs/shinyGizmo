@@ -49,7 +49,7 @@ $(document).on('shiny:bound', function(event) {
 });
 
 var assign_subvalues = function(el, inputs, storage_name) {
-      var input_vals = {};
+    var input_vals = {};
     var inputs_mapped = $(el).data(storage_name) || [];
     if (inputs_mapped.length === 0) {
       return;
@@ -57,6 +57,9 @@ var assign_subvalues = function(el, inputs, storage_name) {
     inputs.map(function() {
       var input_element = this;
       var input_binding = get_binding(input_element);
+      if (!!!input_binding) {
+        return false;
+      }
       var input_name = input_binding.getId(input_element);
       if (inputs_mapped.includes(input_name)) {
         input_vals[input_name] = {"value": input_binding.getValue(input_element), "type": input_binding.getType()};

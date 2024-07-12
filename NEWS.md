@@ -1,3 +1,7 @@
+# shinyGizmo (development version)
+
+* Fix handling `shiny::selectizeInput` by `commonInput` function.
+
 # shinyGizmo 0.4.2
 
 * Fix handling non-existing selector case for valueButton.
