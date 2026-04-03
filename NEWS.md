@@ -1,3 +1,8 @@
+# shinyGizmo 0.5.0
+
+* Add `container()` and `condition()` for responsive layouts using CSS Container Queries.
+* Add `grid()` and `grid_item()` helpers for composable CSS Grid Layout definitions.
+
 # shinyGizmo 0.4.2
 
 * Fix handling non-existing selector case for valueButton.

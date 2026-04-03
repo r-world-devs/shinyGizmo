@@ -59,13 +59,13 @@ the opposite action to disable is called (removing disable attribute).
 }
 \details{
 The currently offered actions:
-\itemize{
-  \item{attachClass}{ Add provided class to the UI element.}
-  \item{disable}{ Add disable attribute to the UI element - usually results with disabling the input controller.}
-  \item{show}{ Show/hide an element with a help of `visibility:hidden` rule.
+\describe{
+  \item{attachClass}{Add provided class to the UI element.}
+  \item{disable}{Add disable attribute to the UI element - usually results with disabling the input controller.}
+  \item{show}{Show/hide an element with a help of `visibility:hidden` rule.
     Comparing to conditionalPanel (which uses display:none) results with rendering an output even if hidden.}
-  \item{css}{ Add css (inline) rule to the UI object. When condition is false, the rule is removed.}
-  \item{animateVisibility}{ Show/hide an element in an animated way.}
-  \item{custom}{ Define custom true and false callback.}
+  \item{css}{Add css (inline) rule to the UI object. When condition is false, the rule is removed.}
+  \item{animateVisibility}{Show/hide an element in an animated way.}
+  \item{custom}{Define custom true and false callback.}
 }
 }

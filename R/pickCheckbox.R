@@ -178,7 +178,7 @@ prep_input <- function(label = NULL, choices = NULL, selected = NULL, inline = F
 #'
 #' @return Named list object defining labels for component checkbox options, or
 #' named vector storing labels for each checkbox.
-#' @param choices link{pickCheckboxInput} choices list.
+#' @param choices \link{pickCheckboxInput} choices list.
 #' @export
 pickCheckboxNames <- function(choices) {
   choices %>%
