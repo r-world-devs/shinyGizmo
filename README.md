@@ -81,24 +81,27 @@ different breakpoints, and use `grid()` / `grid_item()` as composable
 helpers for CSS Grid layouts.
 
 ``` r
-container(
+ container(
   name = "dashboard",
-  div(class = "sidebar", "Sidebar", style = "background-color:") |> grid_item(area = "sidebar"),
-  div(class = "main", "Main content") |> grid_item(area = "main"),
+  color = "#b5c5e7ff",
+  div(class = "sidebar", "Sidebar", style = "background-color:#d4f89b;") |> grid_item(area = "sidebar"),
+  div(class = "main", "Main content", style = "background-color:#b5c5e7;") |> grid_item(area = "main"),
   conditions = list(
     condition(
       !!!grid(
         template_areas = list(c("sidebar", "main")),
-        template_columns = "250px 1fr",
+        template_columns = "200px 1fr",
         gap = "16px"
-      )
+      ), 
+      `font-size` = "20px"
     ),
     condition(
       query = "width < 700px",
       !!!grid(
         template_areas = list(c("sidebar"), c("main")),
         gap = "12px"
-      )
+      ), 
+      `font-size` = "12px"
     )
   )
 )
