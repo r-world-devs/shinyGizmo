@@ -92,8 +92,8 @@ condition_to_css <- function(cond, container_name) {
 #' @examples
 #' container(
 #'   name = "demo",
-#'   shiny::div(class = "a", "A") |> grid_item(area = "a"),
-#'   shiny::div(class = "b", "B") |> grid_item(area = "b"),
+#'   grid_item(shiny::div(class = "a", "A"), area = "a"),
+#'   grid_item(shiny::div(class = "b", "B"), area = "b"),
 #'   conditions = list(
 #'     condition(!!!grid(template_areas = list(c("a", "b")))),
 #'     condition(
@@ -108,8 +108,8 @@ container <- function(name, ..., conditions = list(), type = "inline-size",
                       class = NULL, .style = NULL) {
   children <- rlang::dots_list(...)
 
-  css_rules <- purrr::map_chr(conditions, ~ condition_to_css(.x, container_name = name)) |>
-    paste(collapse = "\n\n") |>
+  css_rules <- purrr::map_chr(conditions, ~ condition_to_css(.x, container_name = name)) %>%
+    paste(collapse = "\n\n") %>%
     shiny::HTML()
 
   container_classes <- paste(c(name, class), collapse = " ")
@@ -123,7 +123,7 @@ container <- function(name, ..., conditions = list(), type = "inline-size",
       `for` = name,
       !!!children
     )
-  ) |>
+  ) %>%
     htmltools::attachDependencies(
       htmltools::htmlDependency(
         name = paste0("container-", name),
@@ -208,8 +208,7 @@ grid <- function(template_areas = NULL, template_rows = NULL, template_columns =
 
 #' Set CSS grid item placement on a UI element
 #'
-#' Adds grid item CSS properties to a tag element. Pipe-friendly for use
-#' with the base pipe \code{|>} or magrittr \code{\%>\%}.
+#' Adds grid item CSS properties to a tag element.
 #'
 #' @param ui A \code{\link[htmltools]{tag}} object to modify.
 #' @param area CSS \code{grid-area} value (e.g., a named area from
@@ -224,9 +223,9 @@ grid <- function(template_areas = NULL, template_rows = NULL, template_columns =
 #' @return The modified \code{\link[htmltools]{tag}} with grid styles appended.
 #'
 #' @examples
-#' shiny::div("Sidebar content") |> grid_item(area = "sidebar")
+#' grid_item(shiny::div("Sidebar content"), area = "sidebar")
 #'
-#' shiny::div("Spanning item") |> grid_item(column_start = 1, column_end = 3)
+#' grid_item(shiny::div("Spanning item"), column_start = 1, column_end = 3)
 #'
 #' @export
 grid_item <- function(ui, area = NULL, row_start = NULL, row_end = NULL,

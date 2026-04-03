@@ -41,8 +41,8 @@ than the viewport.
 \examples{
 container(
   name = "demo",
-  shiny::div(class = "a", "A") |> grid_item(area = "a"),
-  shiny::div(class = "b", "B") |> grid_item(area = "b"),
+  grid_item(shiny::div(class = "a", "A"), area = "a"),
+  grid_item(shiny::div(class = "b", "B"), area = "b"),
   conditions = list(
     condition(!!!grid(template_areas = list(c("a", "b")))),
     condition(

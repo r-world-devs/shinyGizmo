@@ -37,12 +37,11 @@ grid_item(
 The modified \code{\link[htmltools]{tag}} with grid styles appended.
 }
 \description{
-Adds grid item CSS properties to a tag element. Pipe-friendly for use
-with the base pipe \code{|>} or magrittr \code{\%>\%}.
+Adds grid item CSS properties to a tag element.
 }
 \examples{
-shiny::div("Sidebar content") |> grid_item(area = "sidebar")
+grid_item(shiny::div("Sidebar content"), area = "sidebar")
 
-shiny::div("Spanning item") |> grid_item(column_start = 1, column_end = 3)
+grid_item(shiny::div("Spanning item"), column_start = 1, column_end = 3)
 
 }

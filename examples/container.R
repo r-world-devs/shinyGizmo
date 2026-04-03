@@ -38,12 +38,12 @@ ui <- fluidPage(
         tags$li("Link B"),
         tags$li("Link C")
       )
-    ) |> grid_item(area = "sidebar"),
+    ) %>% grid_item(area = "sidebar"),
 
     card(title = "Main content",
       p("This is the primary content area."),
       p("It takes up more space when the container is wide enough.")
-    ) |> grid_item(area = "main"),
+    ) %>% grid_item(area = "main"),
 
     conditions = list(
       # Default: two-column layout
@@ -170,13 +170,13 @@ ui <- fluidPage(
 
   container(
     name = "outer",
-    card(title = "Left panel", p("Static content")) |> grid_item(area = "left"),
+    card(title = "Left panel", p("Static content")) %>% grid_item(area = "left"),
 
     container(
       name = "inner",
-      card(title = "Card A", bg = "#ffe0b2", p("Nested card A")) |> grid_item(area = "a"),
-      card(title = "Card B", bg = "#c8e6c9", p("Nested card B")) |> grid_item(area = "b"),
-      card(title = "Card C", bg = "#bbdefb", p("Nested card C")) |> grid_item(area = "c"),
+      card(title = "Card A", bg = "#ffe0b2", p("Nested card A")) %>% grid_item(area = "a"),
+      card(title = "Card B", bg = "#c8e6c9", p("Nested card B")) %>% grid_item(area = "b"),
+      card(title = "Card C", bg = "#bbdefb", p("Nested card C")) %>% grid_item(area = "c"),
       conditions = list(
         condition(
           !!!grid(
@@ -192,7 +192,7 @@ ui <- fluidPage(
           )
         )
       )
-    ) |> grid_item(area = "right"),
+    ) %>% grid_item(area = "right"),
 
     conditions = list(
       condition(
@@ -224,23 +224,23 @@ ui <- fluidPage(
     name = "explicit_grid",
     card(title = "Wide banner", bg = "#e1bee7",
       p("Spans all 3 columns")
-    ) |> grid_item(column_start = 1, column_end = 4, row_start = 1),
+    ) %>% grid_item(column_start = 1, column_end = 4, row_start = 1),
 
     card(title = "Tall side", bg = "#b2dfdb",
       p("Spans 2 rows")
-    ) |> grid_item(column_start = 1, row_start = 2, row_end = 4),
+    ) %>% grid_item(column_start = 1, row_start = 2, row_end = 4),
 
     card(title = "Cell 1", bg = "#fff9c4",
       p("Regular cell")
-    ) |> grid_item(column_start = 2, row_start = 2),
+    ) %>% grid_item(column_start = 2, row_start = 2),
 
     card(title = "Cell 2", bg = "#ffccbc",
       p("Regular cell")
-    ) |> grid_item(column_start = 3, row_start = 2),
+    ) %>% grid_item(column_start = 3, row_start = 2),
 
     card(title = "Bottom wide", bg = "#d1c4e9",
       p("Spans columns 2-3")
-    ) |> grid_item(column_start = 2, column_end = 4, row_start = 3),
+    ) %>% grid_item(column_start = 2, column_end = 4, row_start = 3),
 
     conditions = list(
       condition(
