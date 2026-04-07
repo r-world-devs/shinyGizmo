@@ -11,7 +11,7 @@ pickCheckboxNames(choices)
 pickCheckboxLabels(choices)
 }
 \arguments{
-\item{choices}{link{pickCheckboxInput} choices list.}
+\item{choices}{\link{pickCheckboxInput} choices list.}
 }
 \value{
 Named list object defining labels for component checkbox options, or

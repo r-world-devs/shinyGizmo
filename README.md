@@ -1,7 +1,7 @@
 
 # shinyGizmo
 
-[![version](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.4.2&color=ff69b4)](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)
+[![version](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.5.0&color=ff69b4)](https://img.shields.io/static/v1.svg?label=github.com&message=v.0.1&color=ff69b4)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-success.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 
 ## Overview
@@ -11,7 +11,7 @@ applications.
 
 <center>
 
-## <span style="color:blue"> shinyGizmo 0.4.2 is now available!</span>
+## <span style="color:blue"> shinyGizmo 0.5.0 is now available!</span>
 
 </center>
 
@@ -66,6 +66,59 @@ text area. Works great with `valueButton`.
 ![](./man/figures/pickcheckbox.gif)
 
 ![](./man/figures/vscheckboxinput.gif)
+
+### `container` + `grid` - responsive layouts with CSS Container Queries
+
+![](./man/figures/container.gif)
+
+Build responsive layouts that adapt based on the container’s own
+dimensions rather than the viewport using [CSS Container
+Queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries)
+and [CSS Grid
+Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout).
+Combine `container()` with `condition()` to define CSS rules at
+different breakpoints, and use `grid()` / `grid_item()` as composable
+helpers for CSS Grid layouts.
+
+``` r
+ container(
+  name = "dashboard",
+  color = "#b5c5e7ff",
+  div(class = "sidebar", "Sidebar", style = "background-color:#d4f89b;") |> grid_item(area = "sidebar"),
+  div(class = "main", "Main content", style = "background-color:#b5c5e7;") |> grid_item(area = "main"),
+  conditions = list(
+    condition(
+      !!!grid(
+        template_areas = list(c("sidebar", "main")),
+        template_columns = "200px 1fr",
+        gap = "16px"
+      ), 
+      `font-size` = "20px"
+    ),
+    condition(
+      query = "width < 700px",
+      !!!grid(
+        template_areas = list(c("sidebar"), c("main")),
+        gap = "12px"
+      ), 
+      `font-size` = "12px"
+    )
+  )
+)
+```
+
+Key features: - **`container()`** - wraps elements with `container-type`
+/ `container-name` for CSS Container Queries - **`condition()`** -
+defines CSS rules for a specific container query (or unconditionally
+when `query = NULL`); supports `.extra_css` for targeting child
+selectors - **`grid()`** - generates CSS Grid properties
+(`template_areas`, `template_columns`, `auto_fill`, etc.) as a named
+list for splicing into `condition()` via `!!!` - **`grid_item()`** -
+pipe-friendly helper to set `grid-area`, `grid-row`, `grid-column` on
+individual elements
+
+See `examples/container.R` for a full demo app with nested containers,
+auto-fill grids, and explicit row/column spanning.
 
 ## Lifecycle
 
