@@ -102,9 +102,9 @@ ui <- fluidPage(
 
   container(
     name = "styled_panel",
-    div(class = "header", "Header area"),
-    div(class = "body", "Body content area"),
-    div(class = "footer", "Footer"),
+    div(class = "header", "Header area") %>% grid_item("header"),
+    div(class = "body", "Body content area") %>% grid_item("body"),
+    div(class = "footer", "Footer") %>% grid_item("footer"),
     conditions = list(
       # Base styles
       condition(

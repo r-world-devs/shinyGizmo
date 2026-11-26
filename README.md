@@ -107,15 +107,18 @@ helpers for CSS Grid layouts.
 )
 ```
 
-Key features: - **`container()`** - wraps elements with `container-type`
-/ `container-name` for CSS Container Queries - **`condition()`** -
-defines CSS rules for a specific container query (or unconditionally
-when `query = NULL`); supports `.extra_css` for targeting child
-selectors - **`grid()`** - generates CSS Grid properties
-(`template_areas`, `template_columns`, `auto_fill`, etc.) as a named
-list for splicing into `condition()` via `!!!` - **`grid_item()`** -
-pipe-friendly helper to set `grid-area`, `grid-row`, `grid-column` on
-individual elements
+Key features:
+
+- **`container()`** - wraps elements with `container-type` /
+  `container-name` for CSS Container Queries
+- **`condition()`** - defines CSS rules for a specific container query
+  (or unconditionally when `query = NULL`); supports `.extra_css` for
+  targeting child selectors
+- **`grid()`** - generates CSS Grid properties (`template_areas`,
+  `template_columns`, `auto_fill`, etc.) as a named list for splicing
+  into `condition()` via `!!!`
+- **`grid_item()`** - pipe-friendly helper to set `grid-area`,
+  `grid-row`, `grid-column` on individual elements
 
 See `examples/container.R` for a full demo app with nested containers,
 auto-fill grids, and explicit row/column spanning.
