@@ -21,7 +21,13 @@ pkgdown::build_site()                       # site in docs/ (published to r-worl
 shiny::runApp("examples/valuebutton.R")     # manual demo apps, one per component
 ```
 
-There is no `tests/` directory and no CI. Changes are verified manually with the apps in `examples/` (or the `@examples` blocks in roxygen docs, which are wrapped in `if (interactive())`).
+```bash
+Rscript run_tests.R [filter ...]            # UI tests (shinytest2) with screenshot tests enabled, e.g. `Rscript run_tests.R ui-valuebutton`
+```
+
+UI tests live in `tests/testthat/test-ui-*.R` and drive apps from `tests/testthat/apps/<component>/app.R` via `shinytest2::AppDriver` (needs Chrome). The apps call `library(shinyGizmo)` in a separate process, so run `R CMD INSTALL .` before testing JS/R changes. Server-side values are checked through `exportTestValues()` (`app$get_value(export = ...)`), e.g. to assert classes produced by input handlers. Screenshot tests run only with `SCREENSHOT_TESTS=1` (set by `run_tests.R`); `tests/testthat/setup.R` stops testthat from deleting their snapshots otherwise. UI tests are skipped on CRAN and CI.
+
+There is no CI. Components without tests are verified manually with the apps in `examples/` (or the `@examples` blocks in roxygen docs, which are wrapped in `if (interactive())`).
 
 ## Architecture
 

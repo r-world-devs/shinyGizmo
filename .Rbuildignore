@@ -12,3 +12,4 @@ cran-comments.md
 ^\.claude$
 ^CLAUDE\.md$
 ^\.mcp\.json$
+^run_tests\.R$

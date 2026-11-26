@@ -37,21 +37,27 @@ $.extend(valueButtonBinding, {
     if (!$target) {
       return;
     }
-    if ($(el).data("try_binding") == "TRUE") {
-      if ($(selector).hasClass('shiny-bound-input') && attribute == "value") {
-        var binding = $(selector).data('shiny-input-binding');
-        return {
-          "value": binding.getValue($(selector)[0]),
-          "type": binding.getType(),
-          "name": binding.getId($(selector)[0])
-        };
-      }
+    var try_binding = $(el).data("try_binding") == "TRUE";
+    if (try_binding && $(selector).hasClass('shiny-bound-input') && attribute == "value") {
+      var binding = $(selector).data('shiny-input-binding');
+      var input_type = binding.getType($target);
+      var input_name = binding.getId($target);
+      var input_key = input_type ? input_name + ":" + input_type : input_name;
+      var input_val = {};
+      input_val[input_key] = binding.getValue($target);
+      return input_val;
     }
 
     var value = byString($target, attribute);
+    if (try_binding) {
+      return {"value": value};
+    }
     return value;
   },
   getType: function(el) {
+    if ($(el).data("try_binding") == "TRUE") {
+      return "shinyGizmo.valuebutton.binding";
+    }
     return "shinyGizmo.valuebutton";
   },
   subscribe: function(el, callback) {
