@@ -25,21 +25,23 @@ $.extend(valueButtonBinding, {
     var $target;
     var attribute = $(el).data("value-attribute");
     var selector = $(el).data("selector");
-    if (selector != "window" & selector != "document") {
-      $target =  $(selector)[0];
-    }
     if (selector == "window") {
       $target = window;
-    }
-    if (selector == "document") {
+    } else if (selector == "document") {
       $target = document;
+    } else if (selector == "this") {
+      $target = el;
+    } else {
+      $target = $(selector)[0];
     }
     if (!$target) {
       return;
     }
     var try_binding = $(el).data("try_binding") == "TRUE";
-    if (try_binding && $(selector).hasClass('shiny-bound-input') && attribute == "value") {
-      var binding = $(selector).data('shiny-input-binding');
+    // Skip binding when sourcing from the button itself to avoid recursive getValue call
+    var is_bound = $target !== el && $($target).hasClass('shiny-bound-input');
+    if (try_binding && is_bound && attribute == "value") {
+      var binding = $($target).data('shiny-input-binding');
       var input_type = binding.getType($target);
       var input_name = binding.getId($target);
       var input_key = input_type ? input_name + ":" + input_type : input_name;

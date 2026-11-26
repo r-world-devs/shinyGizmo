@@ -15,11 +15,14 @@ ui <- fluidPage(
   valueButton("vb_width", "Text area width", "#txt", "style.width"),
   valueButton("vb_object", "Window object", "window", "typedObject"),
   valueLink("vl_slider", "Slider value (link)", "#sli"),
+  valueButton("vb_this", "Own data attribute", "this", "dataset.info", `data-info` = "custom"),
+  valueButton("vb_this_value", "Own value", "this"),
+  valueLink("vl_this", "Own text (link)", "this", "innerText"),
   verbatimTextOutput("out")
 )
 
 server <- function(input, output, session) {
-  ids <- c("vb_slider", "vb_date", "vb_date_raw", "vb_width", "vb_object", "vl_slider")
+  ids <- c("vb_slider", "vb_date", "vb_date_raw", "vb_width", "vb_object", "vl_slider", "vb_this", "vb_this_value", "vl_this")
   output$out <- renderPrint(str(stats::setNames(purrr::map(ids, ~ input[[.x]]), ids)))
 
   exportTestValues(
@@ -30,7 +33,10 @@ server <- function(input, output, session) {
     vb_date_raw_class = class(input$vb_date_raw),
     vb_width = input$vb_width,
     vb_object = input$vb_object,
-    vl_slider = input$vl_slider
+    vl_slider = input$vl_slider,
+    vb_this = input$vb_this,
+    vb_this_value = input$vb_this_value,
+    vl_this = input$vl_this
   )
 }
 

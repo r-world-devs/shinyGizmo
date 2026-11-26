@@ -9,10 +9,12 @@
 #'   shinyApp(
 #'     ui = fluidPage(
 #'       tags$textarea(id = "txt"),
-#'       valueButton("val", "Take textarea value", "#txt", attribute = "value")
+#'       valueButton("val", "Take textarea value", "#txt", attribute = "value"),
+#'       valueButton("own", "Take own data attribute", "this", "dataset.info", `data-info` = "custom")
 #'     ),
 #'     server = function(input, output, session) {
 #'       observeEvent(input$val, print(input$val))
+#'       observeEvent(input$own, print(input$own))
 #'     }
 #'   )
 #' }
@@ -20,7 +22,8 @@
 #' @param inputId Id of the button. The value can be accessed in server with `input[[inputId]]`.
 #' @param label Button label.
 #' @param selector CSS selector of element the attribute should be taken from.
-#'   Set `"window"` or `"document"` to access application `window` or `document` object.
+#'   Set `"window"` or `"document"` to access application `window` or `document` object,
+#'   or `"this"` to take the attribute from the button (or link) itself.
 #' @param attribute Name of the attribute that should be taken from desired element.
 #'   For nested properties use `.`, e.g. `style.width` or `navigator.appName`.
 #' @param icon Icon included in button.

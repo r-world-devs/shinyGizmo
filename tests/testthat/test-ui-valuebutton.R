@@ -49,6 +49,20 @@ test_that("valueButton returns non-binding attributes as is", {
   expect_equal(app$get_value(export = "vb_object"), list(type = "custom", size = 1L))
 })
 
+test_that("valueButton takes attribute from itself with selector = 'this' (#7)", {
+  skip_on_cran()
+  skip_on_ci()
+  skip_if_screenshot_only()
+
+  app <- new_valuebutton_app("valuebutton-this")
+  on.exit(app$stop(), add = TRUE)
+
+  expect_equal(app$get_value(export = "vb_this"), "custom")
+  expect_equal(app$get_value(export = "vl_this"), "Own text (link)")
+  # Button DOM `value` property is taken; its own binding is not used to avoid recursion
+  expect_equal(app$get_value(export = "vb_this_value"), "")
+})
+
 test_that("valueButton sends current value on click", {
   skip_on_cran()
   skip_on_ci()
