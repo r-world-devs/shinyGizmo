@@ -27,7 +27,7 @@ Rscript run_tests.R [filter ...]            # UI tests (shinytest2) with screens
 
 UI tests live in `tests/testthat/test-ui-*.R` and drive apps from `tests/testthat/apps/<component>/app.R` via `shinytest2::AppDriver` (needs Chrome). The apps call `library(shinyGizmo)` in a separate process, so run `R CMD INSTALL .` before testing JS/R changes. Server-side values are checked through `exportTestValues()` (`app$get_value(export = ...)`), e.g. to assert classes produced by input handlers. Screenshot tests run only with `SCREENSHOT_TESTS=1` (set by `run_tests.R`); `tests/testthat/setup.R` stops testthat from deleting their snapshots otherwise. UI tests are skipped on CRAN and CI.
 
-There is no CI. Components without tests are verified manually with the apps in `examples/` (or the `@examples` blocks in roxygen docs, which are wrapped in `if (interactive())`).
+GitHub Actions CI lives in `.github/workflows/ci.yaml` (scenarios and repository variables documented in its header): R CMD check, version bump check, spellcheck (`inst/WORDLIST`), optional lintr; a manual `release` run validates the version/NEWS.md, publishes pkgdown to `gh-pages` and creates the `v<version>` GitHub release. It installs the latest CRAN dependencies, not `renv.lock`. Components without tests are verified manually with the apps in `examples/` (or the `@examples` blocks in roxygen docs, which are wrapped in `if (interactive())`).
 
 ## Architecture
 

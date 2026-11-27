@@ -13,3 +13,4 @@ cran-comments.md
 ^CLAUDE\.md$
 ^\.mcp\.json$
 ^run_tests\.R$
+^\.github$
