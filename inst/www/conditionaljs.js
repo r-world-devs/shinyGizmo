@@ -46,6 +46,30 @@ function narrowScope(scope, nsPrefix) {
   } : scope;
 }
 
+var condition_funcs = {};
+var get_condition_func = function(expr) {
+  if (!condition_funcs[expr]) {
+    condition_funcs[expr] = scopeExprToFunc(expr);
+  }
+  return condition_funcs[expr];
+};
+
+// Single rule is stored in separate attributes, multiple rules as JSON array.
+// Attributes are read on each run so that they can be modified directly.
+var get_rules = function(el) {
+  var rules_json = el.attr("data-call-rules");
+  if (rules_json) {
+    return JSON.parse(rules_json);
+  }
+  return [{
+    "condition": el.attr("data-call-if"),
+    "true": el.attr("data-call-if-true"),
+    "false": el.attr("data-call-if-false"),
+    "once": Boolean(el.attr("data-call-once")),
+    "ns": el.attr("data-ns-prefix")
+  }];
+};
+
 var js_call_once_per_flush = false;
 var condjs_run_idx = 1;
 var flush_counter = 0;
@@ -74,34 +98,29 @@ $(document).on('shiny:conditional', function(event) {
     input: inputs,
     output: Shiny.shinyapp.$values
   };
-  var conditionals = $(document).find("[data-call-if]");
+  var conditionals = $(document).find("[data-call-if], [data-call-rules]");
   for (var i = 0; i < conditionals.length; i++) {
     var el = $(conditionals[i]);
-    var condFunc = el.data("data-call-if-func");
-    if (!condFunc) {
-      var condExpr = el.attr("data-call-if");
-      condFunc = scopeExprToFunc(condExpr);
-      el.data("data-call-if-func", condFunc);
-    }
-    var nsPrefix = el.attr("data-ns-prefix");
-    var nsScope = narrowScope(scope, nsPrefix);
-    var trigger = condFunc(nsScope);
-    var prev_state = el.data("data-call-state");
-    var switch_only_run = Boolean(el.attr("data-call-once"));
-    var should_run = !switch_only_run || (switch_only_run && (trigger != prev_state))
-    var js_call = '';
-    if (should_run) {
-      if (trigger) {
-        js_call = el.attr("data-call-if-true");
-      } else {
-        js_call = el.attr("data-call-if-false");
+    var rules = get_rules(el);
+    var states = el.data("data-call-states") || [];
+    var js_calls = [];
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      var nsScope = narrowScope(scope, rule.ns);
+      var trigger = get_condition_func(rule.condition)(nsScope);
+      var should_run = !rule.once || (trigger != states[j]);
+      if (should_run) {
+        js_calls.push(trigger ? rule["true"] : rule["false"]);
       }
+      states[j] = trigger;
     }
-    el.data("data-call-state", trigger);
+    el.data("data-call-states", states);
 
     (function() {
-      if (Boolean(js_call)) {
-        eval(js_call);
+      for (var k = 0; k < js_calls.length; k++) {
+        if (Boolean(js_calls[k])) {
+          eval(js_calls[k]);
+        }
       }
       $(this).data("data-call-initialized", true);
     }).call(el[0]);

@@ -12,20 +12,26 @@ conditionalJS(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NULL))
 \arguments{
 \item{session}{Shiny session object.}
 
-\item{ui}{A `shiny.tag` element to which the JS callback should be attached.}
+\item{ui}{A `shiny.tag` element to which the JS callback should be attached.
+It can be an element already wrapped with `conditionalJS` - the new rules are added
+to the existing ones.}
 
 \item{condition}{A JavaScript expression that will be evaluated repeatedly.
 When the evaluated `condition` is true, `jsCall`'s true (`jsCall$true`) callback is run,
-when false -  `jsCall$false` is executed in application browser.}
+when false -  `jsCall$false` is executed in application browser.
+Pass a character vector to define multiple rules at once (each paired with
+the corresponding `jsCall` element).}
 
 \item{jsCall}{A list of two `htmltools::JS` elements named 'true' and 'false'
 storing JS expressions.
 The 'true' object is evaluated when `condition` is true, 'false' otherwise.
 In order to skip true/false callback assign it to NULL (or skip).
 Use `this` object in the expressions to refer to the `ui` object.
-See \link{jsCalls} for possible actions.}
+See \link{jsCalls} for possible actions.
+When multiple conditions are provided, pass a list of such calls.}
 
-\item{once}{Should the JS action be called only when condition state changes?}
+\item{once}{Should the JS action be called only when condition state changes?
+Can be a vector when multiple conditions are provided.}
 
 \item{ns}{The \link[shiny]{NS} object of the current module, if any.}
 }
@@ -40,6 +46,12 @@ Optionally call `jsCallOncePerFlush` in server to assure the call is run once
 per application flush cycle (see. https://github.com/rstudio/shiny/issues/3668).
 This prevents i.e. running animation multiple times when
 `runAnimation(once = FALSE)` is used.
+}
+\details{
+Multiple rules can be attached to a single element either by passing vectors to
+`condition`, `jsCall` (and optionally `once`) or by applying `conditionalJS` multiple
+times (e.g. with pipe). The rules are evaluated in definition order, so when
+multiple rules modify the same property, the last one wins.
 }
 \examples{
 if (interactive()) {
@@ -116,6 +128,31 @@ if (interactive()) {
     })
     jsCallOncePerFlush(session)
   }
+
+  shinyApp(ui, server)
+}
+
+if (interactive()) {
+  library(shiny)
+  library(shinyGizmo)
+
+  # Multiple rules attached to a single element
+  ui <- fluidPage(
+    tags$style(".boldme {font-weight: bold;}"),
+    sliderInput("value", "Value", min = 1, max = 10, value = 1),
+    checkboxInput("lock", "Lock button"),
+    tags$button("I'm bold when value at least 5, disabled when locked") |>
+      conditionalJS("input.value >= 5", jsCalls$attachClass("boldme")) |>
+      conditionalJS("input.lock", jsCalls$disable()),
+    hr(),
+    conditionalJS(
+      tags$button("I'm visible when value at least 3, red when at least 7"),
+      condition = c("input.value >= 3", "input.value >= 7"),
+      jsCall = list(jsCalls$show(), jsCalls$css(color = "red"))
+    )
+  )
+
+  server <- function(input, output, session) {}
 
   shinyApp(ui, server)
 }

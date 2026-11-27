@@ -15,6 +15,7 @@ filters <- commandArgs(trailingOnly = TRUE)
 if (length(filters) == 0) {
   filters <- c(
     "ui-commoninput",
+    "ui-conditionaljs",
     "ui-controlinput",
     "ui-valuebutton"
   )

@@ -181,6 +181,20 @@ Use predefined actions such as `disable`, `attachClass`, `css`, `show`, `runAnim
 
 ![](./man/figures/condjs.gif) ![](./man/figures/condjsanim.gif)
 
+Attach multiple rules to a single element by applying `conditionalJS` multiple times, or by passing vectors of conditions and calls:
+
+```r
+tags$button("Bold when value at least 5, disabled when locked") |>
+  conditionalJS("input.value >= 5", jsCalls$attachClass("boldme")) |>
+  conditionalJS("input.lock", jsCalls$disable())
+
+conditionalJS(
+  tags$button("Visible when value at least 3, red when at least 7"),
+  condition = c("input.value >= 3", "input.value >= 7"),
+  jsCall = list(jsCalls$show(), jsCalls$css(color = "red"))
+)
+```
+
 ## Lifecycle
 
 shinyGizmo is stable but we're still developing the package. 
