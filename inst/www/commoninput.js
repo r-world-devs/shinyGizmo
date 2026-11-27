@@ -59,7 +59,9 @@ var assign_subvalues = function(el, inputs, storage_name) {
       var input_binding = get_binding(input_element);
       var input_name = input_binding.getId(input_element);
       if (inputs_mapped.includes(input_name)) {
-        input_vals[input_name] = {"value": input_binding.getValue(input_element), "type": input_binding.getType()};
+        var input_type = input_binding.getType(input_element);
+        var input_key = input_type ? input_name + ":" + input_type : input_name;
+        input_vals[input_key] = input_binding.getValue(input_element);
       }
     });
     $(el).data("value", input_vals);

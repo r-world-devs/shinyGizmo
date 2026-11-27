@@ -5,7 +5,18 @@ options("shiny.minified" = FALSE)
 ui <- fluidPage(
   tags$style(".boldme {font-weight: bold;}"),
   sliderInput("value", "Value", min = 1, max = 10, value = 1),
+  checkboxInput("lock", "Lock"),
   textOutput("slid_val"),
+  tags$button("I'm bold when value at least 5 and disabled when locked") |>
+    conditionalJS("input.value >= 5", jsCalls$attachClass("boldme")) |>
+    conditionalJS("input.lock", jsCalls$disable()),
+  hr(),
+  conditionalJS(
+    tags$button("I'm visible when value at least 3 and red when at least 7"),
+    condition = c("input.value >= 3", "input.value >= 7"),
+    jsCall = list(jsCalls$show(), jsCalls$css(color = "red"))
+  ),
+  hr(),
   conditionalJS(
     tags$button("I'm visible when value at least 3"),
     "input.value >= 3",

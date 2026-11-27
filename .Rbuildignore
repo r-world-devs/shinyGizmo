@@ -9,3 +9,8 @@ _pkgdown.yml
 README.Rmd
 cran-comments.md
 ^meta_data\.yaml$
+^\.claude$
+^CLAUDE\.md$
+^\.mcp\.json$
+^run_tests\.R$
+^\.github$

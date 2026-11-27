@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "btw": {
+      "type": "stdio",
+      "command": "Rscript",
+      "args": [
+        "-e",
+        "btw::btw_mcp_server(tools = btw::btw_tools('docs', 'pkg', 'env', 'cran', 'sessioninfo', 'run'))"
+      ],
+      "env": {}
+    }
+  }
+}

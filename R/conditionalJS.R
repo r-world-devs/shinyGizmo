@@ -477,6 +477,31 @@ jsCallOncePerFlush <- function(session) {
 #'   library(shiny)
 #'   library(shinyGizmo)
 #'
+#'   # Multiple rules attached to a single element
+#'   ui <- fluidPage(
+#'     tags$style(".boldme {font-weight: bold;}"),
+#'     sliderInput("value", "Value", min = 1, max = 10, value = 1),
+#'     checkboxInput("lock", "Lock button"),
+#'     tags$button("I'm bold when value at least 5, disabled when locked") |>
+#'       conditionalJS("input.value >= 5", jsCalls$attachClass("boldme")) |>
+#'       conditionalJS("input.lock", jsCalls$disable()),
+#'     hr(),
+#'     conditionalJS(
+#'       tags$button("I'm visible when value at least 3, red when at least 7"),
+#'       condition = c("input.value >= 3", "input.value >= 7"),
+#'       jsCall = list(jsCalls$show(), jsCalls$css(color = "red"))
+#'     )
+#'   )
+#'
+#'   server <- function(input, output, session) {}
+#'
+#'   shinyApp(ui, server)
+#' }
+#'
+#' if (interactive()) {
+#'   library(shiny)
+#'   library(shinyGizmo)
+#'
 #'   ui <- fluidPage(
 #'     textInput("name", "Name"),
 #'     conditionalJS(
@@ -492,23 +517,63 @@ jsCallOncePerFlush <- function(session) {
 #' }
 #'
 #' @param ui A `shiny.tag` element to which the JS callback should be attached.
+#'    It can be an element already wrapped with `conditionalJS` - the new rules are added
+#'    to the existing ones.
 #' @param condition A JavaScript expression that will be evaluated repeatedly.
 #'    When the evaluated `condition` is true, `jsCall`'s true (`jsCall$true`) callback is run,
 #'    when false -  `jsCall$false` is executed in application browser.
+#'    Pass a character vector to define multiple rules at once (each paired with
+#'    the corresponding `jsCall` element).
 #' @param jsCall A list of two `htmltools::JS` elements named 'true' and 'false'
 #'    storing JS expressions.
 #'    The 'true' object is evaluated when `condition` is true, 'false' otherwise.
 #'    In order to skip true/false callback assign it to NULL (or skip).
 #'    Use `this` object in the expressions to refer to the `ui` object.
 #'    See \link{jsCalls} for possible actions.
+#'    When multiple conditions are provided, pass a list of such calls.
 #' @param once Should the JS action be called only when condition state changes?
+#'    Can be a vector when multiple conditions are provided.
 #' @param ns The \link[shiny]{NS} object of the current module, if any.
+#'
+#' @details
+#' Multiple rules can be attached to a single element either by passing vectors to
+#' `condition`, `jsCall` (and optionally `once`) or by applying `conditionalJS` multiple
+#' times (e.g. with pipe). The rules are evaluated in definition order, so when
+#' multiple rules modify the same property, the last one wins.
 #'
 #' @export
 conditionalJS <- function(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NULL)) {
   if (!inherits(ui, "shiny.tag")) {
     stop(glue::glue("{sQuote('ui')} argument should be a shiny.tag object."))
   }
+  if (is_js_call(jsCall)) {
+    jsCall <- list(jsCall)
+  }
+  n_rules <- max(length(condition), length(jsCall), length(once))
+  lengths <- c(condition = length(condition), jsCall = length(jsCall), once = length(once))
+  if (any(!lengths %in% c(1, n_rules))) {
+    stop(glue::glue(
+      "{sQuote('condition')}, {sQuote('jsCall')} and {sQuote('once')} should be of length 1 or the same length."
+    ))
+  }
+
+  new_rules <- purrr::pmap(
+    list(
+      condition = rep_len(as.list(condition), n_rules),
+      jsCall = rep_len(jsCall, n_rules),
+      once = rep_len(as.list(once), n_rules)
+    ),
+    function(condition, jsCall, once) {
+      list(
+        condition = condition,
+        true = jsCall[["true"]],
+        false = jsCall[["false"]],
+        once = once,
+        ns = ns("")
+      )
+    }
+  )
+  rules <- c(get_call_rules(ui), new_rules)
 
   html_deps <- list(
     htmltools::htmlDependency(
@@ -520,7 +585,8 @@ conditionalJS <- function(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NUL
       stylesheet = "conditionaljs.css"
     )
   )
-  if (inherits(jsCall$true, "animate_call") || inherits(jsCall$false, "animate_call")) {
+  is_animated <- purrr::some(jsCall, ~ inherits(.x$true, "animate_call") || inherits(.x$false, "animate_call"))
+  if (is_animated) {
     html_deps[[2]] <- htmltools::htmlDependency(
       name = "animatecss",
       version = utils::packageVersion("shinyGizmo"),
@@ -532,14 +598,66 @@ conditionalJS <- function(ui, condition, jsCall, once = TRUE, ns = shiny::NS(NUL
   }
 
   htmltools::attachDependencies(
-    htmltools::tagAppendAttributes(
-      ui,
-      `data-call-if` = condition,
-      `data-call-if-true` = jsCall[["true"]],
-      `data-call-if-false` = jsCall[["false"]],
-      `data-call-once` = if (once) "true" else NULL,
-      `data-ns-prefix` = ns("")
-    ),
-    html_deps
+    set_call_rules(ui, rules),
+    html_deps,
+    append = TRUE
   )
+}
+
+is_js_call <- function(x) {
+  is.null(x) || length(x) == 0 || (!is.null(names(x)) && all(names(x) %in% c("true", "false")))
+}
+
+call_attributes <- c(
+  "data-call-if", "data-call-if-true", "data-call-if-false", "data-call-once", "data-ns-prefix", "data-call-rules"
+)
+
+# Rules already attached to the element with previous `conditionalJS` calls
+get_call_rules <- function(ui) {
+  rules_json <- htmltools::tagGetAttribute(ui, "data-call-rules")
+  if (!is.null(rules_json)) {
+    rules <- jsonlite::fromJSON(rules_json, simplifyVector = FALSE)
+    return(purrr::map(rules, function(rule) {
+      rule[c("true", "false")] <- purrr::map(rule[c("true", "false")], ~ if (!is.null(.x)) htmlwidgets::JS(.x))
+      rule
+    }))
+  }
+  condition <- htmltools::tagGetAttribute(ui, "data-call-if")
+  if (is.null(condition)) {
+    return(list())
+  }
+  true <- htmltools::tagGetAttribute(ui, "data-call-if-true")
+  false <- htmltools::tagGetAttribute(ui, "data-call-if-false")
+  ns_prefix <- htmltools::tagGetAttribute(ui, "data-ns-prefix")
+  list(list(
+    condition = condition,
+    true = if (!is.null(true)) htmlwidgets::JS(true),
+    false = if (!is.null(false)) htmlwidgets::JS(false),
+    once = !is.null(htmltools::tagGetAttribute(ui, "data-call-once")),
+    ns = if (is.null(ns_prefix)) "" else ns_prefix
+  ))
+}
+
+# Single rule is stored in separate attributes (allowing to modify them directly),
+# multiple rules as JSON array.
+set_call_rules <- function(ui, rules) {
+  ui$attribs <- ui$attribs[!names(ui$attribs) %in% call_attributes]
+  if (length(rules) == 1) {
+    rule <- rules[[1]]
+    return(htmltools::tagAppendAttributes(
+      ui,
+      `data-call-if` = rule$condition,
+      `data-call-if-true` = rule$true,
+      `data-call-if-false` = rule$false,
+      `data-call-once` = if (isTRUE(rule$once)) "true" else NULL,
+      `data-ns-prefix` = rule$ns
+    ))
+  }
+  rules_json <- rules %>%
+    purrr::map(function(rule) {
+      rule[c("true", "false")] <- purrr::map(rule[c("true", "false")], ~ if (!is.null(.x)) as.character(.x))
+      purrr::compact(rule)
+    }) %>%
+    jsonlite::toJSON(auto_unbox = TRUE)
+  htmltools::tagAppendAttributes(ui, `data-call-rules` = as.character(rules_json))
 }
