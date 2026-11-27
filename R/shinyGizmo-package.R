@@ -19,6 +19,23 @@ NULL
     if (length(x) == 0) return(NULL)
     `%:::%`("shiny", "applyInputHandlers")(x, shinysession)
   }, force = TRUE)
+  shiny::registerInputHandler("shinyGizmo.controlinput", function(x, shinysession, name) {
+    value <- `%:::%`("shiny", "applyInputHandler")(names(x$value)[1], x$value[[1]], shinysession)
+    if (is.null(value) || length(x$attributes) == 0) {
+      return(value)
+    }
+    purrr::reduce2(
+      names(x$attributes), x$attributes,
+      function(value, attr_name, attr_value) {
+        if (is.list(attr_value) && all(lengths(attr_value) == 1)) {
+          attr_value <- unlist(attr_value)
+        }
+        attr(value, attr_name) <- attr_value
+        value
+      },
+      .init = value
+    )
+  }, force = TRUE)
   shiny::registerInputHandler("shinyGizmo.valuebutton", function(x, shinysession, name) {
     x
   }, force = TRUE)

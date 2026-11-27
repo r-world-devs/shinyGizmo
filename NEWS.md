@@ -3,6 +3,7 @@
 * `commonInput(s)` and `valueButton`/`valueLink` (with `try_binding = TRUE`) now send sourced input values as `<input_id>:<input_type>` named entries
 (the same way Shiny names typed inputs) instead of `value`/`type` pairs (#36). This fixes applying input handlers to values that contain `type` field
 and to bindings whose type depends on the element (e.g. date sliders).
+* Add `controlInput()` that allows to detect whether input value was changed by the user or programmatically (`"trigger"` attribute), block sending the value to the server depending on the change source and attach custom attributes to the value (#20).
 * Allow `selector = "this"` in `valueButton`/`valueLink` to take the attribute from the button (or link) itself (#7).
 
 # shinyGizmo 0.5.0

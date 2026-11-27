@@ -22,6 +22,7 @@ Imports:
     rlang,
     htmltools,
     htmlwidgets,
+    jsonlite,
     magrittr,
     purrr,
     shiny (>= 1.5.0),
